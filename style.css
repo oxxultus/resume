@@ -1139,6 +1139,7 @@ footer p {
     flex-shrink: 0;
     line-height: 1.4;
     white-space: nowrap;
+    min-height: 2rem;
 }
 
 .close-modal:hover {
