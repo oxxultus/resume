@@ -4,6 +4,7 @@
 const projectData = {
     velo: {
         title: "Velo (Team: 애랑해)",
+        githubLink: "https://github.com/aeranghae/velo-main-api",
         tagline: "AI 기반 코드 자동 생성 플랫폼",
         period: "2025.11 - 2026.01 (4인 프로젝트)",
         role: "백엔드 메인 API 개발, 디스크 I/O 성능 최적화, WebSocket 로그 스트리밍 버퍼 트러블슈팅",
@@ -87,6 +88,7 @@ const projectData = {
     },
     tracego: {
         title: "Pickgo (Tracego)",
+        githubLink: "https://github.com/oxxultus/tracego-server",
         tagline: "서버 상태 추적 및 모니터링 도구 세트",
         period: "2025.09 - 2025.10 (4인 프로젝트)",
         role: "수집 서버 코어 및 클라이언트 라이브러리 개발, 자원 데이터 실시간 적재",
@@ -137,6 +139,7 @@ const projectData = {
     },
     liminal: {
         title: "Liminal Desktop",
+        githubLink: "https://github.com/oxxultus/liminal",
         tagline: "macOS 전용 AI 에이전트 기반 데스크톱 자동화 플랫폼",
         period: "2025.07 - 2025.08 (개인 프로젝트)",
         role: "단독 기획 및 전체 아키텍처 구현",
@@ -441,6 +444,7 @@ function openProjectModal(projectId) {
     }
     
     modalBody.innerHTML = `
+        ${data.githubLink ? `<a href="${data.githubLink}" target="_blank" class="modal-github-link"><i class="fab fa-github"></i> GitHub</a>` : ""}
         <h3 class="modal-title">${data.title}</h3>
         <p class="modal-tagline">${data.tagline}</p>
         
