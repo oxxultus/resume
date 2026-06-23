@@ -581,17 +581,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // PDF Download Button Event Listener (html2pdf.js)
-    const pdfDownloadBtn = document.getElementById("pdf-download");
-    if (pdfDownloadBtn) {
-        pdfDownloadBtn.addEventListener("click", () => {
-            // Show loading state
-            const originalContent = pdfDownloadBtn.innerHTML;
-            pdfDownloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>다운로드 중...</span>';
-            pdfDownloadBtn.disabled = true;
+    // 1. Resume PDF Download Button Event Listener (No Troubleshooting)
+    const resumeDownloadBtn = document.getElementById("resume-download");
+    if (resumeDownloadBtn) {
+        resumeDownloadBtn.addEventListener("click", () => {
+            const originalContent = resumeDownloadBtn.innerHTML;
+            resumeDownloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>다운로드 중...</span>';
+            resumeDownloadBtn.disabled = true;
 
             try {
-                // 1. Gather values from the DOM dynamically
                 const name = "김영진";
                 const subtitle = "안정성과 성능을 우선시하는 백엔드 개발자";
 
@@ -637,8 +635,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     `;
                 });
 
-                // Construct Projects content using detailed projectData
-                let projectsContent = "";
+                // Construct Projects content for Resume (EXCLUDING Troubleshooting)
+                let resumeProjectsContent = "";
                 const projectKeys = ['velo', 'tracego', 'liminal'];
                 projectKeys.forEach(key => {
                     const data = projectData[key];
@@ -650,34 +648,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
 
                     const typeLabel = key === 'liminal' ? '개인 프로젝트' : '팀 프로젝트';
-
-                    let troubleshootingHtml = "";
-                    if (data.troubleshooting) {
-                        let troublesListHtml = "";
-                        data.troubleshooting.forEach(t => {
-                                troublesListHtml += `
-                                <div style="margin-bottom: 8px; page-break-inside: avoid; break-inside: avoid;">
-                                    <div style="font-weight: 700; color: #334155; margin-bottom: 2px;">${t.title}</div>
-                                    <div style="margin-left: 8px; line-height: 1.45; font-size: 11px; color: #475569;">
-                                        • <strong>현상 (Problem)</strong>: ${t.problem}<br>
-                                        • <strong>원인 (Cause)</strong>: ${t.cause}<br>
-                                        • <strong>해결 (Action)</strong>: ${t.action}<br>
-                                        • <strong>결과 (Result)</strong>: ${t.result}
-                                    </div>
-                                </div>
-                            `;
-                        });
-                        troubleshootingHtml = `
-                            <div style="margin-top: 10px; margin-bottom: 5px; page-break-inside: avoid; break-inside: avoid;">
-                                <strong style="font-size: 11px; color: #0F172A; text-decoration: underline;">Troubleshooting (기술적 문제 해결 및 아키텍처 고민)</strong>
-                            </div>
-                            <div style="margin-left: 10px; font-size: 11px;">
-                                ${troublesListHtml}
-                            </div>
-                        `;
-                    }
                     
-                    projectsContent += `
+                    resumeProjectsContent += `
                         <div class="resume-project-item">
                             <div class="resume-project-header">
                                 <h3 class="resume-project-title">${data.title} <span class="resume-project-type">${typeLabel}</span></h3>
@@ -692,12 +664,10 @@ document.addEventListener("DOMContentLoaded", () => {
                             <div class="resume-project-tech">
                                 <strong style="color: #475569;">사용 기술:</strong> <span>${data.techStack.join(", ")}</span>
                             </div>
-                            ${troubleshootingHtml}
                         </div>
                     `;
                 });
 
-                // 2. Build the final HTML string with inline styling
                 const htmlContent = `
                     <div class="resume-container">
                         <style>
@@ -846,15 +816,14 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div class="resume-section" style="page-break-before: always; break-before: page;">
                             <h2 class="resume-section-title">프로젝트 경험 (Projects)</h2>
                             <div class="resume-section-content">
-                                ${projectsContent}
+                                ${resumeProjectsContent}
                             </div>
                         </div>
                     </div>
                 `;
 
-                // 3. Configure html2pdf options
                 const opt = {
-                    margin:       12, // smaller margins to make sure everything fits nicely
+                    margin:       12,
                     filename:     '김영진_이력서.pdf',
                     image:        { type: 'jpeg', quality: 0.98 },
                     html2canvas:  { 
@@ -866,22 +835,273 @@ document.addEventListener("DOMContentLoaded", () => {
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
 
-                // Generate PDF directly from the generated HTML string
                 html2pdf().set(opt).from(htmlContent).save().then(() => {
-                    // Restore button state
-                    pdfDownloadBtn.innerHTML = originalContent;
-                    pdfDownloadBtn.disabled = false;
+                    resumeDownloadBtn.innerHTML = originalContent;
+                    resumeDownloadBtn.disabled = false;
                 }).catch(err => {
-                    console.error("PDF generation failed, falling back to window.print():", err);
-                    pdfDownloadBtn.innerHTML = originalContent;
-                    pdfDownloadBtn.disabled = false;
-                    window.print(); // Fallback
+                    console.error("Resume PDF generation failed:", err);
+                    resumeDownloadBtn.innerHTML = originalContent;
+                    resumeDownloadBtn.disabled = false;
                 });
             } catch (err) {
                 console.error("Error gathering resume values:", err);
-                pdfDownloadBtn.innerHTML = originalContent;
-                pdfDownloadBtn.disabled = false;
-                window.print(); // Fallback
+                resumeDownloadBtn.innerHTML = originalContent;
+                resumeDownloadBtn.disabled = false;
+            }
+        });
+    }
+
+    // 2. Portfolio PDF Download Button Event Listener (Includes Troubleshooting & Architecture Diagram)
+    const portfolioDownloadBtn = document.getElementById("portfolio-download");
+    if (portfolioDownloadBtn) {
+        portfolioDownloadBtn.addEventListener("click", () => {
+            const originalContent = portfolioDownloadBtn.innerHTML;
+            portfolioDownloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>다운로드 중...</span>';
+            portfolioDownloadBtn.disabled = true;
+
+            try {
+                const name = "김영진";
+                const subtitle = "안정성과 성능을 우선시하는 백엔드 개발자";
+
+                // Construct Projects content for Portfolio (INCLUDING Troubleshooting & Architecture Diagram)
+                let portfolioProjectsContent = "";
+                const projectKeys = ['velo', 'tracego', 'liminal'];
+                projectKeys.forEach((key, index) => {
+                    const data = projectData[key];
+                    if (!data) return;
+                    
+                    let achievementsHtml = "";
+                    data.achievements.forEach(ach => {
+                        achievementsHtml += `<li style="margin-bottom: 3px;">${ach}</li>`;
+                    });
+
+                    const typeLabel = key === 'liminal' ? '개인 프로젝트' : '팀 프로젝트';
+
+                    let troubleshootingHtml = "";
+                    if (data.troubleshooting) {
+                        let troublesListHtml = "";
+                        data.troubleshooting.forEach(t => {
+                            troublesListHtml += `
+                                <div style="margin-bottom: 8px; page-break-inside: avoid; break-inside: avoid;">
+                                    <div style="font-weight: 700; color: #334155; margin-bottom: 2px;">${t.title}</div>
+                                    <div style="margin-left: 8px; line-height: 1.45; font-size: 11px; color: #475569;">
+                                        • <strong>현상 (Problem)</strong>: ${t.problem}<br>
+                                        • <strong>원인 (Cause)</strong>: ${t.cause}<br>
+                                        • <strong>해결 (Action)</strong>: ${t.action}<br>
+                                        • <strong>결과 (Result)</strong>: ${t.result}
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        troubleshootingHtml = `
+                            <div style="margin-top: 10px; margin-bottom: 5px; page-break-inside: avoid; break-inside: avoid;">
+                                <strong style="font-size: 11px; color: #0F172A; text-decoration: underline;">Troubleshooting (기술적 문제 해결 및 아키텍처 고민)</strong>
+                            </div>
+                            <div style="margin-left: 10px; font-size: 11px;">
+                                ${troublesListHtml}
+                            </div>
+                        `;
+                    }
+
+                    // Architecture Diagram HTML
+                    let architectureHtml = "";
+                    if (data.architecture) {
+                        architectureHtml = `
+                            <div style="margin-top: 12px; margin-bottom: 12px; page-break-inside: avoid; break-inside: avoid;">
+                                <strong style="font-size: 11px; color: #0F172A; text-decoration: underline; display: block; margin-bottom: 6px;">System Architecture Diagram</strong>
+                                <div style="background: #090D14; border: 1px solid rgba(16, 185, 129, 0.15); border-radius: 8px; padding: 12px; text-align: center;">
+                                    ${data.architecture}
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    // Apply page break for second and subsequent projects
+                    const pageBreakStyle = index > 0 ? 'style="page-break-before: always; break-before: page; margin-top: 20px;"' : 'style="margin-top: 10px;"';
+
+                    portfolioProjectsContent += `
+                        <div class="resume-project-item" ${pageBreakStyle}>
+                            <div class="resume-project-header">
+                                <h3 class="resume-project-title">${data.title} <span class="resume-project-type">${typeLabel}</span></h3>
+                                <span class="resume-project-period">${data.period}</span>
+                            </div>
+                            <p class="resume-project-tagline">${data.tagline}</p>
+                            <p class="resume-project-desc">${data.description}</p>
+                            <ul class="resume-project-bullets">
+                                <li><strong style="color: #0F172A;">담당 역할</strong>: ${data.role}</li>
+                                ${achievementsHtml}
+                            </ul>
+                            <div class="resume-project-tech">
+                                <strong style="color: #475569;">사용 기술:</strong> <span>${data.techStack.join(", ")}</span>
+                            </div>
+                            ${architectureHtml}
+                            ${troubleshootingHtml}
+                        </div>
+                    `;
+                });
+
+                const htmlContent = `
+                    <div class="resume-container">
+                        <style>
+                            .resume-container {
+                                font-family: 'Outfit', 'Noto Sans KR', sans-serif;
+                                color: #0F172A;
+                                background: #ffffff;
+                                line-height: 1.5;
+                                padding: 15px;
+                            }
+                            .resume-header {
+                                border-bottom: 2px solid #10B981; /* Green border for portfolio branding */
+                                padding-bottom: 12px;
+                                margin-bottom: 18px;
+                            }
+                            .resume-header h1 {
+                                font-size: 26px;
+                                font-weight: 800;
+                                margin: 0 0 4px 0;
+                                color: #0F172A;
+                            }
+                            .resume-subtitle {
+                                font-size: 14px;
+                                font-weight: 600;
+                                color: #059669;
+                                margin: 0 0 8px 0;
+                            }
+                            .resume-contacts {
+                                display: flex;
+                                gap: 20px;
+                                font-size: 11px;
+                                color: #475569;
+                            }
+                            .resume-section {
+                                margin-bottom: 18px;
+                            }
+                            .resume-section-title {
+                                font-size: 13px;
+                                font-weight: 700;
+                                color: #0F172A;
+                                border-bottom: 1px solid #CBD5E1;
+                                padding-bottom: 4px;
+                                margin: 0 0 8px 0;
+                                text-transform: uppercase;
+                                letter-spacing: 0.05em;
+                            }
+                            .resume-section-content {
+                                font-size: 11.5px;
+                                color: #334155;
+                            }
+                            .resume-project-item {
+                                margin-bottom: 20px;
+                            }
+                            .resume-project-header {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: baseline;
+                                margin-bottom: 2px;
+                            }
+                            .resume-project-title {
+                                font-size: 13px;
+                                font-weight: 700;
+                                color: #0F172A;
+                                margin: 0;
+                            }
+                            .resume-project-type {
+                                font-size: 9px;
+                                font-weight: 600;
+                                color: #10B981;
+                                background: #ECFDF5;
+                                padding: 1px 5px;
+                                border-radius: 4px;
+                                margin-left: 5px;
+                            }
+                            .resume-project-period {
+                                font-size: 10px;
+                                color: #64748B;
+                            }
+                            .resume-project-tagline {
+                                font-size: 11px;
+                                font-weight: 600;
+                                color: #059669;
+                                margin: 0 0 3px 0;
+                            }
+                            .resume-project-desc {
+                                font-size: 11.5px;
+                                color: #475569;
+                                margin: 0 0 4px 0;
+                                line-height: 1.5;
+                            }
+                            .resume-project-bullets {
+                                list-style-type: disc;
+                                padding-left: 15px;
+                                margin: 0 0 6px 0;
+                            }
+                            .resume-project-bullets li {
+                                font-size: 11.5px;
+                                margin-bottom: 2px;
+                                color: #334155;
+                                line-height: 1.5;
+                            }
+                            .resume-project-bullets li strong {
+                                color: #0F172A;
+                            }
+                            .resume-project-tech {
+                                font-size: 10px;
+                                color: #64748B;
+                            }
+                            .resume-project-tech strong {
+                                color: #475569;
+                            }
+                            .arch-svg {
+                                max-width: 100%;
+                                height: auto;
+                                display: block;
+                                margin: 0 auto;
+                            }
+                        </style>
+                        <div class="resume-header">
+                            <h1>${name}</h1>
+                            <p class="resume-subtitle">${subtitle} - 프로젝트 포트폴리오 (Project Portfolio)</p>
+                            <div class="resume-contacts">
+                                <span>이메일: oxxultus@gmail.com</span>
+                                <span>깃허브: github.com/oxxultus</span>
+                                <span>위치: 대한민국</span>
+                            </div>
+                        </div>
+
+                        <div class="resume-section">
+                            <h2 class="resume-section-title">상세 프로젝트 및 기술 아키텍처</h2>
+                            <div class="resume-section-content">
+                                ${portfolioProjectsContent}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                const opt = {
+                    margin:       12,
+                    filename:     '김영진_포트폴리오.pdf',
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { 
+                        scale: 2.5, 
+                        useCORS: true,
+                        letterRendering: true,
+                        logging: false
+                    },
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+
+                html2pdf().set(opt).from(htmlContent).save().then(() => {
+                    portfolioDownloadBtn.innerHTML = originalContent;
+                    portfolioDownloadBtn.disabled = false;
+                }).catch(err => {
+                    console.error("Portfolio PDF generation failed:", err);
+                    portfolioDownloadBtn.innerHTML = originalContent;
+                    portfolioDownloadBtn.disabled = false;
+                });
+            } catch (err) {
+                console.error("Error gathering portfolio values:", err);
+                portfolioDownloadBtn.innerHTML = originalContent;
+                portfolioDownloadBtn.disabled = false;
             }
         });
     }
