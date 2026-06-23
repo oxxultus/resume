@@ -562,11 +562,15 @@ function openProjectModal(projectId) {
         `;
     }
     
+    // Update the persistent header row (never wiped by innerHTML)
+    document.getElementById("modal-header-title").textContent = data.title;
+    const actionsEl = document.getElementById("modal-header-actions");
+    actionsEl.innerHTML = data.githubLink
+        ? `<a href="${data.githubLink}" target="_blank" class="modal-github-link"><i class="fab fa-github"></i> Repository</a>`
+        : "";
+
+    // Inject only the body content (tagline + sections)
     modalBody.innerHTML = `
-        <div class="modal-title-row">
-            <h3 class="modal-title">${data.title}</h3>
-            ${data.githubLink ? `<a href="${data.githubLink}" target="_blank" class="modal-github-link"><i class="fab fa-github"></i> Repository</a>` : ""}
-        </div>
         <p class="modal-tagline">${data.tagline}</p>
         
         <div class="modal-meta-grid">
@@ -608,13 +612,6 @@ function openProjectModal(projectId) {
             </div>
         </div>
     `;
-
-    // Move the static close button into the title row using safe DOM API
-    const titleRow = modalBody.querySelector(".modal-title-row");
-    const closeBtn = document.getElementById("modal-close-btn");
-    if (titleRow && closeBtn) {
-        titleRow.appendChild(closeBtn);
-    }
 
     modal.style.display = "flex";
     document.body.style.overflow = "hidden"; // Prevent scrolling behind modal
