@@ -959,17 +959,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
 
                 const opt = {
-                    margin:       [10, 12, 10, 12],
+                    margin:       12,
                     filename:     '김영진_이력서.pdf',
                     image:        { type: 'jpeg', quality: 0.98 },
                     html2canvas:  {
                         scale: 2,
                         useCORS: true,
-                        allowTaint: false,
                         letterRendering: true,
                         logging: false,
-                        backgroundColor: '#ffffff',
-                        windowWidth: 794
+                        backgroundColor: '#ffffff'
                     },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
@@ -1218,17 +1216,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
 
                 const opt = {
-                    margin:       [10, 12, 10, 12],
+                    margin:       12,
                     filename:     '김영진_포트폴리오.pdf',
                     image:        { type: 'jpeg', quality: 0.98 },
                     html2canvas:  {
                         scale: 2,
                         useCORS: true,
-                        allowTaint: false,
                         letterRendering: true,
                         logging: false,
-                        backgroundColor: '#ffffff',
-                        windowWidth: 794
+                        backgroundColor: '#ffffff'
                     },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
