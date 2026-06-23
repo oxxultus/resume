@@ -806,6 +806,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const htmlContent = `
                     <div class="resume-container">
                         <style>
+                            @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Outfit:wght@400;600;800&display=swap');
                             .resume-container {
                                 font-family: 'Outfit', 'Noto Sans KR', sans-serif;
                                 color: #0F172A;
@@ -957,39 +958,29 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                 `;
 
-                // Create a real DOM element for reliable html2canvas rendering
-                const tempEl = document.createElement('div');
-                tempEl.innerHTML = htmlContent;
-                tempEl.style.cssText = 'position:absolute;top:0;left:-9999px;width:794px;background:#ffffff;visibility:hidden;pointer-events:none;';
-                document.body.appendChild(tempEl);
-
                 const opt = {
                     margin:       [10, 12, 10, 12],
                     filename:     '김영진_이력서.pdf',
-                    image:        { type: 'jpeg', quality: 0.95 },
-                    html2canvas:  { 
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  {
                         scale: 2,
                         useCORS: true,
-                        allowTaint: true,
+                        allowTaint: false,
                         letterRendering: true,
                         logging: false,
-                        backgroundColor: '#ffffff'
+                        backgroundColor: '#ffffff',
+                        windowWidth: 794
                     },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
 
-                // Wait for fonts to load before capturing
-                document.fonts.ready.then(() => {
-                    html2pdf().set(opt).from(tempEl).save().then(() => {
-                        document.body.removeChild(tempEl);
-                        resumeDownloadBtn.innerHTML = originalContent;
-                        resumeDownloadBtn.disabled = false;
-                    }).catch(err => {
-                        console.error("Resume PDF generation failed:", err);
-                        document.body.removeChild(tempEl);
-                        resumeDownloadBtn.innerHTML = originalContent;
-                        resumeDownloadBtn.disabled = false;
-                    });
+                html2pdf().set(opt).from(htmlContent).save().then(() => {
+                    resumeDownloadBtn.innerHTML = originalContent;
+                    resumeDownloadBtn.disabled = false;
+                }).catch(err => {
+                    console.error("Resume PDF generation failed:", err);
+                    resumeDownloadBtn.innerHTML = originalContent;
+                    resumeDownloadBtn.disabled = false;
                 });
             } catch (err) {
                 console.error("Error gathering resume values:", err);
@@ -1091,6 +1082,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const htmlContent = `
                     <div class="resume-container">
                         <style>
+                            @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Outfit:wght@400;600;800&display=swap');
                             .resume-container {
                                 font-family: 'Outfit', 'Noto Sans KR', sans-serif;
                                 color: #0F172A;
@@ -1225,39 +1217,29 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                 `;
 
-                // Create a real DOM element for reliable html2canvas rendering
-                const tempEl = document.createElement('div');
-                tempEl.innerHTML = htmlContent;
-                tempEl.style.cssText = 'position:absolute;top:0;left:-9999px;width:794px;background:#ffffff;visibility:hidden;pointer-events:none;';
-                document.body.appendChild(tempEl);
-
                 const opt = {
                     margin:       [10, 12, 10, 12],
                     filename:     '김영진_포트폴리오.pdf',
-                    image:        { type: 'jpeg', quality: 0.95 },
-                    html2canvas:  { 
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  {
                         scale: 2,
                         useCORS: true,
-                        allowTaint: true,
+                        allowTaint: false,
                         letterRendering: true,
                         logging: false,
-                        backgroundColor: '#ffffff'
+                        backgroundColor: '#ffffff',
+                        windowWidth: 794
                     },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
 
-                // Wait for fonts to load before capturing
-                document.fonts.ready.then(() => {
-                    html2pdf().set(opt).from(tempEl).save().then(() => {
-                        document.body.removeChild(tempEl);
-                        portfolioDownloadBtn.innerHTML = originalContent;
-                        portfolioDownloadBtn.disabled = false;
-                    }).catch(err => {
-                        console.error("Portfolio PDF generation failed:", err);
-                        document.body.removeChild(tempEl);
-                        portfolioDownloadBtn.innerHTML = originalContent;
-                        portfolioDownloadBtn.disabled = false;
-                    });
+                html2pdf().set(opt).from(htmlContent).save().then(() => {
+                    portfolioDownloadBtn.innerHTML = originalContent;
+                    portfolioDownloadBtn.disabled = false;
+                }).catch(err => {
+                    console.error("Portfolio PDF generation failed:", err);
+                    portfolioDownloadBtn.innerHTML = originalContent;
+                    portfolioDownloadBtn.disabled = false;
                 });
             } catch (err) {
                 console.error("Error gathering portfolio values:", err);
