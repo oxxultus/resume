@@ -960,7 +960,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Create a real DOM element for reliable html2canvas rendering
                 const tempEl = document.createElement('div');
                 tempEl.innerHTML = htmlContent;
-                tempEl.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:794px;background:#ffffff;z-index:-1;';
+                tempEl.style.cssText = 'position:absolute;top:0;left:-9999px;width:794px;background:#ffffff;visibility:hidden;pointer-events:none;';
                 document.body.appendChild(tempEl);
 
                 const opt = {
@@ -1228,7 +1228,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Create a real DOM element for reliable html2canvas rendering
                 const tempEl = document.createElement('div');
                 tempEl.innerHTML = htmlContent;
-                tempEl.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:794px;background:#ffffff;z-index:-1;';
+                tempEl.style.cssText = 'position:absolute;top:0;left:-9999px;width:794px;background:#ffffff;visibility:hidden;pointer-events:none;';
                 document.body.appendChild(tempEl);
 
                 const opt = {
