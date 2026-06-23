@@ -236,96 +236,8 @@
                 <button class="filter-btn" data-filter="personal">Personal Projects</button>
             </div>
 
-            <!-- Project Cards Grid -->
-            <div class="projects-grid">
-                <!-- Project 1: Velo -->
-                <div class="project-card glass" data-category="team">
-                    <div class="project-thumbnail">
-                        <div class="code-art">
-                            <pre><code><span class="c-keyword">@Service</span>
-<span class="c-keyword">public class</span> <span class="c-class">VeloAiService</span> {
-  <span class="c-keyword">@Cacheable</span>(value = <span class="c-str">"codeCache"</span>)
-  <span class="c-keyword">public</span> Code generateCode(Prompt p) {
-    <span class="c-comment">// LLM & Spring Boot Core API</span>
-  }
-}</code></pre>
-                        </div>
-                        <span class="project-tag tag-team">Team Project</span>
-                    </div>
-                    <div class="project-info">
-                        <h3>Velo (애랑해)</h3>
-                        <p class="project-tagline">AI 기반 코드 자동 생성 플랫폼</p>
-                        <p class="project-desc">Spring Boot와 LLM을 결합하여 자연어로 요구사항을 입력받고 코드를 실시간 생성하며Gradle 빌드 및 실행 로그를 스트리밍하는 백엔드 플랫폼입니다.</p>
-                        <div class="project-tech-stack">
-                            <span>Spring Boot</span>
-                            <span>Redis</span>
-                            <span>Docker</span>
-                            <span>Kubernetes</span>
-                            <span>WebSocket</span>
-                        </div>
-
-                        <button class="btn-detail" onclick="openProjectModal('velo')">트러블슈팅 및 상세 보기 <i class="fas fa-arrow-right"></i></button>
-                    </div>
-                </div>
-
-                <!-- Project 2: Pickgo (Tracego) -->
-                <div class="project-card glass" data-category="team">
-                    <div class="project-thumbnail">
-                        <div class="code-art">
-                            <pre><code><span class="c-keyword">public class</span> <span class="c-class">TracegoAgent</span> {
-  <span class="c-keyword">public void</span> trace(String spanId) {
-    <span class="c-comment">// core, server, stand, wheel modular modules</span>
-  }
-}</code></pre>
-                        </div>
-                        <span class="project-tag tag-team">Team Project</span>
-                    </div>
-                    <div class="project-info">
-                        <h3>Pickgo (Tracego)</h3>
-                        <p class="project-tagline">서버 상태 추적 및 모니터링 도구 세트</p>
-                        <p class="project-desc">분산 인프라 환경에서 기기 및 어플리케이션의 동작과 로그 데이터를 유기적으로 트레이싱하기 위해 코어, 에이전트, 스탠드 모듈을 설계한 프로젝트입니다.</p>
-                        <div class="project-tech-stack">
-                            <span>Java</span>
-                            <span>Spring Boot</span>
-                            <span>Spring Web MVC</span>
-                            <span>Redis</span>
-                            <span>Linux</span>
-                        </div>
-
-                        <button class="btn-detail" onclick="openProjectModal('tracego')">상세 보기 <i class="fas fa-arrow-right"></i></button>
-                    </div>
-                </div>
-
-                <!-- Project 3: Liminal Desktop -->
-                <div class="project-card glass" data-category="personal">
-                    <div class="project-thumbnail">
-                        <div class="code-art">
-                            <pre><code><span class="c-keyword">import</span> { app, BrowserWindow } <span class="c-keyword">from</span> <span class="c-str">'electron'</span>;
-<span class="c-keyword">const</span> db = <span class="c-keyword">new</span> sqlite3.Database(<span class="c-str">'./liminal.db'</span>);
-<span class="c-comment">// macOS AI Agent Assistant</span>
-<span class="c-keyword">const</span> callLLM = <span class="c-keyword">async</span> (prompt) => {
-  <span class="c-comment">// Claude & GPT API Stream</span>
-}</code></pre>
-                        </div>
-                        <span class="project-tag tag-personal">Personal Project</span>
-                    </div>
-                    <div class="project-info">
-                        <h3>Liminal Desktop</h3>
-                        <p class="project-tagline">macOS 전용 AI 에이전트 기반 데스크톱 자동화 플랫폼</p>
-                        <p class="project-desc">Claude 및 GPT 등 다양한 LLM과 연동되어 일상 대화가 가능하고, 파일 조작이나 메일 전송 등 사용자 정의 플러그인을 연결하여 다양한 작업을 자동화할 수 있는 macOS 전용 AI 데스크톱 어시스턴트입니다.</p>
-                        <div class="project-tech-stack">
-                            <span>Electron</span>
-                            <span>React</span>
-                            <span>TypeScript</span>
-                            <span>LLM (Claude, GPT)</span>
-                            <span>SQLite</span>
-                            <span>macOS</span>
-                        </div>
-
-                        <button class="btn-detail" onclick="openProjectModal('liminal')">상세 보기 <i class="fas fa-arrow-right"></i></button>
-                    </div>
-                </div>
-            </div>
+            <!-- Project Cards Grid (동적 렌더링) -->
+            <div class="projects-grid" id="projects-grid"></div>
         </div>
     </section>
 
@@ -535,6 +447,7 @@
     <!-- html2pdf Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <!-- Script File -->
+    <script src="projects-data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
