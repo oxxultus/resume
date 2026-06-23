@@ -1138,6 +1138,41 @@ footer p {
     color: var(--accent-emerald);
 }
 
+.modal-github-link {
+    position: absolute;
+    right: 5rem;
+    top: 1.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    transition: all var(--transition-fast);
+    text-decoration: none;
+}
+
+.modal-github-link:hover {
+    background: var(--text-primary);
+    color: var(--bg-primary);
+    border-color: var(--text-primary);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
+}
+
+@media (max-width: 576px) {
+    .modal-github-link {
+        right: 4.5rem;
+        top: 1.6rem;
+        padding: 0.35rem 0.7rem;
+        font-size: 0.75rem;
+    }
+}
+
 /* Inside Modal Styling */
 .modal-title {
     font-size: 2rem;
