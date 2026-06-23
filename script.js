@@ -40,49 +40,168 @@ const projectData = {
             }
         ],
         architecture: `
-        <svg class="arch-svg" width="700" height="200" viewBox="0 0 700 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="arch-svg" width="900" height="460" viewBox="0 0 900 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#3B82F6" />
+                </marker>
+                <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10B981" />
+                </marker>
+                <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#A855F7" />
+                </marker>
+                <marker id="arrow-grey" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#94A3B8" />
+                </marker>
+                <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="rgba(59, 130, 246, 0.15)" />
+                    <stop offset="100%" stop-color="rgba(37, 99, 235, 0.03)" />
+                </linearGradient>
+                <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="rgba(16, 185, 129, 0.15)" />
+                    <stop offset="100%" stop-color="rgba(5, 150, 105, 0.03)" />
+                </linearGradient>
+                <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="rgba(168, 85, 247, 0.15)" />
+                    <stop offset="100%" stop-color="rgba(147, 51, 234, 0.03)" />
+                </linearGradient>
+                <linearGradient id="greyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="rgba(255, 255, 255, 0.05)" />
+                    <stop offset="100%" stop-color="rgba(255, 255, 255, 0.01)" />
+                </linearGradient>
+            </defs>
+
             <!-- Background -->
-            <rect width="700" height="200" rx="12" fill="#090D14" stroke="rgba(16, 185, 129, 0.15)" stroke-width="2"/>
+            <rect width="900" height="460" rx="12" fill="#090D14" stroke="rgba(16, 185, 129, 0.15)" stroke-width="2"/>
+
+            <!-- ==========================================
+                 COL 1: CLIENT & NGINX
+                 ========================================== -->
+            <!-- USER / CLIENT Card -->
+            <rect x="30" y="170" width="180" height="80" rx="10" fill="url(#blueGrad)" stroke="#3B82F6" stroke-width="1.5"/>
+            <path d="M50 200 H70 M55 208 H65 M60 200 V208" stroke="#3B82F6" stroke-width="2" stroke-linecap="round"/>
+            <rect x="46" y="188" width="28" height="14" rx="2" fill="none" stroke="#3B82F6" stroke-width="2"/>
+            <text x="130" y="206" fill="#F8FAFC" font-size="12" font-family="Outfit" font-weight="bold" text-anchor="middle">USER / CLIENT</text>
+            <text x="130" y="224" fill="#94A3B8" font-size="10" font-family="Outfit" text-anchor="middle">React Electron</text>
+
+            <!-- NGINX Card -->
+            <rect x="30" y="40" width="180" height="80" rx="10" fill="url(#greyGrad)" stroke="#64748B" stroke-width="1.5"/>
+            <path d="M50 72h20 M50 80h20 M55 68l-5 4 5 4 M65 76l5 4-5 4" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="46" y="60" width="28" height="28" rx="2" fill="none" stroke="#64748B" stroke-width="1.5"/>
+            <text x="130" y="76" fill="#F8FAFC" font-size="12" font-family="Outfit" font-weight="bold" text-anchor="middle">NGINX</text>
+            <text x="130" y="94" fill="#94A3B8" font-size="10" font-family="Outfit" text-anchor="middle">Reverse Proxy</text>
+
+            <!-- Connector: USER/CLIENT -> NGINX -->
+            <path d="M120 170 V126" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#arrow-grey)"/>
+            <rect x="75" y="136" width="90" height="18" rx="9" fill="#1E293B" stroke="#475569" stroke-width="1"/>
+            <text x="120" y="148" fill="#F8FAFC" font-size="8" font-family="Outfit" font-weight="bold" text-anchor="middle">Port 80 / 443</text>
+
+            <!-- ==========================================
+                 COL 2 & 3: KUBERNETES CLUSTER
+                 ========================================== -->
+            <!-- Kubernetes Cluster Container -->
+            <rect x="235" y="20" width="430" height="260" rx="12" fill="#0B111E" stroke="rgba(37, 99, 235, 0.25)" stroke-width="1.5"/>
+            <text x="250" y="38" fill="#3B82F6" font-size="9" font-family="Outfit" font-weight="bold" letter-spacing="0.05em">KUBERNETES CLUSTER</text>
+
+            <!-- K8s Service (L4) -->
+            <rect x="255" y="50" width="390" height="65" rx="10" fill="url(#blueGrad)" stroke="#3B82F6" stroke-width="1.5"/>
+            <circle cx="280" cy="72" r="5" fill="#3B82F6"/>
+            <circle cx="295" cy="85" r="4" fill="#60A5FA"/>
+            <circle cx="295" cy="60" r="4" fill="#60A5FA"/>
+            <path d="M285 72h5 M290 72v10h5 M290 72V63h5" stroke="#3B82F6" stroke-width="1.5"/>
+            <text x="460" y="78" fill="#F8FAFC" font-size="13" font-family="Outfit" font-weight="bold" text-anchor="middle">K8s Service (L4)</text>
+            <text x="460" y="94" fill="#94A3B8" font-size="10" font-family="Outfit" text-anchor="middle">Load balancing ClusterIP</text>
+
+            <!-- Connector: NGINX -> K8s Service (L4) -->
+            <path d="M210 80 H249" stroke="#3B82F6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+            <rect x="195" y="71" width="50" height="18" rx="9" fill="#1E293B" stroke="#2563EB" stroke-width="1"/>
+            <text x="220" y="83" fill="#60A5FA" font-size="8" font-family="Outfit" font-weight="bold" text-anchor="middle">Port 8080</text>
+
+            <!-- Spring Pod v1 -->
+            <rect x="255" y="165" width="180" height="90" rx="10" fill="url(#greenGrad)" stroke="#10B981" stroke-width="1.5"/>
+            <path d="M280 195c5-10 15-15 15-15s-2 12-10 17c-5 3-10 1-10 1s2-8 7-11c5-3 8-1 8-1" fill="#10B981"/>
+            <text x="360" y="205" fill="#F8FAFC" font-size="12" font-family="Outfit" font-weight="bold" text-anchor="middle">Spring Pod v1</text>
+            <text x="360" y="225" fill="#94A3B8" font-size="10.5" font-family="Outfit" text-anchor="middle">API Server</text>
+
+            <!-- Spring Pod v2 -->
+            <rect x="455" y="165" width="180" height="90" rx="10" fill="url(#greenGrad)" stroke="#10B981" stroke-width="1.5"/>
+            <path d="M480 195c5-10 15-15 15-15s-2 12-10 17c-5 3-10 1-10 1s2-8 7-11c5-3 8-1 8-1" fill="#10B981"/>
+            <text x="560" y="205" fill="#F8FAFC" font-size="12" font-family="Outfit" font-weight="bold" text-anchor="middle">Spring Pod v2</text>
+            <text x="560" y="225" fill="#94A3B8" font-size="10.5" font-family="Outfit" text-anchor="middle">API Server</text>
+
+            <!-- Connectors: L4 -> Spring Pod v1 & v2 -->
+            <path d="M345 115 V159" stroke="#3B82F6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+            <rect x="325" y="126" width="40" height="18" rx="9" fill="#1E293B" stroke="#2563EB" stroke-width="1"/>
+            <text x="345" y="138" fill="#60A5FA" font-size="8" font-family="Outfit" font-weight="bold" text-anchor="middle">IP 1</text>
+
+            <path d="M545 115 V159" stroke="#3B82F6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+            <rect x="525" y="126" width="40" height="18" rx="9" fill="#1E293B" stroke="#2563EB" stroke-width="1"/>
+            <text x="545" y="138" fill="#60A5FA" font-size="8" font-family="Outfit" font-weight="bold" text-anchor="middle">IP 2</text>
+
+            <!-- ==========================================
+                 COL 4: FASTAPI WORKER
+                 ========================================== -->
+            <!-- FastAPI Worker Container -->
+            <rect x="690" y="20" width="180" height="260" rx="12" fill="url(#purpleGrad)" stroke="#A855F7" stroke-width="1.5"/>
+            <text x="780" y="85" fill="#F8FAFC" font-size="14" font-family="Outfit" font-weight="bold" text-anchor="middle">FastAPI Worker</text>
+            <text x="780" y="105" fill="#D8B4FE" font-size="10.5" font-family="Outfit" font-weight="bold" text-anchor="middle">LLM Agent Engine</text>
+            <text x="780" y="123" fill="#94A3B8" font-size="9" font-family="Outfit" text-anchor="middle">자율 에이전트 코드 생성</text>
+
+            <!-- WebSocket Pipeline pill -->
+            <rect x="710" y="205" width="140" height="40" rx="20" fill="rgba(168, 85, 247, 0.15)" stroke="#A855F7" stroke-width="1.5"/>
+            <text x="780" y="229" fill="#F8FAFC" font-size="10.5" font-family="Outfit" font-weight="bold" text-anchor="middle">WebSocket Pipeline</text>
+
+            <!-- Connector: Spring Pods <-> FastAPI Worker -->
+            <path d="M635 210 H684" stroke="#A855F7" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow-purple)"/>
+            <path d="M689 210 H640" stroke="#A855F7" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow-purple)"/>
+            <rect x="625" y="180" width="70" height="18" rx="9" fill="#1E293B" stroke="#A855F7" stroke-width="1"/>
+            <text x="660" y="192" fill="#D8B4FE" font-size="8" font-family="Outfit" font-weight="bold" text-anchor="middle">HTTP / WS</text>
+
+            <!-- ==========================================
+                 ROW 3: DATABASES, STORAGE, SANDBOX
+                 ========================================== -->
+            <!-- PostgreSQL Card -->
+            <rect x="30" y="340" width="180" height="90" rx="10" fill="url(#blueGrad)" stroke="#3B82F6" stroke-width="1.5"/>
+            <path d="M50 375v20c0 3 5 5 10 5s10-2 10-5v-20 M50 375c0 3 5 5 10 5s10-2 10-5 M50 385c0 3 5 5 10 5s10-2 10-5" stroke="#3B82F6" stroke-width="1.5"/>
+            <text x="135" y="380" fill="#F8FAFC" font-size="12.5" font-family="Outfit" font-weight="bold" text-anchor="middle">PostgreSQL</text>
+            <text x="135" y="400" fill="#94A3B8" font-size="10" font-family="Outfit" text-anchor="middle">트리 구조화 데이터 등</text>
+
+            <!-- Redis Cache Card -->
+            <rect x="250" y="340" width="180" height="90" rx="10" fill="url(#greyGrad)" stroke="#EF4444" stroke-width="1.5"/>
+            <path d="M50 372h20v6H50zm0 10h20v6H50zm0 10h20v6H50z" fill="none" stroke="#EF4444" stroke-width="1.5"/>
+            <text x="355" y="380" fill="#F8FAFC" font-size="12.5" font-family="Outfit" font-weight="bold" text-anchor="middle">Redis Cache</text>
+            <text x="355" y="400" fill="#94A3B8" font-size="10" font-family="Outfit" text-anchor="middle">실시간 로그 및 캐싱</text>
+
+            <!-- NFS Storage Card -->
+            <rect x="470" y="340" width="180" height="90" rx="10" fill="url(#blueGrad)" stroke="#06B6D4" stroke-width="1.5"/>
+            <path d="M52 388a5 5 0 0 1 0-10 6 6 0 0 1 12 0 4 4 0 0 1 4 4 4 4 0 0 1-4 4h-12z" fill="none" stroke="#06B6D4" stroke-width="1.5"/>
+            <text x="575" y="380" fill="#F8FAFC" font-size="12.5" font-family="Outfit" font-weight="bold" text-anchor="middle">NFS Storage</text>
+            <text x="575" y="400" fill="#94A3B8" font-size="10" font-family="Outfit" text-anchor="middle">UUID 전용 물리 저장소</text>
+
+            <!-- Docker Sandbox Card -->
+            <rect x="690" y="340" width="180" height="90" rx="10" fill="url(#blueGrad)" stroke="#0284C7" stroke-width="1.5"/>
+            <rect x="48" y="375" width="6" height="6" fill="#0284C7"/>
+            <rect x="56" y="375" width="6" height="6" fill="#0284C7"/>
+            <rect x="64" y="375" width="6" height="6" fill="#0284C7"/>
+            <path d="M46 385h28s1 5-5 5h-18s-6 0-5-5z" fill="none" stroke="#0284C7" stroke-width="1.5"/>
+            <text x="795" y="380" fill="#F8FAFC" font-size="12.5" font-family="Outfit" font-weight="bold" text-anchor="middle">Docker Sandbox</text>
+            <text x="795" y="400" fill="#94A3B8" font-size="10" font-family="Outfit" text-anchor="middle">독립 빌드 및 테스트</text>
+
+            <!-- Connector: NFS Storage <-> Docker Sandbox (볼륨 마운트) -->
+            <path d="M650 385 H684" stroke="#06B6D4" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+            <rect x="635" y="356" width="65" height="18" rx="9" fill="#1E293B" stroke="#06B6D4" stroke-width="1"/>
+            <text x="667.5" y="367" fill="#22D3EE" font-size="8" font-family="Outfit" font-weight="bold" text-anchor="middle">볼륨 마운트</text>
+
+            <!-- Dashed bus connections from Spring Pods to storage boxes -->
+            <path d="M120 310 H780" stroke="#10B981" stroke-width="1.5" stroke-dasharray="3 3"/>
+            <path d="M345 255 V310" stroke="#10B981" stroke-width="1.5" stroke-dasharray="3 3"/>
+            <path d="M565 255 V310" stroke="#10B981" stroke-width="1.5" stroke-dasharray="3 3"/>
             
-            <!-- User Client -->
-            <rect x="20" y="70" width="80" height="60" rx="8" fill="rgba(59, 130, 246, 0.1)" stroke="#3B82F6" stroke-width="2"/>
-            <text x="60" y="105" fill="#F8FAFC" font-size="11" font-family="Outfit" font-weight="bold" text-anchor="middle">User Client</text>
-            
-            <!-- WebSocket Line -->
-            <path d="M100 100 H160" stroke="#10B981" stroke-width="2"/>
-            <polygon points="100,100 108,95 108,105" fill="#10B981"/>
-            <text x="130" y="90" fill="#10B981" font-size="9" text-anchor="middle">WS Stream</text>
-            
-            <!-- Velo Core API -->
-            <rect x="160" y="50" width="160" height="100" rx="8" fill="rgba(16, 185, 129, 0.1)" stroke="#10B981" stroke-width="2"/>
-            <text x="240" y="80" fill="#F8FAFC" font-size="12" font-family="Outfit" font-weight="bold" text-anchor="middle">Spring Boot API</text>
-            <text x="240" y="100" fill="#94A3B8" font-size="10" text-anchor="middle">(Velo-Main-API)</text>
-            <text x="240" y="130" fill="#38BDF8" font-size="10" font-family="Outfit" font-weight="bold" text-anchor="middle">JSONB File Indexing</text>
-            
-            <!-- Connection to DB/Cache -->
-            <path d="M320 80 H400" stroke="#94A3B8" stroke-width="1.5"/>
-            <polygon points="400,80 392,75 392,85" fill="#94A3B8"/>
-            
-            <path d="M320 120 H400" stroke="#94A3B8" stroke-width="1.5"/>
-            <polygon points="400,120 392,115 392,125" fill="#94A3B8"/>
-            
-            <!-- Redis -->
-            <rect x="400" y="60" width="100" height="35" rx="6" fill="rgba(244, 63, 94, 0.1)" stroke="#F43F5E" stroke-width="1.5"/>
-            <text x="450" y="82" fill="#F8FAFC" font-size="10" font-family="Outfit" font-weight="bold" text-anchor="middle">Redis (Cache)</text>
-            
-            <!-- PostgreSQL -->
-            <rect x="400" y="105" width="100" height="35" rx="6" fill="rgba(245, 158, 11, 0.1)" stroke="#F59E0B" stroke-width="1.5"/>
-            <text x="450" y="127" fill="#F8FAFC" font-size="10" font-family="Outfit" font-weight="bold" text-anchor="middle">PostgreSQL JSONB</text>
-            
-            <!-- Connection to Sandbox / K8s -->
-            <path d="M450 60 V30 H550 V60" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="3 3"/>
-            <polygon points="550,60 545,52 555,52" fill="#94A3B8"/>
-            <text x="500" y="20" fill="#94A3B8" font-size="8" text-anchor="middle">K8s Sandbox Control</text>
-            
-            <!-- LLM & Sandbox -->
-            <rect x="520" y="60" width="160" height="80" rx="8" fill="rgba(59, 130, 246, 0.1)" stroke="#3B82F6" stroke-width="2"/>
-            <text x="600" y="90" fill="#F8FAFC" font-size="11" font-family="Outfit" font-weight="bold" text-anchor="middle">LLM & Sandbox</text>
-            <text x="600" y="110" fill="#94A3B8" font-size="9" text-anchor="middle">(Gradle / Build Daemon)</text>
+            <path d="M120 310 V339" stroke="#10B981" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow-green)"/>
+            <path d="M340 310 V339" stroke="#10B981" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow-green)"/>
+            <path d="M560 310 V339" stroke="#10B981" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow-green)"/>
+            <path d="M780 310 V339" stroke="#10B981" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow-green)"/>
         </svg>
         `
     },
