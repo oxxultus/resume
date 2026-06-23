@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김영진 | 백엔드 개발자 포트폴리오</title>
+    <!-- Google Fonts: Outfit, Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Style Sheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-indicator"></div>
+
+    <!-- Header / Navigation -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <span class="tech-accent">&lt;</span>Yeongjin.Dev<span class="tech-accent">/&gt;</span>
+            </a>
+            <nav class="nav-menu">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <button id="pdf-download" title="PDF 이력서 다운로드" class="btn-pdf">
+                    <i class="fas fa-file-pdf"></i> <span>PDF 다운로드</span>
+                </button>
+                <button id="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon theme-icon-dark"></i>
+                    <i class="fas fa-sun theme-icon-light"></i>
+                </button>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-bg-gradients">
+            <div class="gradient-1"></div>
+            <div class="gradient-2"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="badge">Backend Developer</div>
+                <h1>
+                    안녕하세요, 안정성과 성능을 우선시하는<br>
+                    <span class="text-gradient">백엔드 개발자 김영진</span>입니다.
+                </h1>
+                <p class="hero-subtitle">
+                    <span id="typing-text"></span><span class="cursor">|</span>
+                </p>
+                <p class="hero-description">
+                    안정적으로 운영되면서 성능 또한 효율적으로 관리할 수 있는 서버 아키텍처 설계를 선호합니다. 사용자의 요구사항에 맞춘 유연한 기능 구현에 강점이 있으며, 일정 준수에 대한 높은 책임감으로 신뢰받는 협업 환경을 지향합니다.
+                </p>
+                <div class="hero-cta">
+                    <a href="#about" class="btn btn-secondary">나를 소개합니다</a>
+                    <a href="#skills" class="btn btn-secondary">기술 스택</a>
+                    <a href="#projects" class="btn btn-secondary">프로젝트 보기</a>
+                    <a href="#contact" class="btn btn-primary">연락하기</a>
+                </div>
+                <div class="hero-socials">
+                    <a href="https://github.com/oxxultus" target="_blank" title="GitHub"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="mailto:oxxultus@gmail.com" title="Email"><i class="fas fa-envelope"></i> Email</a>
+                </div>
+            </div>
+            <div class="hero-image-wrapper">
+                <div class="image-border-glow"></div>
+                <div class="hero-image-container">
+                    <img src="avatar.png" alt="김영진 프로필 사진" class="profile-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="about-section scroll-reveal">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-grid">
+                <div class="about-card glass">
+                    <div class="card-icon"><i class="fas fa-seedling"></i></div>
+                    <h3>유연성과 실용성 (지원 동기)</h3>
+                    <p>Java 및 Spring Boot 기반의 웹 백엔드 기술을 중심으로 실무형 프로젝트와 교육을 수료한 신입 개발자입니다. 실무와 맞닿아 있는 API 기능 개발 경험이 있으며, 실습 과정에서 Git과 GitHub Actions(CI/CD)를 이용한 협업 및 빌드·배포 자동화 경험도 보유하고 있습니다. 다양한 사용자 요구에 맞춘 기능 커스터마이징과 서비스 지속 유지가 중요한 백엔드 인프라에서 실용적이고 유연한 개발자로 성장하고 싶습니다.</p>
+                </div>
+                <div class="about-card glass">
+                    <div class="card-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>책임감과 신뢰 (협업 역량)</h3>
+                    <p>팀 프로젝트를 진행하며 일정 관리에 대한 책임감을 가장 중요한 가치로 생각하게 되었습니다. Redis 기반의 캐시 처리와 PostgreSQL 및 AWS RDS 데이터 모델링, 디스크 I/O 최적화에 강점을 가지고 있으며, 실습 중심의 프로젝트에서 백엔드 구조를 설계하고 구현하는 경험을 쌓아왔습니다. 주어진 일정을 끝까지 책임지고 마무리하며 기획자, 디자이너와의 원활한 커뮤니케이션을 통해 동료들로부터 신뢰를 얻어왔습니다.</p>
+                </div>
+            </div>
+
+            <!-- Stats Showcase -->
+            <div class="stats-container glass">
+                <div class="stat-item">
+                    <span class="stat-number">2+</span>
+                    <span class="stat-label">Major Team Projects</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">9+</span>
+                    <span class="stat-label">GitHub Repositories</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">736+</span>
+                    <span class="stat-label">GitHub Commits</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section scroll-reveal">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <!-- Skill Category: Backend -->
+                <div class="skills-category glass">
+                    <h3><i class="fas fa-code"></i> Backend (Core)</h3>
+                    <div class="skill-badges-container">
+                        <div class="badge-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
+                            <span class="badge-title">Java</span>
+                        </div>
+                        <div class="badge-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="Spring Boot">
+                            <span class="badge-title">Spring Boot</span>
+                        </div>
+                        <div class="badge-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="Spring Web MVC">
+                            <span class="badge-title">Spring Web MVC</span>
+                        </div>
+                        <div class="badge-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="Spring Data JPA">
+                            <span class="badge-title">Spring Data JPA</span>
+                        </div>
+                        <div class="badge-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="Spring Data Redis">
+                            <span class="badge-title">Spring Data Redis</span>
+                        </div>
+                        <div class="badge-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="Spring Security">
+                            <span class="badge-title">Spring Security</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Category: Database & Cache -->
+                <div class="skills-category glass">
+                    <h3><i class="fas fa-database"></i> Database & Cache</h3>
+                    <div class="skill-badges-container">
+                        <div class="badge-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" alt="Oracle">
+                            <span class="badge-title">Oracle</span>
+                        </div>
+                        <div class="badge-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL">
+                            <span class="badge-title">PostgreSQL</span>
+                        </div>
+                        <div class="badge-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt="Redis">
+                            <span class="badge-title">Redis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Category: Infrastructure -->
+                <div class="skills-category glass">
+                    <h3><i class="fas fa-network-wired"></i> Infrastructure</h3>
+                    <div class="skill-badges-container">
+                        <div class="badge-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" alt="Nginx">
+                            <span class="badge-title">Nginx</span>
+                        </div>
+                        <div class="badge-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes">
+                            <span class="badge-title">Kubernetes</span>
+                        </div>
+                        <div class="badge-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker">
+                            <span class="badge-title">Docker</span>
+                        </div>
+                        <div class="badge-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux">
+                            <span class="badge-title">Linux</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Skills Category: Certifications -->
+                <div class="skills-category glass cert-category">
+                    <h3><i class="fas fa-award"></i> Certifications</h3>
+                    <div class="certifications-list">
+                        <div class="cert-item">
+                            <div class="cert-title-group">
+                                <i class="fas fa-certificate cert-icon-small"></i>
+                                <span class="cert-name">정보처리기사</span>
+                            </div>
+                            <span class="cert-meta">한국산업인력공단 | 2026.06.12 (취득)</span>
+                        </div>
+                        <div class="cert-item">
+                            <div class="cert-title-group">
+                                <i class="fab fa-linux cert-icon-small"></i>
+                                <span class="cert-name">리눅스마스터 1급</span>
+                            </div>
+                            <span class="cert-meta">한국정보통신진흥협회 (KAIT) | 2026.05.29 (취득)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section scroll-reveal">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            
+            <!-- Filters -->
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="team">Team Projects</button>
+                <button class="filter-btn" data-filter="personal">Personal Projects</button>
+            </div>
+
+            <!-- Project Cards Grid -->
+            <div class="projects-grid">
+                <!-- Project 1: Velo -->
+                <div class="project-card glass" data-category="team">
+                    <div class="project-thumbnail">
+                        <div class="code-art">
+                            <pre><code><span class="c-keyword">@Service</span>
+<span class="c-keyword">public class</span> <span class="c-class">VeloAiService</span> {
+  <span class="c-keyword">@Cacheable</span>(value = <span class="c-str">"codeCache"</span>)
+  <span class="c-keyword">public</span> Code generateCode(Prompt p) {
+    <span class="c-comment">// LLM & Spring Boot Core API</span>
+  }
+}</code></pre>
+                        </div>
+                        <span class="project-tag tag-team">Team Project</span>
+                    </div>
+                    <div class="project-info">
+                        <h3>Velo (애랑해)</h3>
+                        <p class="project-tagline">AI 기반 코드 자동 생성 플랫폼</p>
+                        <p class="project-desc">Spring Boot와 LLM을 결합하여 자연어로 요구사항을 입력받고 코드를 실시간 생성하며Gradle 빌드 및 실행 로그를 스트리밍하는 백엔드 플랫폼입니다.</p>
+                        <div class="project-tech-stack">
+                            <span>Spring Boot</span>
+                            <span>Redis</span>
+                            <span>Docker</span>
+                            <span>Kubernetes</span>
+                            <span>WebSocket</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/aeranghae/velo-main-api" target="_blank" title="GitHub Repository"><i class="fab fa-github"></i> API Repository</a>
+                        </div>
+                        <button class="btn-detail" onclick="openProjectModal('velo')">트러블슈팅 및 상세 보기 <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Project 2: Pickgo (Tracego) -->
+                <div class="project-card glass" data-category="team">
+                    <div class="project-thumbnail">
+                        <div class="code-art">
+                            <pre><code><span class="c-keyword">public class</span> <span class="c-class">TracegoAgent</span> {
+  <span class="c-keyword">public void</span> trace(String spanId) {
+    <span class="c-comment">// core, server, stand, wheel modular modules</span>
+  }
+}</code></pre>
+                        </div>
+                        <span class="project-tag tag-team">Team Project</span>
+                    </div>
+                    <div class="project-info">
+                        <h3>Pickgo (Tracego)</h3>
+                        <p class="project-tagline">서버 상태 추적 및 모니터링 도구 세트</p>
+                        <p class="project-desc">분산 인프라 환경에서 기기 및 어플리케이션의 동작과 로그 데이터를 유기적으로 트레이싱하기 위해 코어, 에이전트, 스탠드 모듈을 설계한 프로젝트입니다.</p>
+                        <div class="project-tech-stack">
+                            <span>Java</span>
+                            <span>Spring Boot</span>
+                            <span>Spring Web MVC</span>
+                            <span>Redis</span>
+                            <span>Linux</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/oxxultus/tracego-server" target="_blank" title="GitHub Repository"><i class="fab fa-github"></i> Server Repo</a>
+                        </div>
+                        <button class="btn-detail" onclick="openProjectModal('tracego')">상세 보기 <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Project 3: Liminal Desktop -->
+                <div class="project-card glass" data-category="personal">
+                    <div class="project-thumbnail">
+                        <div class="code-art">
+                            <pre><code><span class="c-keyword">import</span> { app, BrowserWindow } <span class="c-keyword">from</span> <span class="c-str">'electron'</span>;
+<span class="c-keyword">const</span> db = <span class="c-keyword">new</span> sqlite3.Database(<span class="c-str">'./liminal.db'</span>);
+<span class="c-comment">// macOS AI Agent Assistant</span>
+<span class="c-keyword">const</span> callLLM = <span class="c-keyword">async</span> (prompt) => {
+  <span class="c-comment">// Claude & GPT API Stream</span>
+}</code></pre>
+                        </div>
+                        <span class="project-tag tag-personal">Personal Project</span>
+                    </div>
+                    <div class="project-info">
+                        <h3>Liminal Desktop</h3>
+                        <p class="project-tagline">macOS 전용 AI 에이전트 기반 데스크톱 자동화 플랫폼</p>
+                        <p class="project-desc">Claude 및 GPT 등 다양한 LLM과 연동되어 일상 대화가 가능하고, 파일 조작이나 메일 전송 등 사용자 정의 플러그인을 연결하여 다양한 작업을 자동화할 수 있는 macOS 전용 AI 데스크톱 어시스턴트입니다.</p>
+                        <div class="project-tech-stack">
+                            <span>Electron</span>
+                            <span>React</span>
+                            <span>TypeScript</span>
+                            <span>LLM (Claude, GPT)</span>
+                            <span>SQLite</span>
+                            <span>macOS</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/oxxultus/liminal" target="_blank" title="GitHub Repository"><i class="fab fa-github"></i> Github Repo</a>
+                        </div>
+                        <button class="btn-detail" onclick="openProjectModal('liminal')">상세 보기 <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section scroll-reveal">
+        <div class="container">
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-grid">
+                <div class="contact-info glass">
+                    <h3>연락처 정보</h3>
+                    <p>반복적인 비효율을 없애고, 확장 가능한 안정된 인프라를 지향하는 김영진입니다. 함께 문제를 해결하고 성장할 팀을 기다리고 있습니다.</p>
+                    <div class="contact-details">
+                        <div class="contact-detail-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <span>이메일</span>
+                                <strong>oxxultus@gmail.com</strong>
+                            </div>
+                        </div>
+                        <div class="contact-detail-item">
+                            <i class="fab fa-github"></i>
+                            <div>
+                                <span>깃허브</span>
+                                <strong>github.com/oxxultus</strong>
+                            </div>
+                        </div>
+                        <div class="contact-detail-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <span>위치</span>
+                                <strong>대한민국</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-container glass">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">이름 / 회사명</label>
+                            <input type="text" id="name" placeholder="홍길동" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">이메일 주소</label>
+                            <input type="email" id="email" placeholder="example@company.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">메시지</label>
+                            <textarea id="message" rows="5" placeholder="프로젝트 제안 또는 함께 일하고 싶은 내용에 대해 편하게 남겨주세요." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">메시지 보내기</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Kim Yeongjin. All Rights Reserved.</p>
+            <p class="footer-sub">Designed with <i class="fas fa-heart" style="color: #ef4444;"></i> and Vanilla CSS.</p>
+        </div>
+    </footer>
+
+    <!-- Details Modals -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content glass">
+            <span class="close-modal" onclick="closeProjectModal()">&times;</span>
+            <div id="modal-body-content">
+                <!-- Dynamic Content Will Be Injected Here via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Print Resume Container -->
+    <div id="print-resume">
+        <div class="print-header">
+            <h1>김영진</h1>
+            <p class="print-subtitle">안정성과 성능을 우선시하는 백엔드 개발자</p>
+            <div class="print-contacts">
+                <span><i class="fas fa-envelope"></i> oxxultus@gmail.com</span>
+                <span><i class="fab fa-github"></i> github.com/oxxultus</span>
+                <span><i class="fas fa-map-marker-alt"></i> 대한민국</span>
+            </div>
+        </div>
+
+        <div class="print-section">
+            <h2 class="print-section-title">소개 (About Me)</h2>
+            <div class="print-section-content">
+                <p>안정적으로 운영되면서 성능 또한 효율적으로 관리할 수 있는 서버 아키텍처 설계를 선호합니다. 사용자의 요구사항에 맞춘 유연한 기능 구현에 강점이 있으며, 일정 준수에 대한 높은 책임감으로 신뢰받는 협업 환경을 지향합니다. Java 및 Spring Boot 기반의 웹 백엔드 기술을 중심으로 실무형 프로젝트와 교육을 수료하였으며, Git/GitHub Actions를 이용한 CI/CD 빌드·배포 자동화 경험을 보유하고 있습니다.</p>
+            </div>
+        </div>
+
+        <div class="print-section">
+            <h2 class="print-section-title">기술 스택 (Technical Skills)</h2>
+            <div class="print-section-content">
+                <div class="print-skills-group">
+                    <strong>Backend:</strong> Java, Spring Boot, Spring Web MVC, Spring Data JPA, Spring Data Redis, Spring Security
+                </div>
+                <div class="print-skills-group">
+                    <strong>Database & Cache:</strong> Oracle, PostgreSQL, Redis
+                </div>
+                <div class="print-skills-group">
+                    <strong>Infrastructure:</strong> Nginx, Kubernetes, Docker, Linux
+                </div>
+            </div>
+        </div>
+
+        <div class="print-section">
+            <h2 class="print-section-title">자격증 (Certifications)</h2>
+            <div class="print-section-content">
+                <div class="print-cert-item">
+                    <strong>정보처리기사</strong> - 한국산업인력공단 | 2026.06.12 취득
+                </div>
+                <div class="print-cert-item" style="margin-top: 0.5rem;">
+                    <strong>리눅스마스터 1급</strong> - 한국정보통신진흥협회 (KAIT) | 2026.05.29 취득
+                </div>
+            </div>
+        </div>
+
+        <div class="print-section" style="page-break-before: always; break-before: page;">
+            <h2 class="print-section-title">프로젝트 경험 (Projects)</h2>
+            <div class="print-section-content">
+                <!-- Project 1 -->
+                <div class="print-project-item">
+                    <div class="print-project-header">
+                        <h3>Velo (애랑해) <span class="print-project-type">팀 프로젝트</span></h3>
+                        <span class="print-project-period">2025.09 - 2025.10</span>
+                    </div>
+                    <p class="print-project-tagline">AI 기반 코드 자동 생성 플랫폼</p>
+                    <p class="print-project-desc">Spring Boot와 LLM을 결합하여 자연어로 요구사항을 입력받고 코드를 실시간 생성하며 Gradle 빌드 및 실행 로그를 스트리밍하는 백엔드 플랫폼입니다.</p>
+                    <ul class="print-project-bullets">
+                        <li><strong>[담당 역할]</strong>: 메인 API 서버 개발, 디스크 I/O 성능 최적화, WebSocket 로그 스트리밍 버퍼 트러블슈팅</li>
+                        <li><strong>[기술 스택]</strong>: Spring Boot, Redis, Docker, Kubernetes, WebSocket</li>
+                    </ul>
+                    <div style="margin-top: 10px; margin-bottom: 5px;">
+                        <strong style="font-size: 11px; color: #0F172A; text-decoration: underline;">Troubleshooting (기술적 문제 해결 및 아키텍처 고민)</strong>
+                    </div>
+                    <div style="margin-left: 10px; font-size: 11px; color: #475569;">
+                        <div style="margin-bottom: 8px;">
+                            <div style="font-weight: 700; color: #334155; margin-bottom: 2px;">1. [I/O Optimization] Files.walk 전수 스캔 병목 개선을 위한 메타데이터 캐싱 전략 ✓</div>
+                            <div style="margin-left: 8px; line-height: 1.45;">
+                                • <strong>현상 (Problem)</strong>: 사용자가 저장소 내 프로젝트의 파일 트리와 실시간 용량을 조회할 때마다 API 응답 속도가 점진적으로 저하되는 성능 저하 우려 발견.<br>
+                                • <strong>원인 (Cause)</strong>: 사용자 요청이 들어올 때마다 자바의 Files.walk API를 사용해 파일 시스템(NFS)의 실제 물리 디렉토리를 바닥부터 끝까지 전수 스캔하도록 설계되어 있었습니다. 프로젝트 내 파일 개수와 볼륨이 늘어날수록 디스크 I/O 병목이 심해져 서버 전체의 쓰루풋(Throughput)을 떨어트리는 구조적 결함이 있었습니다.<br>
+                                • <strong>해결 (Action)</strong>: 조회 시마다 디스크를 긁어오던 무거운 동기화 방식을 전면 폐기했습니다. 대신 AI 자율 코딩 공정이 최종적으로 완수(COMPLETED 또는 FAILED)되는 시점에 단 한 번 파일 트리와 용량을 일괄 색인(indexProjectFiles)하여 DB(PostgreSQL JSONB 컬럼)에 장부 형태로 기록하도록 아키텍처를 변경했습니다.<br>
+                                • <strong>결과 (Result)</strong>: 물리 디스크 접근 횟수를 0번으로 줄이고, 사용자 조회 요청 시 JPA 영속성 레이어 및 Redis 캐시 레이어에서 메타데이터를 0.0001초 만에 즉시 서빙하도록 성능을 극대화했습니다. 무조건적인 실시간 조회보다 시스템 부하를 고려한 '장부 기반 색인 및 캐싱 아키텍처'의 필요성을 학습했습니다.
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                            <div style="font-weight: 700; color: #334155; margin-bottom: 2px;">2. [Performance] 웹소켓 세션 타임아웃 및 대용량 로그 스트리밍 버퍼 초과 현상 최적화 ✓</div>
+                            <div style="margin-left: 8px; line-height: 1.45;">
+                                • <strong>현상 (Problem)</strong>: AI 에이전트가 격리 샌드박스 내부에서 코드를 생성하고 Gradle 빌드 및 쉘 명령어를 실행하는 과정에서, 실시간 로그 스트리밍 도중 웹소켓 연결이 중간에 끊기거나 특정 대용량 로그 구간에서 데이터가 잘리는 현상이 발생함.<br>
+                                • <strong>원인 (Cause)</strong>: 스프링 웹소켓의 기본 세션 유지 타임아웃(Idle Timeout) 설정이 너무 짧아, AI 엔진의 빌드 연산이 길어질 때 무동작 상태로 오인되어 커넥션이 강제 종료되었습니다. 또한, Gradle 빌드 시 쏟아져 나오는 방대한 표준 출력(stdout) 로그의 데이터 체급이 스프링 웹소켓 컨테이너의 기본 텍스트 버퍼 임계치를 초과하여 세션 오버플로우 예외가 격발된 것이 원인이었습니다.<br>
+                                • <strong>해결 (Action)</strong>: ServletServerContainerFactoryBean 설정을 커스텀 정의하여 스프링 웹소켓의 인프라 한계를 직접 확장했습니다. AI 장기 연산 환경을 고려해 세션 및 비동기 송신 타임아웃을 5분(300,000ms)으로 상향 조정하고, 대용량 로그 수신 시 데이터 유실을 막기 위해 텍스트 및 바이너리 메시지 버퍼 크기를 10MB로 대폭 확충했습니다.<br>
+                                • <strong>결과 (Result)</strong>: 네트워크 병목이나 인프라 제약 없이 AI 자율 공정 전체 프로세스의 대용량 빌드 로그를 100% 무결하게 실시간으로 스트리밍하는 데 성공했습니다. 네트워크 세션 관리와 메모리 버퍼 임계치 설계의 중요성을 깨달았습니다.
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                            <div style="font-weight: 700; color: #334155; margin-bottom: 2px;">3. [Architecture] 웹소켓 세션 맵 참조로 인한 스프링 빈 순환 참조(Circular Dependency) 해결 ✓</div>
+                            <div style="margin-left: 8px; line-height: 1.45;">
+                                • <strong>현상 (Problem)</strong>: 웹소켓을 통해 LLM 서버와 실시간으로 연동되어 작업이 진행 중인 프로젝트는 도중에 삭제되지 않도록 방지하는 검증 기능을 구현하고자 했습니다. 이를 위해 웹소켓 세션이 등록될 때 프로젝트 식별자를 Key로 하는 상태 관리 Map에 저장하고, 프로젝트 삭제 서비스에서 해당 Map을 참조하여 검증하려 했으나, 스프링 애플리케이션 구동 시 Application Context 의존성 주입 단계에서 순환 참조(Circular Dependency) 에러가 발생하며 기동이 실패하는 현상이 발생했습니다.<br>
+                                • <strong>원인 (Cause)</strong>: 웹소켓 세션 라이프사이클을 관리하는 서비스(빈)와 프로젝트의 CRUD를 담당하는 서비스(빈)가 서로의 검증 및 상태 관리를 위해 상호 간을 직접 참조하게 되면서 양방향 의존 관계가 형성되었기 때문입니다. 이로 인해 스프링 컨테이너가 빈 초기화 단계에서 생성 우선순위를 결정하지 못해 순환 의존성 고리에 빠지게 되었습니다.<br>
+                                • <strong>해결 (Action)</strong>: 서비스 컴포넌트 간의 직접적인 강결합을 끊기 위해 스프링의 이벤트 리스너(ApplicationEventPublisher 및 @EventListener) 구조를 도입했습니다. 웹소켓 등록/해제에 따른 세션 상태 변화나 삭제 검증 요청을 직접적인 빈 참조가 아닌 비동기/동기 이벤트 발행 형태로 위임함으로써 컴포넌트 간의 논리적 결합도를 낮추고 의존성 연결 고리를 분리했습니다.<br>
+                                • <strong>결과 (Result)</strong>: 빈 간의 순환 참조 문제를 완벽하게 해소하여 안정적으로 애플리케이션을 구동할 수 있게 되었으며, 프로젝트 작업 여부에 따른 삭제 제한 로직 또한 무결하게 동작하도록 구현했습니다. 향후 시스템 확장 시에도 모듈 간 영향도를 최소화할 수 있는 이벤트 기반 레이아웃의 이점을 확보했습니다.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="print-project-item">
+                    <div class="print-project-header">
+                        <h3>Pickgo (Tracego) <span class="print-project-type">팀 프로젝트</span></h3>
+                        <span class="print-project-period">2025.03 - 2025.05</span>
+                    </div>
+                    <p class="print-project-tagline">서버 상태 추적 및 모니터링 도구 세트</p>
+                    <p class="print-project-desc">분산 인프라 환경에서 기기 및 어플리케이션의 동작과 로그 데이터를 유기적으로 트레이싱하기 위해 코어, 에이전트, 스탠드 모듈을 설계한 프로젝트입니다.</p>
+                    <ul class="print-project-bullets">
+                        <li><strong>[담당 역할]</strong>: 모니터링 에이전트 및 트레이싱 서버 설계</li>
+                        <li><strong>[기능 구현]</strong>: 코어 모듈, 에이전트 모듈, 스탠드 모듈 등 분산 시스템 추적을 위한 모듈러 백엔드 구축</li>
+                        <li><strong>[기술 스택]</strong>: Java, Spring Boot, Spring Web MVC, Redis, Linux</li>
+                    </ul>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="print-project-item">
+                    <div class="print-project-header">
+                        <h3>Liminal Desktop <span class="print-project-type">개인 프로젝트</span></h3>
+                        <span class="print-project-period">2025.07 - 2025.08</span>
+                    </div>
+                    <p class="print-project-tagline">macOS 전용 AI 에이전트 기반 데스크톱 자동화 플랫폼</p>
+                    <p class="print-project-desc">Claude 및 GPT 등 다양한 LLM과 연동되어 일상 대화가 가능하고, 파일 조작이나 메일 전송 등 사용자 정의 플러그인을 연결하여 다양한 작업을 자동화할 수 있는 macOS 전용 AI 데스크톱 어시스턴트입니다.</p>
+                    <ul class="print-project-bullets">
+                        <li><strong>[담당 역할]</strong>: 단독 기획 및 전체 아키텍처 구현 (데스크톱 런타임 및 로컬 DB 영속성 레이어)</li>
+                        <li><strong>[자동화 제어]</strong>: LLM Function Calling을 활용해 사용자의 파일 제어, 외부 쉘 실행, SMTP 메일 전송 자동화 구현</li>
+                        <li><strong>[스택 및 내장 DB]</strong>: Electron 기반 React+TypeScript 인터페이스와 SQLite 파일 내장 DB를 연동한 로컬 영속성 설계</li>
+                        <li><strong>[기술 스택]</strong>: Electron, React, TypeScript, SQLite, LLM (Claude, GPT), macOS</li>
+                    </ul>
+                </div>
+            </div>
+    </div>
+
+    <!-- html2pdf Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- Script File -->
+    <script src="script.js"></script>
+</body>
+</html>
