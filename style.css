@@ -1109,8 +1109,7 @@ footer p {
     width: 100%;
     max-width: 850px;
     border-radius: 16px;
-    padding: 3rem;
-    position: relative;
+    padding: 2.5rem 3rem;
     margin: auto;
     box-shadow: var(--shadow-lg);
     background-color: var(--bg-card-hover);
@@ -1124,18 +1123,29 @@ footer p {
 }
 
 .close-modal {
-    position: absolute;
-    right: 2rem;
-    top: 1.5rem;
-    font-size: 2.2rem;
-    font-weight: 300;
-    color: var(--text-secondary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: color var(--transition-fast);
+    background: rgba(239, 68, 68, 0.08);
+    color: #f87171;
+    border: 1.5px solid rgba(239, 68, 68, 0.3);
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+    line-height: 1;
 }
 
 .close-modal:hover {
-    color: var(--accent-emerald);
+    background: rgba(239, 68, 68, 0.18);
+    color: #ef4444;
+    border-color: #ef4444;
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.2);
+    transform: translateY(-1px);
 }
 
 .modal-github-link {

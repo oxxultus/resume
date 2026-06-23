@@ -566,6 +566,7 @@ function openProjectModal(projectId) {
         <div class="modal-title-row">
             <h3 class="modal-title">${data.title}</h3>
             ${data.githubLink ? `<a href="${data.githubLink}" target="_blank" class="modal-github-link"><i class="fab fa-github"></i> Repository</a>` : ""}
+            <button class="close-modal" onclick="closeProjectModal()"><i class="fas fa-times"></i></button>
         </div>
         <p class="modal-tagline">${data.tagline}</p>
         
