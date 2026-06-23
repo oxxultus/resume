@@ -566,7 +566,6 @@ function openProjectModal(projectId) {
         <div class="modal-title-row">
             <h3 class="modal-title">${data.title}</h3>
             ${data.githubLink ? `<a href="${data.githubLink}" target="_blank" class="modal-github-link"><i class="fab fa-github"></i> Repository</a>` : ""}
-            <button class="close-modal" onclick="closeProjectModal()"><i class="fas fa-times"></i></button>
         </div>
         <p class="modal-tagline">${data.tagline}</p>
         
@@ -609,7 +608,14 @@ function openProjectModal(projectId) {
             </div>
         </div>
     `;
-    
+
+    // Move the static close button into the title row using safe DOM API
+    const titleRow = modalBody.querySelector(".modal-title-row");
+    const closeBtn = document.getElementById("modal-close-btn");
+    if (titleRow && closeBtn) {
+        titleRow.appendChild(closeBtn);
+    }
+
     modal.style.display = "flex";
     document.body.style.overflow = "hidden"; // Prevent scrolling behind modal
 }
@@ -680,6 +686,12 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(typeAnimation, 1000);
     // Fetch GitHub Live Stats
     updateGitHubStats();
+
+    // Modal Close Button Event (static element, safe addEventListener)
+    const modalCloseBtn = document.getElementById("modal-close-btn");
+    if (modalCloseBtn) {
+        modalCloseBtn.addEventListener("click", closeProjectModal);
+    }
 
     // Contact Form Mailto Integration
     const contactForm = document.getElementById("contact-form");
