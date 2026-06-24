@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>김영진 | 백엔드 개발자 포트폴리오</title>
+    <title>김영진 | 백엔드 개발자</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <!-- Google Fonts: Outfit, Noto Sans KR -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +22,7 @@
     <header>
         <div class="header-container">
             <a href="#" class="logo">
-                <span class="tech-accent">&lt;</span>Yeongjin.Dev<span class="tech-accent">/&gt;</span>
+                <span class="tech-accent">&lt;</span>Oxxultus.Dev<span class="tech-accent">/&gt;</span>
             </a>
             <nav class="nav-menu">
                 <a href="#about" class="nav-link">About</a>
@@ -30,12 +31,11 @@
                 <a href="#contact" class="nav-link">Contact</a>
             </nav>
             <div class="header-actions">
-                <button id="resume-download" title="이력서 PDF 다운로드" class="btn-pdf">
-                    <i class="fas fa-file-invoice"></i> <span>이력서 다운로드</span>
-                </button>
-                <button id="portfolio-download" title="포트폴리오 PDF 다운로드" class="btn-portfolio">
-                    <i class="fas fa-briefcase"></i> <span>포트폴리오 다운로드</span>
-                </button>
+                <div class="download-toggle-container">
+                    <button id="resume-download" title="이력서 PDF 다운로드" class="toggle-btn">이력서</button>
+                    <span class="toggle-divider">|</span>
+                    <button id="portfolio-download" title="포트폴리오 PDF 다운로드" class="toggle-btn">포트폴리오</button>
+                </div>
                 <button id="theme-toggle" aria-label="Toggle theme">
                     <i class="fas fa-moon theme-icon-dark"></i>
                     <i class="fas fa-sun theme-icon-light"></i>
