@@ -512,7 +512,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (resumeDownloadBtn) {
         resumeDownloadBtn.addEventListener("click", () => {
             const originalContent = resumeDownloadBtn.innerHTML;
-            resumeDownloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>다운로드 중...</span>';
+            resumeDownloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
             resumeDownloadBtn.disabled = true;
 
             try {
@@ -784,7 +784,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (portfolioDownloadBtn) {
         portfolioDownloadBtn.addEventListener("click", () => {
             const originalContent = portfolioDownloadBtn.innerHTML;
-            portfolioDownloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>다운로드 중...</span>';
+            portfolioDownloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
             portfolioDownloadBtn.disabled = true;
 
             try {
