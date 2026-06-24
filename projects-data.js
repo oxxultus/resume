@@ -40,17 +40,7 @@ const projectData = {
         description: "사용자가 자연어로 소프트웨어 요구사항을 작성하면 AI 에이전트가 격리된 가상 샌드박스 내부에서 Gradle 빌드, 쉘 명령어 실행을 수행해 코드를 자동으로 완성하는 웹 애플리케이션 플랫폼입니다. 이 서비스에서 핵심 API 레이어를 개발하고 대용량 로그 스트리밍 중 일어나는 브레이크포인트 이슈 및 실시간 파일 IO 병목을 진단하고 해결했습니다.",
         
         // 메인 화면 카드 썸네일 (SVG 코드 혹은 이미지 경로 가능)
-        thumbnail: `
-        <div class="code-art">
-            <pre><code><span class="c-keyword">@Service</span>
-<span class="c-keyword">public class</span> <span class="c-class">VeloAiService</span> {
-  <span class="c-keyword">@Cacheable</span>(value = <span class="c-str">"codeCache"</span>)
-  <span class="c-keyword">public</span> Code generateCode(Prompt p) {
-    <span class="c-comment">// LLM & Spring Boot Core API</span>
-  }
-}</code></pre>
-        </div>
-        `,
+        thumbnail: "images/velo-thumbnail.png",
         
         achievements: [
             "디렉토리 전수 스캔 시, Files.walk 디스크 I/O 병목 발견 및 PostgreSQL JSONB 인덱싱 캐싱 적용으로 조회 성능 0.0001초 미만 개선",
@@ -249,71 +239,6 @@ const projectData = {
         </svg>
         `
     },
-    tracego: {
-        title: "Pickgo (Tracego)",
-        githubLink: "https://github.com/oxxultus/tracego-server",
-        tagline: "서버 상태 추적 및 모니터링 도구 세트",
-        category: "team",
-        period: "2025.09 - 2025.10 (4인 프로젝트)",
-        role: "수집 서버 코어 및 클라이언트 라이브러리 개발, 자원 데이터 실시간 적재",
-        techStack: ["Java", "Spring Boot", "Spring Web MVC", "Redis", "Docker", "Linux"],
-        description: "여러 분산 노드로 구동되는 복잡한 인프라 환경에서, 실시간 프로세스 상태 및 자원(CPU, 메모리, 네트워크 트래픽 등) 로그 데이터의 원활한 수집과 중앙 집중식 트레이싱 분석을 제공하기 위한 시스템입니다. 모듈형 아키텍처(tracego-server, tracego-core, tracego-stand, tracego-wheel)로 컴포넌트를 설계하여 서버 성능 오버헤드 최소화에 주안점을 두었습니다.",
-        
-        thumbnail: `
-        <div class="code-art">
-            <pre><code><span class="c-keyword">public class</span> <span class="c-class">TracegoAgent</span> {
-  <span class="c-keyword">public void</span> trace(String spanId) {
-    <span class="c-comment">// core, server, stand, wheel modular modules</span>
-  }
-}</code></pre>
-        </div>
-        `,
-        
-        achievements: [
-            "연동 대상 애플리케이션 모니터링 시, 수집 성능 오버헤드 경감을 위해 핵심 비즈니스 로직 라이브러리 모듈화 패키징 구현",
-            "리눅스 호스트 시스템 자원 통계 수집 시, 실시간 데이터 통계 핸들러 구축 및 주기적 소켓/API 송수신 성능 제어 최적화",
-            "트래픽 폭증으로 인한 대규모 자원 데이터 적재 시, Redis 인메모리 버퍼링 레이어 연동으로 서버 영속화 DB 부하 분산 및 안정화"
-        ],
-        troubleshooting: [],
-        
-        architecture: `
-        <svg class="arch-svg" width="700" height="200" viewBox="0 0 700 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Background -->
-            <rect width="700" height="200" rx="12" fill="#090D14" stroke="rgba(16, 185, 129, 0.15)" stroke-width="2"/>
-            
-            <!-- Nodes (Wheel / core) -->
-            <rect x="30" y="40" width="130" height="50" rx="6" fill="rgba(59, 130, 246, 0.1)" stroke="#3B82F6" stroke-width="1.5"/>
-            <text x="95" y="70" fill="#F8FAFC" font-size="10" font-family="Outfit" font-weight="bold" text-anchor="middle">Host Node A (Wheel)</text>
-            
-            <rect x="30" y="110" width="130" height="50" rx="6" fill="rgba(59, 130, 246, 0.1)" stroke="#3B82F6" stroke-width="1.5"/>
-            <text x="95" y="140" fill="#F8FAFC" font-size="10" font-family="Outfit" font-weight="bold" text-anchor="middle">Host Node B (Wheel)</text>
-            
-            <!-- Connection arrows -->
-            <path d="M160 65 Q230 65 290 85" stroke="#94A3B8" stroke-width="1.5"/>
-            <polygon points="290,85 281,81 285,90" fill="#94A3B8"/>
-            
-            <path d="M160 135 Q230 135 290 115" stroke="#94A3B8" stroke-width="1.5"/>
-            <polygon points="290,115 285,110 281,119" fill="#94A3B8"/>
-            
-            <text x="210" y="110" fill="#94A3B8" font-size="8" text-anchor="middle">Send System Metrics</text>
-
-            <!-- Tracego Server -->
-            <rect x="290" y="70" width="160" height="60" rx="8" fill="rgba(16, 185, 129, 0.1)" stroke="#10B981" stroke-width="2"/>
-            <text x="370" y="95" fill="#F8FAFC" font-size="11" font-family="Outfit" font-weight="bold" text-anchor="middle">Tracego Server</text>
-            <text x="370" y="112" fill="#94A3B8" font-size="9" text-anchor="middle">(Tracego-Server)</text>
-            
-            <!-- Arrow to Redis -->
-            <path d="M450 100 H520" stroke="#94A3B8" stroke-width="2"/>
-            <polygon points="520,100 512,95 512,105" fill="#94A3B8"/>
-            <text x="485" y="90" fill="#94A3B8" font-size="8" text-anchor="middle">Buffer</text>
-            
-            <!-- Redis Storage -->
-            <rect x="520" y="70" width="130" height="60" rx="8" fill="rgba(244, 63, 94, 0.1)" stroke="#F43F5E" stroke-width="2"/>
-            <text x="585" y="95" fill="#F8FAFC" font-size="11" font-family="Outfit" font-weight="bold" text-anchor="middle">Redis Cache Buffer</text>
-            <text x="585" y="112" fill="#94A3B8" font-size="9" text-anchor="middle">(Async Batch Persist)</text>
-        </svg>
-        `
-    },
     liminal: {
         title: "Liminal Desktop",
         githubLink: "https://github.com/oxxultus/liminal",
@@ -324,16 +249,7 @@ const projectData = {
         techStack: ["Electron", "React", "TypeScript", "LLM (Claude, GPT)", "SQLite", "macOS"],
         description: "Claude 및 GPT와 같은 다양한 LLM API를 연동하여 일상 대화가 가능하고, 파일 조작이나 메일 전송 등 사용자 정의 플러그인을 연결하여 다양한 작업을 자동화할 수 있는 macOS 전용 AI 데스크톱 어시스턴트 애플리케이션입니다. Electron 기반으로 React와 TypeScript를 사용하여 인터페이스를 구축하고 SQLite를 로컬 저장소로 사용해 상태를 보관합니다.",
         
-        thumbnail: `
-        <div class="code-art">
-            <pre><code><span class="c-keyword">import</span> { app, BrowserWindow } <span class="c-keyword">from</span> <span class="c-str">'electron'</span>;
-<span class="c-keyword">const</span> db = <span class="c-keyword">new</span> sqlite3.Database(<span class="c-str">'./liminal.db'</span>);
-<span class="c-comment">// macOS AI Agent Assistant</span>
-<span class="c-keyword">const</span> callLLM = <span class="c-keyword">async</span> (prompt) => {
-  <span class="c-comment">// Claude & GPT API Stream</span>
-}</code></pre>
-        </div>
-        `,
+        thumbnail: "images/liminal-thumbnail.png",
         
         achievements: [
             "macOS 네이티브 데스크톱 환경 구축 시, Electron 프레임워크와 React+TypeScript 구조 설계로 경량 콘솔 레이아웃 구현 및 반응 속도 향상",
