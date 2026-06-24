@@ -563,7 +563,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // Construct Projects content for Resume (EXCLUDING Troubleshooting)
                 let resumeProjectsContent = "";
-                const projectKeys = ['velo', 'tracego', 'liminal'];
+                const projectKeys = ['velo', 'liminal'];
                 projectKeys.forEach(key => {
                     const data = projectData[key];
                     if (!data) return;
@@ -597,7 +597,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const htmlContent = `
                     <div class="resume-container">
                         <style>
-                            @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Outfit:wght@400;600;800&display=swap');
+
                             .resume-container {
                                 font-family: 'Outfit', 'Noto Sans KR', sans-serif;
                                 color: #0F172A;
@@ -758,7 +758,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         useCORS: true,
                         letterRendering: true,
                         logging: false,
-                        backgroundColor: '#ffffff'
+                        backgroundColor: '#ffffff',
+                        scrollX: 0,
+                        scrollY: 0
                     },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
@@ -864,7 +866,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const htmlContent = `
                     <div class="resume-container">
                         <style>
-                            @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Outfit:wght@400;600;800&display=swap');
+
                             .resume-container {
                                 font-family: 'Outfit', 'Noto Sans KR', sans-serif;
                                 color: #0F172A;
@@ -1008,7 +1010,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         useCORS: true,
                         letterRendering: true,
                         logging: false,
-                        backgroundColor: '#ffffff'
+                        backgroundColor: '#ffffff',
+                        scrollX: 0,
+                        scrollY: 0
                     },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
