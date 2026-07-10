@@ -58,6 +58,19 @@
         menuButton?.setAttribute('aria-expanded', 'false');
     }));
 
+    document.querySelectorAll('.category-folder[aria-controls]').forEach(folder => {
+        folder.addEventListener('click', () => {
+            const branch = document.getElementById(folder.getAttribute('aria-controls'));
+            if (!branch) return;
+            const expanded = folder.getAttribute('aria-expanded') === 'true';
+            folder.setAttribute('aria-expanded', String(!expanded));
+            branch.hidden = expanded;
+            const icon = folder.querySelector('.folder-icon');
+            icon?.classList.toggle('fa-folder-open', !expanded);
+            icon?.classList.toggle('fa-folder', expanded);
+        });
+    });
+
     const categoryFilters = document.querySelectorAll('.category-filter');
     const postCards = document.querySelectorAll('.post-card[data-category]');
     const postCount = document.querySelector('.post-count');
