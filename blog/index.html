@@ -15,7 +15,7 @@ permalink: /blog/
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ '/blog.css?v=20260710-5' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/blog.css?v=20260710-6' | relative_url }}">
 </head>
 <body>
     <aside class="blog-sidebar">
@@ -30,12 +30,28 @@ permalink: /blog/
             <span class="blog-nav-label">Writing</span>
             <a class="active category-filter" href="{{ '/blog/' | relative_url }}" data-category="all"><i class="fas fa-pen-nib"></i> All posts</a>
             <span class="blog-nav-label">Categories</span>
-            {% assign category_order = "Backend/Spring/Common|Backend/Spring/MVC|Backend/Spring/Data|Learning" | split: "|" %}
-            {% for category_name in category_order %}
-              {% if site.categories[category_name] %}
-              <a class="category-filter" href="?category={{ category_name | slugify }}" data-category="{{ category_name | slugify }}" title="{{ category_name }}"><i class="fas fa-folder"></i><span>{{ category_name }}</span></a>
-              {% endif %}
-            {% endfor %}
+            <div class="category-tree">
+                <button class="category-folder" type="button" aria-expanded="true" aria-controls="category-backend">
+                    <i class="fas fa-folder-open folder-icon" aria-hidden="true"></i><span>Backend</span><i class="fas fa-chevron-down folder-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="category-branch" id="category-backend">
+                    <button class="category-folder category-folder-child" type="button" aria-expanded="true" aria-controls="category-spring">
+                        <i class="fas fa-folder-open folder-icon" aria-hidden="true"></i><span>Spring</span><i class="fas fa-chevron-down folder-chevron" aria-hidden="true"></i>
+                    </button>
+                    <div class="category-branch category-branch-child" id="category-spring">
+                        {% assign spring_categories = "Backend/Spring/Common|Backend/Spring/MVC|Backend/Spring/Data" | split: "|" %}
+                        {% for category_name in spring_categories %}
+                          {% if site.categories[category_name] %}
+                          {% assign category_label = category_name | split: "/" | last %}
+                          <a class="category-filter category-leaf" href="?category={{ category_name | slugify }}" data-category="{{ category_name | slugify }}" title="{{ category_name }}"><i class="fas fa-file-lines"></i><span>{{ category_label }}</span></a>
+                          {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% if site.categories['Learning'] %}
+                <a class="category-filter category-root-leaf" href="?category=learning" data-category="learning"><i class="fas fa-folder"></i><span>Learning</span></a>
+                {% endif %}
+            </div>
         </nav>
     </aside>
 
@@ -80,6 +96,6 @@ permalink: /blog/
             </section>
         </div>
     </main>
-    <script src="{{ '/blog.js' | relative_url }}"></script>
+    <script src="{{ '/blog.js?v=20260710-2' | relative_url }}"></script>
 </body>
 </html>
