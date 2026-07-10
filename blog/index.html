@@ -15,7 +15,7 @@ permalink: /blog/
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-1' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-2' | relative_url }}">
 </head>
 <body>
     <aside class="blog-sidebar">
@@ -63,7 +63,7 @@ permalink: /blog/
                     <article class="post-card" data-category="{{ post.categories | first | slugify }}" data-category-path="{{ post.categories | first | escape }}">
                         <a class="post-card-link" href="{{ post.url | relative_url }}" aria-label="{{ post.title }} 읽기"></a>
                         <div class="post-meta">
-                            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
+                            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d %H:%M" }}</time>
                             {% if post.categories.size > 0 %}<span>{{ post.categories | first }}</span>{% endif %}
                         </div>
                         <div class="post-title-row">
