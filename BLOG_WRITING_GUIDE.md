@@ -69,6 +69,14 @@ Front Matter를 감싸는 `---`는 반드시 유지해야 합니다.
 
 카테고리 필터는 첫 번째 카테고리를 기준으로 동작합니다. 계층은 `/`로 구분하고 글마다 가장 구체적인 카테고리 하나만 지정하는 것을 권장합니다.
 
+새로운 경로는 별도의 HTML 수정 없이 자동으로 폴더 트리에 추가됩니다.
+
+```yaml
+categories: ["Backend/FastAPI"]
+```
+
+위처럼 작성하면 사이드바에 `Backend → FastAPI`가 자동 생성됩니다. `Backend/Spring/Security`, `Infrastructure/Docker`, `Database/PostgreSQL/Index`처럼 단계가 더 깊은 경로도 동일하게 생성됩니다.
+
 사이드바에서는 카테고리만 다음과 같은 폴더 구조로 표시됩니다.
 
 ```text
@@ -82,7 +90,7 @@ Backend
 - `Backend`, `Spring`, `Common`, `MVC`, `Data`, `Learning`은 디렉터리로 표시됩니다.
 - 사이드바에는 개별 게시글 파일을 표시하지 않습니다.
 - 디렉터리를 선택하면 해당 Front Matter의 `categories` 값과 일치하는 게시글만 본문 목록에 표시됩니다.
-- 새로운 최종 카테고리 디렉터리를 만들 때는 `blog/index.html`의 `spring_categories` 목록에도 해당 경로를 추가해야 합니다.
+- 새로운 카테고리를 추가할 때는 Front Matter의 `categories` 경로만 작성하면 됩니다.
 
 ## 4. 제목과 Article 목차
 

@@ -58,6 +58,69 @@
         menuButton?.setAttribute('aria-expanded', 'false');
     }));
 
+    const categoryTree = document.querySelector('[data-category-tree]');
+    if (categoryTree) {
+        const sourceLinks = Array.from(categoryTree.querySelectorAll('.category-source[data-category-path]'));
+        const root = { children: new Map(), link: null };
+
+        sourceLinks.forEach(link => {
+            const parts = link.dataset.categoryPath.split('/').map(part => part.trim()).filter(Boolean);
+            let node = root;
+            parts.forEach(part => {
+                if (!node.children.has(part)) node.children.set(part, { children: new Map(), link: null });
+                node = node.children.get(part);
+            });
+            node.link = link;
+        });
+
+        const preferredOrder = new Map([
+            ['Backend', 0], ['Spring', 0], ['Common', 0], ['MVC', 1], ['Data', 2], ['Learning', 90]
+        ]);
+        const sortEntries = entries => entries.sort(([nameA], [nameB]) => {
+            const orderA = preferredOrder.get(nameA) ?? 50;
+            const orderB = preferredOrder.get(nameB) ?? 50;
+            return orderA - orderB || nameA.localeCompare(nameB, 'ko');
+        });
+
+        let branchIndex = 0;
+        const renderChildren = (node, container, depth) => {
+            sortEntries(Array.from(node.children.entries())).forEach(([name, child]) => {
+                if (child.children.size) {
+                    branchIndex += 1;
+                    const branchId = `category-branch-${branchIndex}`;
+                    const folder = document.createElement('button');
+                    folder.type = 'button';
+                    folder.className = `category-folder${depth ? ' category-folder-child' : ''}`;
+                    folder.setAttribute('aria-expanded', 'true');
+                    folder.setAttribute('aria-controls', branchId);
+                    folder.innerHTML = '<i class="fas fa-folder-open folder-icon" aria-hidden="true"></i><span></span><i class="fas fa-chevron-down folder-chevron" aria-hidden="true"></i>';
+                    folder.querySelector('span').textContent = name;
+
+                    const branch = document.createElement('div');
+                    branch.id = branchId;
+                    branch.className = `category-branch${depth ? ' category-branch-child' : ''}`;
+                    container.append(folder, branch);
+                    renderChildren(child, branch, depth + 1);
+                    return;
+                }
+
+                if (!child.link) return;
+                const link = child.link;
+                link.classList.remove('category-source');
+                link.classList.add('category-directory');
+                if (depth === 0) link.classList.add('category-root-directory');
+                link.title = link.dataset.categoryPath;
+                link.innerHTML = '<i class="fas fa-folder" aria-hidden="true"></i><span></span>';
+                link.querySelector('span').textContent = name;
+                container.append(link);
+            });
+        };
+
+        const fragment = document.createDocumentFragment();
+        renderChildren(root, fragment, 0);
+        categoryTree.replaceChildren(fragment);
+    }
+
     document.querySelectorAll('.category-folder[aria-controls]').forEach(folder => {
         folder.addEventListener('click', () => {
             const branch = document.getElementById(folder.getAttribute('aria-controls'));
