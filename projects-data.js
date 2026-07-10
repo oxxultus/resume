@@ -30,7 +30,7 @@
 
 const projectData = {
     velo: {
-        title: "Velo (Team: 애랑해)",
+        title: "Velo",
         githubLink: "https://github.com/aeranghae/velo-main-api",
         tagline: "AI 기반 코드 자동 생성 플랫폼",
         category: "team", // "team" (팀 프로젝트) 또는 "personal" (개인 프로젝트)
