@@ -5,3 +5,5 @@
 vendor/
 _site/
 _site_preview/
+.wrangler/
+.dev.vars
