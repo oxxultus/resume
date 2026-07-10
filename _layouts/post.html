@@ -11,10 +11,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ '/blog.css?v=20260710-15' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-1' | relative_url }}">
 </head>
 <body>
     <aside class="blog-sidebar">
+        <button class="sidebar-close blog-sidebar-close" type="button" aria-label="메뉴 닫기"><i class="fas fa-xmark"></i></button>
         <a class="blog-brand" href="{{ '/' | relative_url }}"><span>&lt;</span>Oxxultus.Dev<span>/&gt;</span></a>
         <a class="post-back" href="{{ '/blog/' | relative_url }}"><i class="fas fa-arrow-left"></i> 모든 글</a>
         <nav class="blog-nav post-toc" aria-label="게시글 목차">
@@ -50,6 +51,6 @@
             <footer class="article-footer"><a href="{{ '/blog/' | relative_url }}"><i class="fas fa-arrow-left"></i> 블로그 목록으로</a></footer>
         </article>
     </main>
-    <script src="{{ '/blog.js?v=20260710-5' | relative_url }}"></script>
+    <script src="{{ '/blog.js?v=20260711-1' | relative_url }}"></script>
 </body>
 </html>

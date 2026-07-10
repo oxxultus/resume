@@ -102,7 +102,11 @@ button { font: inherit; }
 .article-body th, .article-body td { min-width: 130px; padding: 11px 13px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
 .article-body th { background: var(--surface-soft); color: var(--text); font-weight: 650; white-space: nowrap; }
 .article-body td { background: var(--surface); color: var(--muted); }
-.article-body pre { overflow-x: auto; margin: 30px 0; padding: 22px; border: 1px solid #30323a; border-radius: 12px; background: #16181d; color: #eef0f4; font-size: 13px; line-height: 1.7; }
+.article-body pre { position: relative; overflow-x: auto; margin: 30px 0; padding: 52px 22px 22px; border: 1px solid #30323a; border-radius: 12px; background: #16181d; color: #eef0f4; font-size: 13px; line-height: 1.7; }
+.code-copy-button { position: absolute; top: 10px; right: 10px; display: inline-flex; align-items: center; gap: 6px; min-height: 30px; padding: 5px 9px; border: 1px solid #3d404a; border-radius: 7px; background: #22252c; color: #bfc4cf; font-size: 11px; cursor: pointer; }
+.code-copy-button:hover, .code-copy-button:focus-visible { border-color: #626875; color: #fff; outline: none; }
+.code-copy-button.copied { color: #c3e88d; }
+.sidebar-close { display: none; }
 .article-body code { font-family: 'SFMono-Regular', Consolas, monospace; }.article-body :not(pre) > code { padding: 2px 6px; border-radius: 5px; background: var(--surface-soft); color: var(--accent); font-size: .88em; }
 .highlight { background: transparent; }
 .highlight .c, .highlight .c1, .highlight .cm, .highlight .cs { color: #7f8797; font-style: italic; }
@@ -124,6 +128,8 @@ button { font: inherit; }
     :root { --rail-width: 0px; }
     .blog-sidebar { width: 280px; transform: translateX(-100%); transition: transform .2s ease; box-shadow: none; }
     .menu-open .blog-sidebar { transform: translateX(0); box-shadow: 18px 0 45px rgba(25,29,38,.16); }
+    .sidebar-close { position: absolute; top: 18px; right: 14px; display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 8px; background: transparent; color: var(--text); cursor: pointer; }
+    .sidebar-close:hover, .sidebar-close:focus-visible { background: var(--surface-soft); outline: none; }
     .blog-main { margin-left: 0; }.blog-topbar { height: 62px; padding: 0 16px; }.blog-menu { display: block; }
     .blog-content, .article { width: min(100% - 32px, 800px); padding-top: 55px; }
     .blog-hero { padding-bottom: 58px; }.blog-hero h1 { font-size: 40px; }

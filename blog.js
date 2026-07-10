@@ -1,7 +1,41 @@
 (function () {
     const themeButton = document.querySelector('.blog-theme');
     const menuButton = document.querySelector('.blog-menu');
+    const sidebar = document.querySelector('.blog-sidebar');
+    const closeButton = document.querySelector('.blog-sidebar-close');
     let mermaidApi = null;
+
+    function closeMobileMenu() {
+        document.body.classList.remove('menu-open');
+        menuButton?.setAttribute('aria-expanded', 'false');
+    }
+
+    function setupCodeCopyButtons() {
+        document.querySelectorAll('.article-body pre').forEach(pre => {
+            if (pre.querySelector('.code-copy-button')) return;
+            const code = pre.querySelector('code');
+            if (!code) return;
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'code-copy-button';
+            button.setAttribute('aria-label', '코드 복사');
+            button.innerHTML = '<i class="far fa-copy"></i><span>복사</span>';
+            button.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(code.textContent);
+                    button.classList.add('copied');
+                    button.innerHTML = '<i class="fas fa-check"></i><span>복사됨</span>';
+                    window.setTimeout(() => {
+                        button.classList.remove('copied');
+                        button.innerHTML = '<i class="far fa-copy"></i><span>복사</span>';
+                    }, 1600);
+                } catch (error) {
+                    button.querySelector('span').textContent = '실패';
+                }
+            });
+            pre.appendChild(button);
+        });
+    }
 
     async function renderMermaid() {
         const codeBlocks = document.querySelectorAll('.article-body pre code.language-mermaid');
@@ -48,14 +82,22 @@
     const savedTheme = localStorage.getItem('theme');
     applyTheme(savedTheme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
     renderMermaid();
+    setupCodeCopyButtons();
     themeButton?.addEventListener('click', () => applyTheme(document.body.classList.contains('dark-theme') ? 'light' : 'dark'));
     menuButton?.addEventListener('click', () => {
         const open = document.body.classList.toggle('menu-open');
         menuButton.setAttribute('aria-expanded', String(open));
     });
+    closeButton?.addEventListener('click', closeMobileMenu);
+    document.addEventListener('click', event => {
+        if (innerWidth > 800 || !document.body.classList.contains('menu-open')) return;
+        if (!sidebar?.contains(event.target) && !menuButton?.contains(event.target)) closeMobileMenu();
+    });
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') closeMobileMenu();
+    });
     document.querySelectorAll('.blog-nav a').forEach(link => link.addEventListener('click', () => {
-        document.body.classList.remove('menu-open');
-        menuButton?.setAttribute('aria-expanded', 'false');
+        closeMobileMenu();
     }));
 
     const categoryTree = document.querySelector('[data-category-tree]');
