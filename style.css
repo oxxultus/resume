@@ -2031,8 +2031,8 @@ footer { border-top: 1px solid var(--border-color); }
     body { padding-left: 0; padding-top: 68px; }
     html { scroll-padding-top: 84px; }
     header { width: 100%; height: 68px; border-right: 0; border-bottom: 1px solid var(--border-color); }
-    .header-container { position: relative; padding: 0 1.25rem; flex-direction: row; align-items: center; justify-content: space-between; }
-    .logo { position: absolute; left: 50%; padding: 0; transform: translateX(-50%); white-space: nowrap; }
+    .header-container { padding: 0 1.25rem; flex-direction: row; align-items: center; justify-content: space-between; }
+    .logo { position: static; padding: 0; transform: none; white-space: nowrap; }
     .sidebar-profile { display: none; }
     .header-actions { margin-top: 0; margin-left: auto; flex-wrap: nowrap; }
     .download-toggle-container { display: none; }
