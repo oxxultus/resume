@@ -69,6 +69,26 @@ Front Matter를 감싸는 `---`는 반드시 유지해야 합니다.
 
 카테고리 필터는 첫 번째 카테고리를 기준으로 동작합니다. 계층은 `/`로 구분하고 글마다 가장 구체적인 카테고리 하나만 지정하는 것을 권장합니다.
 
+사이드바에서는 카테고리와 게시글이 다음과 같은 폴더 구조로 표시됩니다.
+
+```text
+Backend
+└─ Spring
+   ├─ Common
+   │  └─ Spring Framework 3대 핵심 기술.md
+   ├─ MVC
+   │  ├─ Spring MVC 4.md
+   │  └─ Spring MVC 1.md
+   └─ Data
+      ├─ Spring Data Redis 1.md
+      └─ Spring Data JPA 1.md
+```
+
+- `Backend`, `Spring`, `Common`, `MVC`, `Data`, `Learning`은 디렉터리로 표시됩니다.
+- 각 디렉터리 아래의 실제 게시글에만 파일 아이콘이 표시됩니다.
+- 게시글 파일을 새로 추가하면 Front Matter의 `categories` 값과 일치하는 디렉터리 아래에 자동으로 나타납니다.
+- 새로운 최종 카테고리 디렉터리를 만들 때는 `blog/index.html`의 `spring_categories` 목록에도 해당 경로를 추가해야 합니다.
+
 ## 4. 제목과 Article 목차
 
 게시글의 `title`이 화면의 `#` 제목 역할을 하므로 본문에서는 `##`부터 시작합니다.
