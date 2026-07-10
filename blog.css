@@ -45,7 +45,8 @@ button { font: inherit; }
 .category-branch-child { margin-left: 17px; }
 .blog-nav .category-directory { min-height: 34px; padding: 6px 9px; font-size: 12px; }
 .blog-nav .category-directory i { font-size: 10px; }
-.category-learning-group { margin-top: 2px; }
+.blog-nav .category-learning-group { min-height: 40px; margin-top: 2px; padding: 9px 12px; font-size: 13px; }
+.blog-nav .category-learning-group i { font-size: 12px; }
 .post-toc .toc-h2 { font-weight: 600; }
 .post-toc .toc-toggle { display: none; margin-left: auto; font-size: 9px; opacity: .55; transition: transform .15s ease; }
 .post-toc .toc-h2.has-children .toc-toggle { display: block; }
