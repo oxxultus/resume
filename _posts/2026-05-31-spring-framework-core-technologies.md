@@ -1,7 +1,7 @@
 ---
 title: "Spring Framework 3대 핵심 기술"
-date: 2026-05-31 15:20:25 +0900
-categories: [Backend]
+date: 2026-06-09 09:00:00 +0900
+categories: ["Backend/Spring/Common"]
 tags: [Spring, IoC, DI, AOP]
 summary: "Spring Framework의 핵심인 IoC·DI, AOP, PSA의 역할과 동작 원리를 정리했습니다."
 excerpt: "스프링 컨테이너와 의존성 주입부터 프록시 기반 AOP, 일관된 서비스 추상화까지 핵심 개념을 살펴봅니다."
@@ -79,4 +79,3 @@ source_url: "https://velog.io/@oxxultus/스프링을-처음부터..-Spring-Frame
        
         
 ---
-

@@ -23,7 +23,7 @@ _posts/2026-07-11-spring-transaction-notes.md
 ---
 title: "Spring 트랜잭션에서 확인한 전파 옵션"
 date: 2026-07-11 09:00:00 +0900
-categories: [Backend]
+categories: ["Backend/Spring/Data"]
 tags: [Spring, Transaction, JPA]
 summary: "트랜잭션 전파 옵션이 실제 서비스 로직에 미치는 영향을 정리했습니다."
 excerpt: "REQUIRED와 REQUIRES_NEW를 비교하며 트랜잭션 경계를 설계한 과정을 기록합니다."
@@ -55,19 +55,19 @@ Front Matter를 감싸는 `---`는 반드시 유지해야 합니다.
 | --- | --- | --- |
 | `title` | 게시글 제목과 브라우저 탭 이름 | `"Redis 캐시 적용 기준"` |
 | `date` | 게시 순서와 화면에 표시되는 날짜 | `2026-07-11 09:00:00 +0900` |
-| `categories` | 사이드바 카테고리 분류 | `[Backend]` |
+| `categories` | 사이드바 카테고리 분류 | `["Backend/Spring/MVC"]` |
 | `tags` | 게시글 카드와 본문의 주제 태그 | `[Redis, Cache, Spring]` |
 | `summary` | 게시글 상세 제목 아래의 짧은 설명 | 한 문장 권장 |
 | `excerpt` | 블로그 목록 카드에 표시되는 요약 | 한두 문장 권장 |
 
-현재 사용하는 카테고리는 다음 네 가지입니다.
+현재 사용하는 카테고리는 다음과 같습니다.
 
-- `Backend`
-- `Database`
-- `Infrastructure`
+- `Backend/Spring/Common`: Spring Framework 공통 개념
+- `Backend/Spring/MVC`: Spring MVC 요청 처리와 웹 기능
+- `Backend/Spring/Data`: Spring Data JPA와 Spring Data Redis
 - `Learning`
 
-카테고리 필터는 첫 번째 카테고리를 기준으로 동작하므로 글마다 대표 카테고리 하나를 사용하는 것을 권장합니다.
+카테고리 필터는 첫 번째 카테고리를 기준으로 동작합니다. 계층은 `/`로 구분하고 글마다 가장 구체적인 카테고리 하나만 지정하는 것을 권장합니다.
 
 ## 4. 제목과 Article 목차
 

@@ -1,7 +1,7 @@
 ---
-title: "Spring MVC (4): 주요 어노테이션 정리"
-date: 2026-06-02 12:56:46 +0900
-categories: [Backend]
+title: "Spring MVC 4: 주요 어노테이션 정리"
+date: 2026-06-05 09:00:00 +0900
+categories: ["Backend/Spring/MVC"]
 tags: [Spring, Spring MVC, REST API, Validation]
 summary: "Spring MVC에서 요청 데이터 처리와 검증에 사용하는 주요 어노테이션을 정리했습니다."
 excerpt: "@PathVariable, @RequestParam, @RequestBody부터 Validation과 전역 처리까지 REST API 구현에 필요한 어노테이션을 살펴봅니다."
@@ -463,4 +463,3 @@ public class UserJoinDto {
 | **`File + JSON 분리`** | **`multipart/form-data`** | FormData 객체 내부 각 파트 명칭 지정 전송 | **`@RequestPart`** | **RequestPartMethodArgumentResolver + Converter** |
 
 ---
-
