@@ -74,7 +74,7 @@
         });
 
         const preferredOrder = new Map([
-            ['Backend', 0], ['Spring', 0], ['Common', 0], ['MVC', 1], ['Data', 2], ['Learning', 90]
+            ['Backend', 0], ['Spring', 0], ['Common', 0], ['MVC', 1], ['Data', 2], ['Memo', 90]
         ]);
         const sortEntries = entries => entries.sort(([nameA], [nameB]) => {
             const orderA = preferredOrder.get(nameA) ?? 50;

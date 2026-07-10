@@ -1,6 +1,9 @@
-{% assign tech_icon = 'fa-book-open' %}
-{% assign tech_name = 'Learning' %}
-{% if include.tags contains 'Redis' %}
+{% assign tech_icon = 'fa-code' %}
+{% assign tech_name = 'Technology' %}
+{% if include.tags contains 'Memo' %}
+  {% assign tech_icon = 'fa-note-sticky' %}
+  {% assign tech_name = 'Memo' %}
+{% elsif include.tags contains 'Redis' %}
   {% assign tech_icon = 'fa-layer-group' %}
   {% assign tech_name = 'Redis' %}
 {% elsif include.tags contains 'JPA' %}
