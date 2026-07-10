@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f7f8fa">
+    <title>Project detail | Oxxultus</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="project.css?v=20260710-3">
+</head>
+<body>
+    <aside class="detail-sidebar">
+        <a class="detail-brand" href="index.html"><span>&lt;</span>Oxxultus.Dev<span>/&gt;</span></a>
+        <a class="back-link" href="index.html#projects"><i class="fas fa-arrow-left"></i> 포트폴리오 목록</a>
+        <nav class="detail-nav" aria-label="프로젝트 상세 목차">
+            <span>Portfolio</span>
+            <a href="#overview" class="active"><i class="fas fa-file-lines"></i> 개요</a>
+            <a href="#contribution"><i class="fas fa-code-branch"></i> 기여와 성과</a>
+            <a href="#architecture"><i class="fas fa-diagram-project"></i> 아키텍처</a>
+            <a href="#troubleshooting"><i class="fas fa-screwdriver-wrench"></i> 트러블슈팅</a>
+            <a href="#retrospective"><i class="fas fa-lightbulb"></i> 회고</a>
+        </nav>
+        <div class="detail-profile"><img src="avatar.png?v=2" alt="김영진"><div><strong>김영진</strong><span>Backend developer</span></div></div>
+    </aside>
+
+    <main class="detail-main">
+        <header class="detail-topbar">
+            <button class="detail-menu" aria-label="목차 열기"><i class="fas fa-bars"></i></button>
+            <span id="topbar-title">Portfolio detail</span>
+            <button id="detail-theme-toggle" class="detail-theme-toggle" aria-label="다크 모드로 전환"><i class="fas fa-moon"></i></button>
+            <a id="github-link" class="github-link" target="_blank" rel="noreferrer"><i class="fab fa-github"></i> Repository</a>
+        </header>
+        <div id="project-detail" class="detail-content" aria-live="polite"></div>
+    </main>
+
+    <script src="projects-data.js?v=20260710-2"></script>
+    <script src="project.js?v=20260710-7"></script>
+</body>
+</html>
