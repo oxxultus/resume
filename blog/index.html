@@ -15,7 +15,7 @@ permalink: /blog/
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ '/blog.css?v=20260710-6' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/blog.css?v=20260710-7' | relative_url }}">
 </head>
 <body>
     <aside class="blog-sidebar">
@@ -43,13 +43,29 @@ permalink: /blog/
                         {% for category_name in spring_categories %}
                           {% if site.categories[category_name] %}
                           {% assign category_label = category_name | split: "/" | last %}
-                          <a class="category-filter category-leaf" href="?category={{ category_name | slugify }}" data-category="{{ category_name | slugify }}" title="{{ category_name }}"><i class="fas fa-file-lines"></i><span>{{ category_label }}</span></a>
+                          <div class="category-group">
+                              <a class="category-filter category-directory" href="?category={{ category_name | slugify }}" data-category="{{ category_name | slugify }}" title="{{ category_name }}"><i class="fas fa-folder-open"></i><span>{{ category_label }}</span></a>
+                              <div class="category-post-list">
+                                  {% assign category_posts = site.categories[category_name] %}
+                                  {% for post in category_posts %}
+                                  {% assign post_label = post.title | split: ":" | first %}
+                                  <a class="category-post" href="{{ post.url | relative_url }}" title="{{ post.title }}"><i class="fas fa-file-lines"></i><span>{{ post_label }}</span></a>
+                                  {% endfor %}
+                              </div>
+                          </div>
                           {% endif %}
                         {% endfor %}
                     </div>
                 </div>
                 {% if site.categories['Learning'] %}
-                <a class="category-filter category-root-leaf" href="?category=learning" data-category="learning"><i class="fas fa-folder"></i><span>Learning</span></a>
+                <div class="category-group category-learning-group">
+                    <a class="category-filter category-directory" href="?category=learning" data-category="learning"><i class="fas fa-folder-open"></i><span>Learning</span></a>
+                    <div class="category-post-list">
+                        {% for post in site.categories['Learning'] %}
+                        <a class="category-post" href="{{ post.url | relative_url }}" title="{{ post.title }}"><i class="fas fa-file-lines"></i><span>{{ post.title }}</span></a>
+                        {% endfor %}
+                    </div>
+                </div>
                 {% endif %}
             </div>
         </nav>

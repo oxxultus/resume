@@ -43,9 +43,13 @@ button { font: inherit; }
 .category-branch[hidden] { display: none; }
 .category-folder-child { min-height: 36px; padding-block: 7px; }
 .category-branch-child { margin-left: 17px; }
-.blog-nav .category-leaf { min-height: 34px; padding: 6px 10px; font-size: 12px; }
-.blog-nav .category-leaf i { font-size: 10px; }
-.category-root-leaf { margin-top: 2px; }
+.category-group { display: grid; gap: 1px; }
+.blog-nav .category-directory { min-height: 34px; padding: 6px 9px; font-size: 12px; }
+.blog-nav .category-directory i { font-size: 10px; }
+.category-post-list { display: grid; gap: 1px; margin-left: 17px; padding-left: 7px; border-left: 1px solid var(--line); }
+.blog-nav .category-post { min-height: 29px; padding: 5px 8px; border-radius: 7px; font-size: 10px; }
+.blog-nav .category-post i { width: 14px; font-size: 9px; opacity: .75; }
+.category-learning-group { margin-top: 2px; }
 .post-toc .toc-h2 { font-weight: 600; }
 .post-toc .toc-toggle { display: none; margin-left: auto; font-size: 9px; opacity: .55; transition: transform .15s ease; }
 .post-toc .toc-h2.has-children .toc-toggle { display: block; }
