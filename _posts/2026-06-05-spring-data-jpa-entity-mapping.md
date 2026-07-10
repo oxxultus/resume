@@ -1,7 +1,7 @@
 ---
-title: "Spring Data JPA (3): 엔티티 매핑 어노테이션"
-date: 2026-06-05 21:29:31 +0900
-categories: [Backend]
+title: "Spring Data JPA 3: 엔티티 매핑 어노테이션"
+date: 2026-06-02 09:00:00 +0900
+categories: ["Backend/Spring/Data"]
 tags: [Spring, JPA, Entity, Mapping]
 summary: "JPA 엔티티와 테이블, 기본키, 연관관계를 매핑하는 주요 어노테이션을 정리했습니다."
 excerpt: "@Entity와 @Id부터 연관관계, 임베디드 타입과 JSON 컬럼까지 엔티티 설계에 필요한 매핑 규칙을 살펴봅니다."
@@ -226,4 +226,3 @@ public class Project {
 * `@JdbcTypeCode(SqlTypes.JSON)` 규칙에 따라 내부 자바 객체 리스트가 단일 JSON 포맷 문자열로 압축 변환됩니다.
 
 4. **최종 쿼리 저장 시점:** `@ManyToOne(fetch = FetchType.LAZY)` 장부가 걸려있는 객체들은 프록시 가짜 객체로 채워두어 추가 쿼리 지뢰(N+1) 발생을 완전히 소멸시킨 채 가볍게 트랜잭션 마감을 수행합니다.
-

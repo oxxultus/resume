@@ -1,7 +1,7 @@
 ---
-title: "Spring Data JPA (1): 영속성 컨텍스트와 트랜잭션"
-date: 2026-06-01 23:38:00 +0900
-categories: [Backend]
+title: "Spring Data JPA 1: 영속성 컨텍스트와 트랜잭션"
+date: 2026-06-04 09:00:00 +0900
+categories: ["Backend/Spring/Data"]
 tags: [Spring, JPA, Transaction, Persistence Context]
 summary: "JPA 영속성 컨텍스트와 캐시 구조, @Transactional의 프록시 동작을 정리했습니다."
 excerpt: "1차·2차 캐시와 변경 감지, 트랜잭션 경계에서 영속성 컨텍스트가 생성되고 종료되는 과정을 살펴봅니다."
@@ -97,4 +97,3 @@ JPA는 메모리 효율과 데이터 조회 성능을 극대화하기 위해 캐
 
 
 ---
-

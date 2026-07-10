@@ -1,7 +1,7 @@
 ---
-title: "Spring MVC (1): 요청 처리 흐름"
-date: 2026-06-01 00:01:37 +0900
-categories: [Backend]
+title: "Spring MVC 1: 요청 처리 흐름"
+date: 2026-06-08 09:00:00 +0900
+categories: ["Backend/Spring/MVC"]
 tags: [Spring, Spring MVC, DispatcherServlet, Tomcat]
 summary: "HTTP 요청이 톰캣과 DispatcherServlet을 거쳐 컨트롤러에 도달하는 흐름을 정리했습니다."
 excerpt: "HandlerMapping과 HandlerAdapter, HttpMessageConverter가 Spring MVC 요청과 응답을 처리하는 과정을 단계별로 살펴봅니다."
@@ -72,4 +72,3 @@ Response 객체는 매번 새로 만드는 것이 아니라 처음에 톰캣이 
   - 스프링이 내용물을 채워 돌려준 Response 객체를 받아서 웹 브라우저가 읽을 수 있는 HTTP응답 표준 프로토콜 패킷(텍스트 신호)으로 최종 적으로 변환하여 네트워크로 내보내는 역할을 합니다.
 
 ---
-

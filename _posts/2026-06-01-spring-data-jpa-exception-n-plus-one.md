@@ -1,7 +1,7 @@
 ---
-title: "Spring Data JPA (2): 예외 처리, N+1과 트랜잭션 전파"
-date: 2026-06-01 23:40:33 +0900
-categories: [Backend]
+title: "Spring Data JPA 2: 예외 처리, N+1과 트랜잭션 전파"
+date: 2026-06-03 09:00:00 +0900
+categories: ["Backend/Spring/Data"]
 tags: [Spring, JPA, N+1, Transaction]
 summary: "JPA 예외 변환과 N+1 문제, 트랜잭션 전파 속성을 함께 정리했습니다."
 excerpt: "데이터 접근 예외를 일관되게 처리하고 연관관계 조회 성능과 트랜잭션 경계를 설계하는 기준을 살펴봅니다."
@@ -72,4 +72,3 @@ for (Team team : teams) {
 * **예외 처리:** 프록시 객체가 `RuntimeException` 계열이 터지면 DB를 즉시 롤백하고, 체크 예외는 커밋하는 인프라 규칙.
 * **N+1 문제:** 지연 로딩 때문에 루프를 돌 때마다 추가 쿼리가 N번 폭발하는 성능 저하 현상. (해결: `Fetch Join`)
 * **트랜잭션 전파:** 트랜잭션 안에서 또 다른 트랜잭션이 호출될 때 하나의 울타리로 묶을지(`REQUIRED`), 독립시킬지(`REQUIRES_NEW`) 결정하는 정책.
-

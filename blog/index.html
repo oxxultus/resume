@@ -30,9 +30,11 @@ permalink: /blog/
             <span class="blog-nav-label">Writing</span>
             <a class="active category-filter" href="{{ '/blog/' | relative_url }}" data-category="all"><i class="fas fa-pen-nib"></i> All posts</a>
             <span class="blog-nav-label">Categories</span>
-            {% assign categories = site.categories | sort %}
-            {% for category in categories %}
-            <a class="category-filter" href="?category={{ category[0] | slugify }}" data-category="{{ category[0] | slugify }}"><i class="fas fa-folder"></i> {{ category[0] }}</a>
+            {% assign category_order = "Backend/Spring/Common|Backend/Spring/MVC|Backend/Spring/Data|Learning" | split: "|" %}
+            {% for category_name in category_order %}
+              {% if site.categories[category_name] %}
+              <a class="category-filter" href="?category={{ category_name | slugify }}" data-category="{{ category_name | slugify }}" title="{{ category_name }}"><i class="fas fa-folder"></i><span>{{ category_name }}</span></a>
+              {% endif %}
             {% endfor %}
         </nav>
     </aside>

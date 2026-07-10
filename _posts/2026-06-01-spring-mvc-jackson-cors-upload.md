@@ -1,7 +1,7 @@
 ---
-title: "Spring MVC (3): Jackson, CORS와 파일 업로드"
-date: 2026-06-01 17:08:04 +0900
-categories: [Backend]
+title: "Spring MVC 3: Jackson, CORS와 파일 업로드"
+date: 2026-06-06 09:00:00 +0900
+categories: ["Backend/Spring/MVC"]
 tags: [Spring, Spring MVC, Jackson, CORS]
 summary: "Spring MVC의 JSON 직렬화, CORS 설정, 파일 업로드와 요청 매개변수 처리를 정리했습니다."
 excerpt: "Jackson 어노테이션과 MultipartFile, @RequestParam과 @RequestBody가 요청 처리 과정에서 어떻게 동작하는지 살펴봅니다."
@@ -132,4 +132,3 @@ public String uploadFile(@RequestParam("file") MultipartFile file) throws IOExce
 ### 마치며
 
 이로써 요청을 받아들이는 앞단(**필터, 인터셉터**), 데이터를 가공하고 검증하는 중간 비서(**핸들러 어댑터, ArgumentResolver, @Valid**), 그리고 나가는 문을 제어하는 뒷단(**Jackson 직렬화, 예외 처리기**)까지 스프링 웹 구조를 조금 알게되었다.
-
