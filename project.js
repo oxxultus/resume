@@ -101,8 +101,25 @@
     }
 
     const menuButton = document.querySelector(".detail-menu");
-    menuButton.addEventListener("click", () => document.body.classList.toggle("menu-open"));
-    document.querySelectorAll(".detail-nav a").forEach(link => link.addEventListener("click", () => document.body.classList.remove("menu-open")));
+    const detailSidebar = document.querySelector(".detail-sidebar");
+    const detailCloseButton = document.querySelector(".detail-sidebar-close");
+    const closeDetailMenu = () => {
+        document.body.classList.remove("menu-open");
+        menuButton?.setAttribute("aria-expanded", "false");
+    };
+    menuButton?.addEventListener("click", () => {
+        const open = document.body.classList.toggle("menu-open");
+        menuButton.setAttribute("aria-expanded", String(open));
+    });
+    detailCloseButton?.addEventListener("click", closeDetailMenu);
+    document.querySelectorAll(".detail-nav a").forEach(link => link.addEventListener("click", closeDetailMenu));
+    document.addEventListener("click", event => {
+        if (innerWidth > 800 || !document.body.classList.contains("menu-open")) return;
+        if (!detailSidebar?.contains(event.target) && !menuButton?.contains(event.target)) closeDetailMenu();
+    });
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape") closeDetailMenu();
+    });
 
     const detailNavLinks = document.querySelectorAll(".detail-nav a[href^='#']");
     const detailSections = document.querySelectorAll("#project-detail section[id]");
