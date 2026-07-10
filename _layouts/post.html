@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f7f8fa">
+    <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | escape }}">
+    <title>{{ page.title }} | Oxxultus.Dev</title>
+    <link rel="icon" type="image/png" href="{{ '/favicon.png' | relative_url }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ '/blog.css' | relative_url }}">
+</head>
+<body>
+    <aside class="blog-sidebar">
+        <a class="blog-brand" href="{{ '/' | relative_url }}"><span>&lt;</span>Oxxultus.Dev<span>/&gt;</span></a>
+        <a class="post-back" href="{{ '/blog/' | relative_url }}"><i class="fas fa-arrow-left"></i> 모든 글</a>
+        <nav class="blog-nav post-toc" aria-label="게시글 목차">
+            <span class="blog-nav-label">Article</span>
+            <a class="active" href="#article-top"><i class="fas fa-file-lines"></i> 글 시작</a>
+        </nav>
+        <div class="blog-profile">
+            <img src="{{ '/avatar.png?v=2' | relative_url }}" alt="김영진">
+            <div><strong>김영진</strong><span>Backend developer</span></div>
+        </div>
+    </aside>
+
+    <main class="blog-main">
+        <header class="blog-topbar">
+            <button class="blog-menu" aria-label="메뉴 열기" aria-expanded="false"><i class="fas fa-bars"></i></button>
+            <span>{{ page.title }}</span>
+            <button class="blog-theme" aria-label="다크 모드로 전환"><i class="fas fa-moon"></i></button>
+        </header>
+        <article class="article" id="article-top">
+            <header class="article-header">
+                <div class="post-meta">
+                    <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y.%m.%d" }}</time>
+                    {% if page.categories.size > 0 %}<span>{{ page.categories | first }}</span>{% endif %}
+                </div>
+                <h1>{{ page.title }}</h1>
+                {% if page.summary %}<p>{{ page.summary }}</p>{% endif %}
+                <div class="post-tags">{% for tag in page.tags %}<span>#{{ tag }}</span>{% endfor %}</div>
+            </header>
+            <div class="article-body">{{ content }}</div>
+            <footer class="article-footer"><a href="{{ '/blog/' | relative_url }}"><i class="fas fa-arrow-left"></i> 블로그 목록으로</a></footer>
+        </article>
+    </main>
+    <script src="{{ '/blog.js' | relative_url }}"></script>
+</body>
+</html>
