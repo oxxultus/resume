@@ -11,12 +11,19 @@ permalink: /blog/
     <meta name="theme-color" content="#f7f8fa">
     <title>Blog | Oxxultus.Dev</title>
     <link rel="icon" type="image/png" href="{{ '/favicon.png' | relative_url }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ '/blog.css' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/blog.css?v=20260710-2' | relative_url }}">
 </head>
 <body>
     <aside class="blog-sidebar">
         <a class="blog-brand" href="{{ '/' | relative_url }}"><span>&lt;</span>Oxxultus.Dev<span>/&gt;</span></a>
+        <div class="blog-profile">
+            <img src="{{ '/avatar.png?v=2' | relative_url }}" alt="김영진">
+            <div><strong>김영진</strong><span>Backend developer</span></div>
+        </div>
         <nav class="blog-nav" aria-label="블로그 탐색">
             <span class="blog-nav-label">Main</span>
             <a href="{{ '/' | relative_url }}"><i class="fas fa-house"></i> Home</a>
@@ -28,10 +35,6 @@ permalink: /blog/
             <a class="category-filter" href="?category={{ category[0] | slugify }}" data-category="{{ category[0] | slugify }}"><i class="fas fa-folder"></i> {{ category[0] }}</a>
             {% endfor %}
         </nav>
-        <div class="blog-profile">
-            <img src="{{ '/avatar.png?v=2' | relative_url }}" alt="김영진">
-            <div><strong>김영진</strong><span>Backend developer</span></div>
-        </div>
     </aside>
 
     <main class="blog-main">
