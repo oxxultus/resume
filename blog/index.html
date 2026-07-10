@@ -15,16 +15,12 @@ permalink: /blog/
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ '/blog.css?v=20260710-10' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/blog.css?v=20260710-11' | relative_url }}">
 </head>
 <body>
     <aside class="blog-sidebar">
         <a class="blog-brand" href="{{ '/' | relative_url }}"><span>&lt;</span>Oxxultus.Dev<span>/&gt;</span></a>
-        <div class="blog-profile">
-            <img src="{{ '/avatar.png?v=2' | relative_url }}" alt="김영진">
-            <div><strong>김영진</strong><span>Backend developer</span></div>
-        </div>
-        <nav class="blog-nav" aria-label="블로그 탐색">
+        <nav class="blog-nav blog-index-nav" aria-label="블로그 탐색">
             <span class="blog-nav-label">Main</span>
             <a href="{{ '/' | relative_url }}"><i class="fas fa-house"></i> Home</a>
             <span class="blog-nav-label">Writing</span>
@@ -37,6 +33,10 @@ permalink: /blog/
                 {% endfor %}
             </div>
         </nav>
+        <div class="blog-profile">
+            <img src="{{ '/avatar.png?v=2' | relative_url }}" alt="김영진">
+            <div><strong>김영진</strong><span>Backend developer</span></div>
+        </div>
     </aside>
 
     <main class="blog-main">
