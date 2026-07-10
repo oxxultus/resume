@@ -65,7 +65,7 @@ Front Matter를 감싸는 `---`는 반드시 유지해야 합니다.
 - `Backend/Spring/Common`: Spring Framework 공통 개념
 - `Backend/Spring/MVC`: Spring MVC 요청 처리와 웹 기능
 - `Backend/Spring/Data`: Spring Data JPA와 Spring Data Redis
-- `Learning`
+- `Memo`: 분류되지 않은 짧은 기록과 블로그 운영 메모
 
 카테고리 필터는 첫 번째 카테고리를 기준으로 동작합니다. 계층은 `/`로 구분하고 글마다 가장 구체적인 카테고리 하나만 지정하는 것을 권장합니다.
 
@@ -85,9 +85,11 @@ Backend
    ├─ Common
    ├─ MVC
    └─ Data
+
+Memo
 ```
 
-- `Backend`, `Spring`, `Common`, `MVC`, `Data`, `Learning`은 디렉터리로 표시됩니다.
+- `Backend`, `Spring`, `Common`, `MVC`, `Data`, `Memo`는 디렉터리로 표시됩니다.
 - 사이드바에는 개별 게시글 파일을 표시하지 않습니다.
 - 최종 디렉터리를 선택하면 해당 Front Matter의 `categories` 값과 정확히 일치하는 게시글만 표시됩니다.
 - 상위 디렉터리를 선택하면 그 경로로 시작하는 모든 하위 게시글이 함께 표시됩니다. 예를 들어 `Backend`는 Backend 전체를, `Backend/Spring`은 Common·MVC·Data를 모두 필터링합니다.

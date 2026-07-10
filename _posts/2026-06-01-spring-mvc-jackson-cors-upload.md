@@ -15,6 +15,7 @@ source_url: "https://velog.io/@oxxultus/스프링을-처음부터..-Spring-MVC-3
 * **목적:** 서버가 자바 객체를 JSON으로 바꿀 때(직렬화), 보안상 민감한 필드를 숨기거나 날짜 포맷을 가독성 있게 제어하기 위함.
 * **핵심 동작:** 디스패처 서블릿 단계에서 `HttpMessageConverter(Jackson)`가 객체를 읽을 때 어노테이션 규칙을 적용합니다.
 * **핵심 코드 (`UserResponse.java`):**
+
 ```java
 @JsonIgnore // 클라이언트 응답 JSON에서 이 필드를 완전히 제외(숨김)
 private String password;
@@ -31,6 +32,7 @@ private LocalDateTime createdAt;
 * **목적:** 프론트엔드(`localhost:3000`)와 백엔드(`localhost:8080`)의 포트 주소가 달라 브라우저가 요청을 차단하는 보안 문제를 해결하기 위함.
 * **핵심 동작:** 디스패처 서블릿이 프론트엔드의 탐색용 요청(Preflight)을 받아 허용 헤더를 주입합니다.
 * **핵심 코드 (`WebConfig.java`):**
+
 ```java
 @Override
 public void addCorsMappings(CorsRegistry registry) {
@@ -48,6 +50,7 @@ public void addCorsMappings(CorsRegistry registry) {
 * **목적:** 클라이언트가 보낸 바이너리 파일 데이터(`multipart/form-data`)를 서버에서 안전하게 수신하고 저장하기 위함.
 * **핵심 동작:** 디스패처 서블릿이 내부의 `MultipartResolver`를 가동하여 바이너리 데이터를 자바의 `MultipartFile` 객체로 변환해 줍니다.
 * **핵심 코드 (`UserController.java`):**
+
 ```java
 @PostMapping("/api/upload")
 public String uploadFile(@RequestParam("file") MultipartFile file) throws IOException {

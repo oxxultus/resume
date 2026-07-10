@@ -1,8 +1,8 @@
 ---
 title: "블로그를 시작하며"
 date: 2026-07-10 09:00:00 +0900
-categories: [Learning]
-tags: [Backend, Learning, 기록]
+categories: [Memo]
+tags: [Backend, Memo, 기록]
 summary: "배운 내용을 오래 남는 지식으로 만들기 위해 학습 기록을 시작합니다."
 excerpt: "백엔드 개발과 인프라를 공부하며 이해한 내용과 프로젝트에 적용한 과정을 기록합니다."
 ---
