@@ -1,6 +1,6 @@
 ---
 title: "Spring MVC 4: 주요 어노테이션 정리"
-date: 2026-06-05 09:00:00 +0900
+date: 2026-06-02 12:56:46 +0900
 categories: ["Backend/Spring/MVC"]
 tags: [Spring, Spring MVC, REST API, Validation]
 summary: "Spring MVC에서 요청 데이터 처리와 검증에 사용하는 주요 어노테이션을 정리했습니다."

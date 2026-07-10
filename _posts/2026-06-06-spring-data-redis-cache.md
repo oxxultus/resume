@@ -1,6 +1,6 @@
 ---
 title: "Spring Data Redis 1: 캐시 추상화와 RedisTemplate"
-date: 2026-06-01 09:00:00 +0900
+date: 2026-06-06 14:54:00 +0900
 categories: ["Backend/Spring/Data"]
 tags: [Spring, Redis, Cache, RedisTemplate]
 summary: "Spring Cache 추상화와 Redis Repository, RedisTemplate의 사용 방식을 정리했습니다."

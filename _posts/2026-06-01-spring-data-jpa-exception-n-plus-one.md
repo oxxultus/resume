@@ -1,6 +1,6 @@
 ---
 title: "Spring Data JPA 2: 예외 처리, N+1과 트랜잭션 전파"
-date: 2026-06-03 09:00:00 +0900
+date: 2026-06-01 23:40:33 +0900
 categories: ["Backend/Spring/Data"]
 tags: [Spring, JPA, N+1, Transaction]
 summary: "JPA 예외 변환과 N+1 문제, 트랜잭션 전파 속성을 함께 정리했습니다."

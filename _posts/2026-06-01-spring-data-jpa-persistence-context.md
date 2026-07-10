@@ -1,6 +1,6 @@
 ---
 title: "Spring Data JPA 1: 영속성 컨텍스트와 트랜잭션"
-date: 2026-06-04 09:00:00 +0900
+date: 2026-06-01 23:38:00 +0900
 categories: ["Backend/Spring/Data"]
 tags: [Spring, JPA, Transaction, Persistence Context]
 summary: "JPA 영속성 컨텍스트와 캐시 구조, @Transactional의 프록시 동작을 정리했습니다."

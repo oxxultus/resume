@@ -1,6 +1,6 @@
 ---
 title: "Spring MVC 2: Validation과 전역 예외 처리"
-date: 2026-06-07 09:00:00 +0900
+date: 2026-06-01 14:39:56 +0900
 categories: ["Backend/Spring/MVC"]
 tags: [Spring, Validation, Exception Handling, Interceptor]
 summary: "DTO 검증부터 전역 예외 처리, Filter와 Interceptor의 실행 순서를 정리했습니다."

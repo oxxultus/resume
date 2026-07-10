@@ -1,6 +1,6 @@
 ---
 title: "Spring Data JPA 3: 엔티티 매핑 어노테이션"
-date: 2026-06-02 09:00:00 +0900
+date: 2026-06-05 21:29:31 +0900
 categories: ["Backend/Spring/Data"]
 tags: [Spring, JPA, Entity, Mapping]
 summary: "JPA 엔티티와 테이블, 기본키, 연관관계를 매핑하는 주요 어노테이션을 정리했습니다."
