@@ -1,6 +1,6 @@
 ---
 title: "Spring MVC 1: 요청 처리 흐름"
-date: 2026-06-08 09:00:00 +0900
+date: 2026-06-01 00:01:37 +0900
 categories: ["Backend/Spring/MVC"]
 tags: [Spring, Spring MVC, DispatcherServlet, Tomcat]
 summary: "HTTP 요청이 톰캣과 DispatcherServlet을 거쳐 컨트롤러에 도달하는 흐름을 정리했습니다."

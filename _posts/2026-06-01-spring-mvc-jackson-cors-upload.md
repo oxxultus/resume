@@ -1,6 +1,6 @@
 ---
 title: "Spring MVC 3: Jackson, CORS와 파일 업로드"
-date: 2026-06-06 09:00:00 +0900
+date: 2026-06-01 17:08:04 +0900
 categories: ["Backend/Spring/MVC"]
 tags: [Spring, Spring MVC, Jackson, CORS]
 summary: "Spring MVC의 JSON 직렬화, CORS 설정, 파일 업로드와 요청 매개변수 처리를 정리했습니다."
