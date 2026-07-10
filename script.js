@@ -74,11 +74,10 @@ function initProjects() {
         });
         
         const thumbnailHtml = renderThumbnail(data.thumbnail);
-        const hasTroubleshooting = data.troubleshooting && data.troubleshooting.length > 0;
-        const buttonText = hasTroubleshooting ? '트러블슈팅 및 상세 보기' : '상세 보기';
+        const buttonText = '상세 보기';
         
         gridHtml += `
-            <div class="project-card glass" data-category="${data.category || 'team'}">
+            <article class="project-card glass" data-category="${data.category || 'team'}">
                 <div class="project-thumbnail">
                     ${thumbnailHtml}
                     <span class="project-tag ${tagClass}">${typeLabel}</span>
@@ -90,9 +89,9 @@ function initProjects() {
                     <div class="project-tech-stack">
                         ${techStackHtml}
                     </div>
-                    <button class="btn-detail" onclick="openProjectModal('${key}')">${buttonText} <i class="fas fa-arrow-right"></i></button>
+                    <a class="btn-detail" href="project.html?id=${encodeURIComponent(key)}">${buttonText} <i class="fas fa-arrow-right"></i></a>
                 </div>
-            </div>
+            </article>
         `;
     });
     
@@ -236,14 +235,7 @@ window.addEventListener("scroll", () => {
         scrollIndicator.style.width = scrolled + "%";
     }
     
-    // Header shrink
-    if (window.scrollY > 50) {
-        header.style.padding = "0.5rem 0";
-        header.style.boxShadow = "var(--shadow-md)";
-    } else {
-        header.style.padding = "0";
-        header.style.boxShadow = "none";
-    }
+    header.classList.toggle("is-scrolled", window.scrollY > 50);
 });
 
 // Scroll Reveal using Intersection Observer
@@ -271,6 +263,7 @@ const navLinks = document.querySelectorAll(".nav-link");
 
 mobileMenuBtn.addEventListener("click", () => {
     navMenu.classList.toggle("active");
+    mobileMenuBtn.setAttribute("aria-expanded", navMenu.classList.contains("active"));
     // Toggle menu icon between bars and times
     const icon = mobileMenuBtn.querySelector("i");
     if (icon.classList.contains("fa-bars")) {
@@ -286,6 +279,7 @@ mobileMenuBtn.addEventListener("click", () => {
 navLinks.forEach(link => {
     link.addEventListener("click", () => {
         navMenu.classList.remove("active");
+        mobileMenuBtn.setAttribute("aria-expanded", "false");
         const icon = mobileMenuBtn.querySelector("i");
         if (icon) {
             icon.classList.remove("fa-times");
@@ -293,6 +287,19 @@ navLinks.forEach(link => {
         }
     });
 });
+
+// Keep the sidebar navigation in sync with the visible section.
+const pageSections = document.querySelectorAll("section[id]");
+const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach((link) => {
+            link.classList.toggle("active", link.getAttribute("href") === `#${entry.target.id}`);
+        });
+    });
+}, { rootMargin: "-35% 0px -55% 0px", threshold: 0 });
+
+pageSections.forEach((section) => navObserver.observe(section));
 
 /* ==========================================================================
    Details Modal Logic
@@ -470,8 +477,8 @@ document.addEventListener("DOMContentLoaded", () => {
     initProjects();
     initProjectFilters();
 
-    // Start Typing Animation
-    setTimeout(typeAnimation, 1000);
+    // Start Typing Animation only when the animated element exists.
+    if (typingTextElement) setTimeout(typeAnimation, 1000);
     // Fetch GitHub Live Stats
     updateGitHubStats();
 
@@ -549,7 +556,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 // Extract Certifications content
-                const certItems = document.querySelectorAll("#skills .cert-item");
+                const certItems = document.querySelectorAll("#certifications .cert-item");
                 let certsContent = "";
                 certItems.forEach(item => {
                     const certName = item.querySelector(".cert-name")?.textContent.trim() || "";

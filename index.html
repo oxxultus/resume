@@ -12,23 +12,33 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Main Style Sheet -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=20260710-7">
 </head>
-<body class="dark-theme">
+<body class="light-theme">
     <!-- Scroll Progress Indicator -->
     <div id="scroll-indicator"></div>
 
-    <!-- Header / Navigation -->
+    <!-- Left Sidebar / Navigation -->
     <header>
         <div class="header-container">
             <a href="#" class="logo">
                 <span class="tech-accent">&lt;</span>Oxxultus.Dev<span class="tech-accent">/&gt;</span>
             </a>
+            <div class="sidebar-profile">
+                <img src="avatar.png?v=2" alt="김영진 프로필 사진">
+                <div>
+                    <strong>김영진</strong>
+                    <span>Backend developer</span>
+                </div>
+            </div>
             <nav class="nav-menu">
-                <a href="#about" class="nav-link">About</a>
-                <a href="#skills" class="nav-link">Skills</a>
-                <a href="#projects" class="nav-link">Projects</a>
-                <a href="#contact" class="nav-link">Contact</a>
+                <a href="#hero" class="nav-link active"><i class="fas fa-house"></i><span>Home</span></a>
+                <a href="#about" class="nav-link"><i class="fas fa-user"></i><span>About</span></a>
+                <a href="#skills" class="nav-link"><i class="fas fa-layer-group"></i><span>Skills</span></a>
+                <a href="#certifications" class="nav-link"><i class="fas fa-award"></i><span>Certifications</span></a>
+                <a href="#career" class="nav-link"><i class="fas fa-briefcase"></i><span>Career</span></a>
+                <a href="#projects" class="nav-link"><i class="fas fa-code-branch"></i><span>Portfolio</span></a>
+                <a href="#contact" class="nav-link"><i class="fas fa-paper-plane"></i><span>Contact</span></a>
             </nav>
             <div class="header-actions">
                 <div class="download-toggle-container">
@@ -40,9 +50,9 @@
                     <i class="fas fa-moon theme-icon-dark"></i>
                     <i class="fas fa-sun theme-icon-light"></i>
                 </button>
-                <div class="mobile-menu-btn">
+                <button class="mobile-menu-btn" aria-label="메뉴 열기" aria-expanded="false">
                     <i class="fas fa-bars"></i>
-                </div>
+                </button>
             </div>
         </div>
     </header>
@@ -57,19 +67,17 @@
             <div class="hero-content">
                 <div class="badge">Backend Developer</div>
                 <h1>
-                    안녕하세요, 안정성과 성능을 우선시하는<br>
+                    꾸준히 공부하고 발전하는
                     <span class="text-gradient">백엔드 개발자 김영진</span>입니다.
                 </h1>
-                <p class="hero-subtitle">
-                    <span id="typing-text"></span><span class="cursor">|</span>
-                </p>
+                <p class="hero-subtitle">현재 신입 백엔드 개발자로 구직 중입니다.</p>
                 <p class="hero-description">
-                    안정적으로 운영되면서 성능 또한 효율적으로 관리할 수 있는 서버 아키텍처 설계를 선호합니다. 사용자의 요구사항에 맞춘 유연한 기능 구현에 강점이 있으며, 일정 준수에 대한 높은 책임감으로 신뢰받는 협업 환경을 지향합니다.
+                    새로운 기술을 적용하고 로직을 개선해 더 나은 성능을 만드는 과정을 좋아합니다. 안정적으로 운영되면서 효율적으로 관리할 수 있는 서버 아키텍처를 고민하며, 배운 내용을 실제 프로젝트에 적용하는 개발자입니다.
                 </p>
                 <div class="hero-cta">
                     <a href="#about" class="btn btn-secondary">나를 소개합니다</a>
                     <a href="#skills" class="btn btn-secondary">기술 스택</a>
-                    <a href="#projects" class="btn btn-secondary">프로젝트 보기</a>
+                    <a href="#projects" class="btn btn-secondary">포트폴리오 보기</a>
                     <a href="#contact" class="btn btn-primary">연락하기</a>
                 </div>
                 <div class="hero-socials">
@@ -80,7 +88,7 @@
             <div class="hero-image-wrapper">
                 <div class="image-border-glow"></div>
                 <div class="hero-image-container">
-                    <img src="avatar.png" alt="김영진 프로필 사진" class="profile-img">
+                    <img src="avatar.png?v=2" alt="김영진 프로필 사진" class="profile-img">
                 </div>
             </div>
         </div>
@@ -198,12 +206,21 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
 
-
-                <!-- Skills Category: Certifications -->
-                <div class="skills-category glass cert-category">
-                    <h3><i class="fas fa-award"></i> Certifications</h3>
-                    <div class="certifications-list">
+    <!-- Certifications Section -->
+    <section id="certifications" class="certifications-section scroll-reveal">
+        <div class="container">
+            <h2 class="section-title">Certifications</h2>
+            <div class="certification-panel glass">
+                <div class="certification-intro">
+                    <span class="certification-kicker">Professional credentials</span>
+                    <h3>검증된 기술 역량</h3>
+                    <p>백엔드 개발과 시스템 운영에 필요한 기반 지식을 공식 자격으로 검증했습니다.</p>
+                </div>
+                <div class="certifications-list">
                         <div class="cert-item">
                             <div class="cert-title-group">
                                 <i class="fas fa-certificate cert-icon-small"></i>
@@ -218,16 +235,39 @@
                             </div>
                             <span class="cert-meta">한국정보통신진흥협회 (KAIT) | 2026.05.29 (취득)</span>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- Career Section -->
+    <section id="career" class="career-section scroll-reveal">
+        <div class="container">
+            <h2 class="section-title">Career</h2>
+            <div class="career-layout">
+                <div class="career-intro">
+                    <span class="career-status"><i class="fas fa-circle"></i> Open to work</span>
+                    <h3>첫 실무 경험을 기다리는<br>신입 백엔드 개발자입니다.</h3>
+                    <p>프로젝트에서 쌓은 문제 해결 경험을 실제 서비스 환경으로 확장하고, 동료와 함께 오래 운영되는 시스템을 만들고 싶습니다.</p>
+                </div>
+                <div class="career-timeline">
+                    <article class="career-item">
+                        <span class="career-period">현재</span>
+                        <div><h3>백엔드 개발자 구직 중</h3><p>Java·Spring Boot 기반 백엔드 포지션을 찾고 있습니다.</p></div>
+                    </article>
+                    <article class="career-item">
+                        <span class="career-period">준비 과정</span>
+                        <div><h3>실무형 프로젝트와 자격 역량</h3><p>팀 프로젝트 2건, CI/CD 및 인프라 경험, 정보처리기사와 리눅스마스터 1급을 바탕으로 실무를 준비했습니다.</p></div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
     <section id="projects" class="projects-section scroll-reveal">
         <div class="container">
-            <h2 class="section-title">Projects</h2>
+            <h2 class="section-title">Portfolio</h2>
             
             <!-- Filters -->
             <div class="project-filters">
@@ -298,7 +338,7 @@
     <footer>
         <div class="container">
             <p>&copy; 2026 Kim Yeongjin. All Rights Reserved.</p>
-            <p class="footer-sub">Designed with <i class="fas fa-heart" style="color: #ef4444;"></i> and Vanilla CSS.</p>
+            <p class="footer-sub">Built with care and Vanilla CSS.</p>
         </div>
     </footer>
 
@@ -440,7 +480,7 @@
     <!-- html2pdf Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <!-- Script File -->
-    <script src="projects-data.js"></script>
-    <script src="script.js"></script>
+    <script src="projects-data.js?v=20260710-2"></script>
+    <script src="script.js?v=20260710-5"></script>
 </body>
 </html>
