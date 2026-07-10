@@ -2,3 +2,6 @@
 *.DS_Store
 .agents/
 .gemini/
+vendor/
+_site/
+_site_preview/

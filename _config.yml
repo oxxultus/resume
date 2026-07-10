@@ -1,0 +1,30 @@
+title: Oxxultus.Dev
+description: 김영진의 백엔드 개발 포트폴리오와 학습 기록
+url: "https://oxxultus.github.io"
+baseurl: "/resume"
+lang: ko-KR
+timezone: Asia/Seoul
+permalink: /blog/:year/:month/:day/:title/
+markdown: kramdown
+highlighter: rouge
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+exclude:
+  - vendor
+  - _site
+  - Gemfile
+  - Gemfile.lock
+  - design-qa.md
+  - qa-comparison.png
+  - qa-contact-purple.png
+  - qa-home-dark.png
+  - qa-portfolio-badges.png
+  - qa-project-dark.png
+  - qa-project-detail.png
+  - qa-purple-light.png

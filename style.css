@@ -1927,6 +1927,16 @@ header {
 .sidebar-profile span { color: var(--text-muted); font-size: .72rem; }
 
 .nav-menu { display: flex; flex-direction: column; gap: .25rem; }
+.nav-group-label {
+    display: block;
+    padding: .75rem .8rem .2rem;
+    color: var(--text-muted);
+    font-size: .62rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+.nav-group-label:first-child { padding-top: 0; }
 .nav-link {
     display: flex;
     align-items: center;
@@ -2039,6 +2049,7 @@ footer { border-top: 1px solid var(--border-color); }
         flex-direction: column;
     }
     .nav-menu.active { display: flex; }
+    .nav-group-label { padding: .6rem .75rem .15rem; }
     .nav-link { display: flex; width: 100%; padding: .75rem; }
     #scroll-indicator { left: 0; }
     section { padding: 5rem 0; }
@@ -2295,4 +2306,28 @@ footer { border-top: 1px solid var(--border-color); }
     background: #3b3935;
     border-color: #514b45;
     color: var(--accent-emerald);
+}
+
+/* High-contrast portfolio thumbnail labels */
+.project-tag {
+    z-index: 2;
+    padding: .45rem .85rem;
+    border-radius: 7px;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: 0 3px 10px rgba(20, 16, 34, .22);
+    font-size: .76rem;
+    line-height: 1.2;
+}
+.light-theme .project-tag.tag-team,
+.light-theme .project-tag.tag-personal {
+    background: #7443e4;
+    color: #ffffff;
+    border: 1px solid #6535d3;
+}
+.dark-theme .project-tag.tag-team,
+.dark-theme .project-tag.tag-personal {
+    background: #e5a38a;
+    color: #2b2522;
+    border: 1px solid #efb49e;
 }
