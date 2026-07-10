@@ -89,7 +89,8 @@ Backend
 
 - `Backend`, `Spring`, `Common`, `MVC`, `Data`, `Learning`은 디렉터리로 표시됩니다.
 - 사이드바에는 개별 게시글 파일을 표시하지 않습니다.
-- 디렉터리를 선택하면 해당 Front Matter의 `categories` 값과 일치하는 게시글만 본문 목록에 표시됩니다.
+- 최종 디렉터리를 선택하면 해당 Front Matter의 `categories` 값과 정확히 일치하는 게시글만 표시됩니다.
+- 상위 디렉터리를 선택하면 그 경로로 시작하는 모든 하위 게시글이 함께 표시됩니다. 예를 들어 `Backend`는 Backend 전체를, `Backend/Spring`은 Common·MVC·Data를 모두 필터링합니다.
 - 새로운 카테고리를 추가할 때는 Front Matter의 `categories` 경로만 작성하면 됩니다.
 
 ## 4. 제목과 Article 목차
