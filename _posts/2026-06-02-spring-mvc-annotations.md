@@ -36,6 +36,7 @@ source_url: "https://velog.io/@oxxultus/asd-2az96pzu"
 * **Axios & 스프링 조합 예제:**
 * *프론트:* `axios.get('/api/v1/projects/7')` / `axios.delete('/api/v1/projects/7')`
 * *백엔드:*
+
 ```java
 @GetMapping("/projects/{projectId}")
 public ResponseEntity<ProjectResponse> getProject(@PathVariable("projectId") Long id) {
@@ -57,6 +58,7 @@ public ResponseEntity<ProjectResponse> getProject(@PathVariable("projectId") Lon
 * *프론트 (필터링):* `axios.get('/api/v1/projects', { params: { framework: 'react', page: 1 } })`
 * *프론트 (POST 제어 플래그):* `axios.post('/api/v1/projects/7/fork?force=true')`
 * *백엔드:*
+
 ```java
 @GetMapping("/projects")
 public ResponseEntity<List<ProjectResponse>> getProjects(
@@ -80,6 +82,7 @@ public ResponseEntity<List<ProjectResponse>> getProjects(
 * **추천 HTTP 메서드:** `GET`(다중 조건 복잡 검색), `POST`(FormData 기반 이미지/파일 업로드)
 * **Axios & 스프링 조합 예제:**
 * *프론트 (파일 업로드 FormData):*
+
 ```javascript
 const formData = new FormData();
 formData.append("projectName", "VeloAPI");
@@ -90,6 +93,7 @@ axios.post('/api/v1/projects/upload', formData);
 
 
 * *백엔드:*
+
 ```java
 @PostMapping("/projects/upload")
 public ResponseEntity<String> uploadProject(@ModelAttribute ProjectUploadDto dto) {
@@ -112,6 +116,7 @@ public ResponseEntity<String> uploadProject(@ModelAttribute ProjectUploadDto dto
 * **Axios & 스프링 조합 예제:**
 * *프론트:* `axios.post('/api/v1/projects', { name: 'Aeranghae', framework: 'react' })` -> `Content-Type: application/json`
 * *백엔드:*
+
 ```java
 @PostMapping("/projects")
 public ResponseEntity<Void> createProject(@RequestBody ProjectCreateDto dto) {
@@ -128,6 +133,7 @@ public ResponseEntity<Void> createProject(@RequestBody ProjectCreateDto dto) {
 * **Axios & 스프링 조합 예제:**
 * *프론트:* `axios.get('/api/v1/projects', { headers: { 'X-Velo-Client-Type': 'Desktop-Electron' } })`
 * *백엔드:*
+
 ```java
 @GetMapping("/projects")
 public ResponseEntity<Void> checkHeader(@RequestHeader("X-Velo-Client-Type") String clientType) {
@@ -148,6 +154,7 @@ public ResponseEntity<Void> checkHeader(@RequestHeader("X-Velo-Client-Type") Str
 * **Axios & 스프링 조합 예제:**
 * *프론트:* 쿠키 전송 허용 활성화 `axios.post('/api/auth/refresh', {}, { withCredentials: true })`
 * *백엔드:*
+
 ```java
 @PostMapping("/auth/refresh")
 public ResponseEntity<String> rotateToken(@CookieValue(value = "refreshToken", required = false) String refreshToken) {
@@ -166,6 +173,7 @@ public ResponseEntity<String> rotateToken(@CookieValue(value = "refreshToken", r
 * **비즈니스 의미:** REST API 표준 수신 규격으로, **바이너리 파일 구역과 구조화된 JSON 데이터 구역을 완벽하게 분리해서 동시에 수신**할 때 씁니다. (Jackson 역직렬화가 해당 구역에만 따로 가동됨)
 * **Axios & 스프링 조합 예제:**
 * *프론트:*
+
 ```javascript
 const formData = new FormData();
 formData.append("sourceCodeZip", fileObject); // 파일 파트
@@ -176,6 +184,7 @@ axios.post('/api/v1/projects/index', formData);
 
 
 * *백엔드:*
+
 ```java
 @PostMapping(value = "/projects/index", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 public ResponseEntity<Void> indexProject(
@@ -194,6 +203,7 @@ public ResponseEntity<Void> indexProject(
 * **물리적 위치:** URL 경로(Path) 조각 내부에 세미콜론(`;`)으로 결합된 키-벨류 구역입니다.
 * **비즈니스 의미:** URI 경로 안에 복잡한 매트릭스 속성을 가두어 파싱할 때 씁니다.
 * **예제 URI 및 백엔드:** `/api/v1/infra/servers;vendor=oxxultus;os=linux/metrics`
+
 ```java
 @GetMapping("/infra/{infraType}/metrics")
 public ResponseEntity<Void> getInfraMetrics(
@@ -242,6 +252,7 @@ public class GlobalExceptionHandler {
 
 * **설명:** 특정 컨트롤러로 데이터가 인입되어 객체에 바인딩되기 직전, 문자열의 공백을 제거(`Trim`)하거나 포맷을 강제 변환하는 세탁기 역할을 수행합니다.
 * **백엔드 예시:**
+
 ```java
 @InitBinder
 public void initBinder(WebDataBinder binder) {
@@ -257,6 +268,7 @@ public void initBinder(WebDataBinder binder) {
 
 * **설명:** 시스템 전역 보안 정책 외에, 특정 컨트롤러나 메서드에 한해서만 특정 외부 도메인의 브라우저/리액트 호출 통행증을 개방해 줍니다.특정 컨트롤러나 메서드에만 특정 도메인의 프론트엔드가 접근할 수 있도록 CORS(Cross-Origin Resource Sharing) 방어벽을 부분적으로 허용해 주는 기능입니다.
 * **백엔드 예시:**
+
 ```java
 @RestController
 @RequestMapping("/api/v1/public-status")
