@@ -1,9 +1,70 @@
 (function () {
+    const ANALYTICS_API = 'https://resume-blog-analytics.oxxultus.workers.dev';
     const themeButton = document.querySelector('.blog-theme');
     const menuButton = document.querySelector('.blog-menu');
     const sidebar = document.querySelector('.blog-sidebar');
     const closeButton = document.querySelector('.blog-sidebar-close');
     let mermaidApi = null;
+
+    const formatNumber = value => new Intl.NumberFormat('ko-KR').format(Number(value) || 0);
+
+    async function loadAnalytics() {
+        const isArticle = Boolean(document.querySelector('.article-body'));
+        try {
+            if (isArticle) {
+                const response = await fetch(`${ANALYTICS_API}/api/view`, {
+                    method: 'POST',
+                    headers: { 'content-type': 'application/json' },
+                    body: JSON.stringify({ path: location.pathname, title: document.querySelector('.article-header h1')?.textContent.trim() })
+                });
+                if (!response.ok) throw new Error('View request failed');
+                const data = await response.json();
+                const view = document.querySelector('[data-article-views]');
+                if (view) view.textContent = `조회 ${formatNumber(data.views)}`;
+                return;
+            }
+
+            await fetch(`${ANALYTICS_API}/api/visit`, { method: 'POST' });
+            const response = await fetch(`${ANALYTICS_API}/api/stats`);
+            if (!response.ok) throw new Error('Stats request failed');
+            const data = await response.json();
+            document.querySelector('[data-total-visits]').textContent = formatNumber(data.totalVisits);
+            document.querySelector('[data-today-visitors]').textContent = formatNumber(data.todayVisitors);
+            document.querySelector('[data-total-views]').textContent = formatNumber(data.totalViews);
+
+            const viewsByPath = new Map(data.posts.map(post => [post.path, post.views]));
+            document.querySelectorAll('[data-post-path]').forEach(card => {
+                const view = card.querySelector('[data-card-views]');
+                if (view) view.textContent = `조회 ${formatNumber(viewsByPath.get(card.dataset.postPath) || 0)}`;
+            });
+
+            const popular = data.posts.slice(0, 5);
+            const section = document.querySelector('[data-popular-section]');
+            const list = document.querySelector('[data-popular-list]');
+            if (popular.length && section && list) {
+                list.replaceChildren(...popular.map((post, index) => {
+                    const item = document.createElement('li');
+                    const link = document.createElement('a');
+                    const rank = document.createElement('span');
+                    const title = document.createElement('span');
+                    const views = document.createElement('span');
+                    link.href = post.path;
+                    rank.className = 'popular-rank';
+                    title.className = 'popular-title';
+                    views.className = 'popular-views';
+                    rank.textContent = String(index + 1).padStart(2, '0');
+                    title.textContent = post.title;
+                    views.textContent = `조회 ${formatNumber(post.views)}`;
+                    link.append(rank, title, views);
+                    item.append(link);
+                    return item;
+                }));
+                section.hidden = false;
+            }
+        } catch (error) {
+            console.warn('Analytics unavailable', error);
+        }
+    }
 
     function closeMobileMenu() {
         document.body.classList.remove('menu-open');
@@ -83,6 +144,7 @@
     applyTheme(savedTheme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
     renderMermaid();
     setupCodeCopyButtons();
+    loadAnalytics();
     themeButton?.addEventListener('click', () => applyTheme(document.body.classList.contains('dark-theme') ? 'light' : 'dark'));
     menuButton?.addEventListener('click', () => {
         const open = document.body.classList.toggle('menu-open');

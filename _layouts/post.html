@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-2' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-3' | relative_url }}">
 </head>
 <body>
     <aside class="blog-sidebar">
@@ -39,6 +39,7 @@
                 <div class="post-meta">
                     <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y.%m.%d %H:%M" }}</time>
                     {% if page.categories.size > 0 %}<span>{{ page.categories | first }}</span>{% endif %}
+                    <span class="post-view-count" data-article-views>조회 —</span>
                 </div>
                 <div class="article-title-row">
                     {% include post-tech-icon.html tags=page.tags %}
@@ -51,6 +52,6 @@
             <footer class="article-footer"><a href="{{ '/blog/' | relative_url }}"><i class="fas fa-arrow-left"></i> 블로그 목록으로</a></footer>
         </article>
     </main>
-    <script src="{{ '/blog.js?v=20260711-1' | relative_url }}"></script>
+    <script src="{{ '/blog.js?v=20260711-2' | relative_url }}"></script>
 </body>
 </html>

@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "resume-blog-analytics",
+  "main": "src/index.js",
+  "compatibility_date": "2026-07-10",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "resume-analytics",
+      "database_id": "41bc5bcf-191f-46db-8b39-9610f66528bf",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "vars": {
+    "ALLOWED_ORIGIN": "https://oxxultus.github.io"
+  }
+}
