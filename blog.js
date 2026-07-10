@@ -82,15 +82,25 @@
             return orderA - orderB || nameA.localeCompare(nameB, 'ko');
         });
 
+        const categoryKey = path => path
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace(/\//g, '-')
+            .replace(/-+/g, '-');
+
         let branchIndex = 0;
-        const renderChildren = (node, container, depth) => {
+        const renderChildren = (node, container, depth, parentPath = '') => {
             sortEntries(Array.from(node.children.entries())).forEach(([name, child]) => {
+                const currentPath = parentPath ? `${parentPath}/${name}` : name;
                 if (child.children.size) {
                     branchIndex += 1;
                     const branchId = `category-branch-${branchIndex}`;
                     const folder = document.createElement('button');
                     folder.type = 'button';
-                    folder.className = `category-folder${depth ? ' category-folder-child' : ''}`;
+                    folder.className = `category-folder category-filter${depth ? ' category-folder-child' : ''}`;
+                    folder.dataset.category = categoryKey(currentPath);
+                    folder.dataset.categoryPrefix = currentPath;
                     folder.setAttribute('aria-expanded', 'true');
                     folder.setAttribute('aria-controls', branchId);
                     folder.innerHTML = '<i class="fas fa-folder-open folder-icon" aria-hidden="true"></i><span></span><i class="fas fa-chevron-down folder-chevron" aria-hidden="true"></i>';
@@ -100,7 +110,7 @@
                     branch.id = branchId;
                     branch.className = `category-branch${depth ? ' category-branch-child' : ''}`;
                     container.append(folder, branch);
-                    renderChildren(child, branch, depth + 1);
+                    renderChildren(child, branch, depth + 1, currentPath);
                     return;
                 }
 
@@ -139,13 +149,18 @@
     const postCount = document.querySelector('.post-count');
     if (categoryFilters.length && postCards.length) {
         const applyCategory = (category, updateUrl) => {
-            const validCategory = Array.from(categoryFilters).some(filter => filter.dataset.category === category)
-                ? category
-                : 'all';
+            const selectedFilter = Array.from(categoryFilters).find(filter => filter.dataset.category === category);
+            const validCategory = selectedFilter ? category : 'all';
+            const selectedPath = selectedFilter?.dataset.categoryPrefix || selectedFilter?.dataset.categoryPath || '';
+            const includeDescendants = Boolean(selectedFilter?.dataset.categoryPrefix);
             let visibleCount = 0;
 
             postCards.forEach(card => {
-                const visible = validCategory === 'all' || card.dataset.category === validCategory;
+                const cardPath = card.dataset.categoryPath || '';
+                const visible = validCategory === 'all'
+                    || (includeDescendants
+                        ? cardPath === selectedPath || cardPath.startsWith(`${selectedPath}/`)
+                        : card.dataset.category === validCategory);
                 card.hidden = !visible;
                 if (visible) visibleCount += 1;
             });
