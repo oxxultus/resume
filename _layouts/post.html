@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ '/blog.css?v=20260710-4' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/blog.css?v=20260710-5' | relative_url }}">
 </head>
 <body>
     <aside class="blog-sidebar">
@@ -39,7 +39,10 @@
                     <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y.%m.%d" }}</time>
                     {% if page.categories.size > 0 %}<span>{{ page.categories | first }}</span>{% endif %}
                 </div>
-                <h1>{{ page.title }}</h1>
+                <div class="article-title-row">
+                    {% include post-tech-icon.html tags=page.tags %}
+                    <h1>{{ page.title }}</h1>
+                </div>
                 {% if page.summary %}<p>{{ page.summary }}</p>{% endif %}
                 <div class="post-tags">{% for tag in page.tags %}<span>#{{ tag }}</span>{% endfor %}</div>
             </header>

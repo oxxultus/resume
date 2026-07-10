@@ -1,0 +1,18 @@
+{% assign tech_icon = 'fa-book-open' %}
+{% assign tech_name = 'Learning' %}
+{% if include.tags contains 'Redis' %}
+  {% assign tech_icon = 'fa-layer-group' %}
+  {% assign tech_name = 'Redis' %}
+{% elsif include.tags contains 'JPA' %}
+  {% assign tech_icon = 'fa-database' %}
+  {% assign tech_name = 'JPA' %}
+{% elsif include.tags contains 'Spring MVC' %}
+  {% assign tech_icon = 'fa-route' %}
+  {% assign tech_name = 'Spring MVC' %}
+{% elsif include.tags contains 'Spring' %}
+  {% assign tech_icon = 'fa-leaf' %}
+  {% assign tech_name = 'Spring Framework' %}
+{% endif %}
+<span class="post-tech-icon" role="img" aria-label="{{ tech_name }}" title="{{ tech_name }}">
+  <i class="fas {{ tech_icon }}" aria-hidden="true"></i>
+</span>
