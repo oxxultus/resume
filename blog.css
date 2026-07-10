@@ -91,7 +91,7 @@ button { font: inherit; }
 .article-header { padding-bottom: 34px; border-bottom: 1px solid var(--line); }
 .article-title-row { display: flex; align-items: flex-start; gap: 16px; margin: 12px 0 16px; }
 .article-title-row .post-tech-icon { flex-basis: 44px; width: 44px; height: 44px; margin-top: 5px; font-size: 17px; }
-.article-header h1 { margin: 0; font-size: clamp(38px, 5vw, 58px); line-height: 1.18; letter-spacing: -.045em; }
+.article-header h1 { margin: 0; font-size: clamp(32px, 3.6vw, 46px); line-height: 1.2; letter-spacing: -.04em; text-wrap: balance; }
 .article-header > p { max-width: 680px; margin: 0; color: var(--muted); font-size: 16px; }
 .article-body { padding-top: 34px; font-size: 16px; line-height: 1.85; }
 .article-body h2 { margin: 32px 0 12px; font-size: 27px; letter-spacing: -.035em; scroll-margin-top: 86px; }.article-body h3 { margin: 20px 0 8px; font-size: 19px; scroll-margin-top: 86px; }
