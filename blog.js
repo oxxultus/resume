@@ -266,9 +266,12 @@
     const postListTitle = document.querySelector('[data-post-list-title]');
     const hotPostLink = document.querySelector('.hot-post-link');
     const sortSelect = document.querySelector('[data-sort-select]');
+    const pagination = document.querySelector('[data-pagination]');
     const originalPostCards = Array.from(postCards);
     if (categoryFilters.length && postCards.length) {
+        const PAGE_SIZE = 5;
         let currentCategory = 'all';
+        let currentVisibleCards = originalPostCards;
         const metricFor = sortKey => sortKey === 'likes' ? analyticsLikesByPath : analyticsViewsByPath;
         const sortCards = (cards, sortKey) => {
             if (sortKey === 'latest') return [...cards];
@@ -290,6 +293,38 @@
             }));
             sortSelect.value = options.some(([value]) => value === sortKey) ? sortKey : options[0][0];
         };
+        const showPage = (cards, requestedPage, updateUrl) => {
+            currentVisibleCards = cards;
+            const totalPages = Math.max(1, Math.ceil(cards.length / PAGE_SIZE));
+            const page = Math.min(Math.max(Number(requestedPage) || 1, 1), totalPages);
+            const start = (page - 1) * PAGE_SIZE;
+            const visibleOnPage = new Set(cards.slice(start, start + PAGE_SIZE));
+            originalPostCards.forEach(card => { card.hidden = !visibleOnPage.has(card); });
+
+            if (pagination) {
+                pagination.hidden = totalPages <= 1;
+                pagination.replaceChildren(...Array.from({ length: totalPages }, (_, index) => {
+                    const pageNumber = index + 1;
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.textContent = String(pageNumber);
+                    button.setAttribute('aria-label', `${pageNumber}페이지`);
+                    if (pageNumber === page) button.setAttribute('aria-current', 'page');
+                    button.addEventListener('click', () => {
+                        showPage(currentVisibleCards, pageNumber, true);
+                        document.querySelector('.post-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    });
+                    return button;
+                }));
+            }
+
+            if (updateUrl) {
+                const url = new URL(window.location.href);
+                if (page === 1) url.searchParams.delete('page');
+                else url.searchParams.set('page', String(page));
+                history.replaceState(null, '', `${url.pathname}${url.search}`);
+            }
+        };
         const applyHotPosts = (updateUrl, sortKey = 'views') => {
             const metric = sortKey === 'likes' ? analyticsLikesByPath : analyticsViewsByPath;
             const ranked = sortCards(
@@ -298,7 +333,6 @@
             ).slice(0, 7);
             const rankedSet = new Set(ranked);
             postList?.append(...ranked, ...originalPostCards.filter(card => !rankedSet.has(card)));
-            originalPostCards.forEach(card => { card.hidden = !rankedSet.has(card); });
             categoryFilters.forEach(filter => {
                 filter.classList.remove('active');
                 filter.removeAttribute('aria-current');
@@ -315,6 +349,8 @@
                 url.searchParams.set('sort', sortKey);
                 history.replaceState(null, '', `${url.pathname}${url.search}`);
             }
+            const requestedPage = updateUrl ? 1 : new URLSearchParams(window.location.search).get('page');
+            showPage(ranked, requestedPage, updateUrl);
         };
 
         const applyCategory = (category, updateUrl, sortKey = 'latest') => {
@@ -336,7 +372,6 @@
             const visibleSet = new Set(visibleCards);
             const sortedCards = sortCards(visibleCards, sortKey);
             postList?.append(...sortedCards, ...originalPostCards.filter(card => !visibleSet.has(card)));
-            originalPostCards.forEach(card => { card.hidden = !visibleSet.has(card); });
             categoryFilters.forEach(filter => {
                 const active = filter.dataset.category === validCategory;
                 filter.classList.toggle('active', active);
@@ -355,6 +390,8 @@
                 else url.searchParams.set('category', validCategory);
                 history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
             }
+            const requestedPage = updateUrl ? 1 : new URLSearchParams(window.location.search).get('page');
+            showPage(sortedCards, requestedPage, updateUrl);
         };
 
         categoryFilters.forEach(filter => filter.addEventListener('click', event => {

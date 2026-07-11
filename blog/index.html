@@ -15,7 +15,7 @@ permalink: /blog/
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-8' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-9' | relative_url }}">
 </head>
 <body>
     <aside class="blog-sidebar">
@@ -89,9 +89,10 @@ permalink: /blog/
                     <div class="empty-posts">아직 공개된 글이 없습니다.</div>
                     {% endfor %}
                 </div>
+                <nav class="pagination" data-pagination aria-label="게시글 페이지" hidden></nav>
             </section>
         </div>
     </main>
-    <script src="{{ '/blog.js?v=20260711-8' | relative_url }}"></script>
+    <script src="{{ '/blog.js?v=20260711-9' | relative_url }}"></script>
 </body>
 </html>
