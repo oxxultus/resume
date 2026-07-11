@@ -51,9 +51,13 @@
 
     function setupCodeCopyButtons() {
         document.querySelectorAll('.article-body pre').forEach(pre => {
-            if (pre.querySelector('.code-copy-button')) return;
+            if (pre.parentElement?.classList.contains('code-block-shell')) return;
             const code = pre.querySelector('code');
             if (!code) return;
+            const shell = document.createElement('div');
+            shell.className = 'code-block-shell';
+            pre.before(shell);
+            shell.appendChild(pre);
             const button = document.createElement('button');
             button.type = 'button';
             button.className = 'code-copy-button';
@@ -72,7 +76,7 @@
                     button.querySelector('span').textContent = '실패';
                 }
             });
-            pre.appendChild(button);
+            shell.appendChild(button);
         });
     }
 
