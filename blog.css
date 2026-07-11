@@ -75,13 +75,6 @@ button { font: inherit; }
 .blog-stats { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 28px; color: var(--faint); font-size: 11px; }
 .blog-stats span { display: inline-flex; align-items: baseline; gap: 6px; }
 .blog-stats strong { color: var(--text); font-size: 16px; font-variant-numeric: tabular-nums; }
-.popular-section { margin-bottom: 68px; scroll-margin-top: 84px; }
-.popular-list { display: grid; margin: 0; padding: 0; list-style: none; }
-.popular-list li { border-bottom: 1px solid var(--line); }
-.popular-list a { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 15px 4px; }
-.popular-rank { color: var(--accent); font: 600 12px 'Outfit', sans-serif; }
-.popular-title { overflow: hidden; color: var(--text); font-size: 13px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
-.popular-views { color: var(--faint); font-size: 11px; font-variant-numeric: tabular-nums; }
 .post-section-heading { display: flex; align-items: end; justify-content: space-between; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
 .post-section-heading h2 { margin: 0; font-size: 22px; letter-spacing: -.03em; }.post-section-heading span { color: var(--faint); font-size: 12px; }
 .post-list { display: grid; }
