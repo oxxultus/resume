@@ -15,7 +15,7 @@ permalink: /blog/
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-6' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-7' | relative_url }}">
 </head>
 <body>
     <aside class="blog-sidebar">
@@ -62,7 +62,13 @@ permalink: /blog/
             <section class="post-section">
                 <div class="post-section-heading">
                     <h2 data-post-list-title>최근 기록</h2>
-                    <span class="post-count">{{ site.posts | size }} posts</span>
+                    <div class="post-heading-tools">
+                        <div class="hot-sort" data-hot-sort hidden aria-label="인기글 정렬 기준">
+                            <button type="button" class="active" data-hot-sort-key="views">조회수순</button>
+                            <button type="button" data-hot-sort-key="likes">좋아요순</button>
+                        </div>
+                        <span class="post-count">{{ site.posts | size }} posts</span>
+                    </div>
                 </div>
                 <div class="post-list">
                     {% for post in site.posts %}
@@ -72,6 +78,7 @@ permalink: /blog/
                             <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d %H:%M" }}</time>
                             {% if post.categories.size > 0 %}<span>{{ post.categories | first }}</span>{% endif %}
                             <span class="post-view-count" data-card-views>조회 —</span>
+                            <span class="post-like-count" data-card-likes>좋아요 —</span>
                         </div>
                         <div class="post-title-row">
                             {% include post-tech-icon.html tags=post.tags %}
@@ -88,6 +95,6 @@ permalink: /blog/
             </section>
         </div>
     </main>
-    <script src="{{ '/blog.js?v=20260711-5' | relative_url }}"></script>
+    <script src="{{ '/blog.js?v=20260711-6' | relative_url }}"></script>
 </body>
 </html>

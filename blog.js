@@ -6,6 +6,7 @@
     const closeButton = document.querySelector('.blog-sidebar-close');
     let mermaidApi = null;
     let analyticsViewsByPath = new Map();
+    let analyticsLikesByPath = new Map();
 
     const formatNumber = value => new Intl.NumberFormat('ko-KR').format(Number(value) || 0);
 
@@ -22,6 +23,31 @@
                 const data = await response.json();
                 const view = document.querySelector('[data-article-views]');
                 if (view) view.textContent = `조회 ${formatNumber(data.views)}`;
+                const likeButton = document.querySelector('[data-like-button]');
+                const updateLikeButton = (likes, liked) => {
+                    if (!likeButton) return;
+                    likeButton.setAttribute('aria-pressed', String(liked));
+                    likeButton.querySelector('i').className = `${liked ? 'fas' : 'far'} fa-heart`;
+                    likeButton.querySelector('[data-like-count]').textContent = formatNumber(likes);
+                };
+                updateLikeButton(data.likes, data.liked);
+                likeButton?.addEventListener('click', async () => {
+                    likeButton.disabled = true;
+                    try {
+                        const likeResponse = await fetch(`${ANALYTICS_API}/api/like`, {
+                            method: 'POST',
+                            headers: { 'content-type': 'application/json' },
+                            body: JSON.stringify({ path: location.pathname })
+                        });
+                        if (!likeResponse.ok) throw new Error('Like request failed');
+                        const likeData = await likeResponse.json();
+                        updateLikeButton(likeData.likes, likeData.liked);
+                    } catch (error) {
+                        console.warn('Like unavailable', error);
+                    } finally {
+                        likeButton.disabled = false;
+                    }
+                });
                 return;
             }
 
@@ -34,9 +60,12 @@
             document.querySelector('[data-total-views]').textContent = formatNumber(data.totalViews);
 
             analyticsViewsByPath = new Map(data.posts.map(post => [post.path, post.views]));
+            analyticsLikesByPath = new Map(data.posts.map(post => [post.path, post.likes]));
             document.querySelectorAll('[data-post-path]').forEach(card => {
                 const view = card.querySelector('[data-card-views]');
+                const like = card.querySelector('[data-card-likes]');
                 if (view) view.textContent = `조회 ${formatNumber(analyticsViewsByPath.get(card.dataset.postPath) || 0)}`;
+                if (like) like.textContent = `좋아요 ${formatNumber(analyticsLikesByPath.get(card.dataset.postPath) || 0)}`;
             });
             document.dispatchEvent(new CustomEvent('analytics:ready'));
         } catch (error) {
@@ -236,13 +265,16 @@
     const postList = document.querySelector('.post-list');
     const postListTitle = document.querySelector('[data-post-list-title]');
     const hotPostLink = document.querySelector('.hot-post-link');
+    const hotSort = document.querySelector('[data-hot-sort]');
+    const hotSortButtons = document.querySelectorAll('[data-hot-sort-key]');
     const originalPostCards = Array.from(postCards);
     if (categoryFilters.length && postCards.length) {
         const restorePostOrder = () => postList?.append(...originalPostCards);
-        const applyHotPosts = updateUrl => {
+        const applyHotPosts = (updateUrl, sortKey = 'views') => {
+            const metric = sortKey === 'likes' ? analyticsLikesByPath : analyticsViewsByPath;
             const ranked = originalPostCards
-                .filter(card => (analyticsViewsByPath.get(card.dataset.postPath) || 0) > 0)
-                .sort((cardA, cardB) => (analyticsViewsByPath.get(cardB.dataset.postPath) || 0) - (analyticsViewsByPath.get(cardA.dataset.postPath) || 0));
+                .filter(card => (metric.get(card.dataset.postPath) || 0) > 0)
+                .sort((cardA, cardB) => (metric.get(cardB.dataset.postPath) || 0) - (metric.get(cardA.dataset.postPath) || 0));
             const rankedSet = new Set(ranked);
             postList?.append(...ranked, ...originalPostCards.filter(card => !rankedSet.has(card)));
             originalPostCards.forEach(card => { card.hidden = !rankedSet.has(card); });
@@ -252,12 +284,15 @@
             });
             hotPostLink?.classList.add('active');
             hotPostLink?.setAttribute('aria-current', 'page');
+            if (hotSort) hotSort.hidden = false;
+            hotSortButtons.forEach(button => button.classList.toggle('active', button.dataset.hotSortKey === sortKey));
             if (postListTitle) postListTitle.textContent = '인기글';
             if (postCount) postCount.textContent = `${ranked.length} hot post${ranked.length === 1 ? '' : 's'}`;
             if (updateUrl) {
                 const url = new URL(window.location.href);
                 url.searchParams.delete('category');
                 url.searchParams.set('view', 'hot');
+                url.searchParams.set('sort', sortKey);
                 history.replaceState(null, '', `${url.pathname}${url.search}`);
             }
         };
@@ -266,6 +301,7 @@
             restorePostOrder();
             hotPostLink?.classList.remove('active');
             hotPostLink?.removeAttribute('aria-current');
+            if (hotSort) hotSort.hidden = true;
             if (postListTitle) postListTitle.textContent = '최근 기록';
             const selectedFilter = Array.from(categoryFilters).find(filter => filter.dataset.category === category);
             const validCategory = selectedFilter ? category : 'all';
@@ -293,6 +329,7 @@
             if (updateUrl) {
                 const url = new URL(window.location.href);
                 url.searchParams.delete('view');
+                url.searchParams.delete('sort');
                 if (validCategory === 'all') url.searchParams.delete('category');
                 else url.searchParams.set('category', validCategory);
                 history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
@@ -305,14 +342,16 @@
         }));
         hotPostLink?.addEventListener('click', event => {
             event.preventDefault();
-            applyHotPosts(true);
+            applyHotPosts(true, 'views');
             closeMobileMenu();
         });
+        hotSortButtons.forEach(button => button.addEventListener('click', () => applyHotPosts(true, button.dataset.hotSortKey)));
         document.addEventListener('analytics:ready', () => {
-            if (new URLSearchParams(window.location.search).get('view') === 'hot') applyHotPosts(false);
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('view') === 'hot') applyHotPosts(false, params.get('sort') === 'likes' ? 'likes' : 'views');
         });
         const initialParams = new URLSearchParams(window.location.search);
-        if (initialParams.get('view') === 'hot') applyHotPosts(false);
+        if (initialParams.get('view') === 'hot') applyHotPosts(false, initialParams.get('sort') === 'likes' ? 'likes' : 'views');
         else applyCategory(initialParams.get('category') || 'all', false);
     }
 
