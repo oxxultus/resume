@@ -84,6 +84,29 @@
         const navigate = (_, d) => { window.location.href = d.type === 'category' ? `../?category=${categorySlug(d.category)}` : d.path; };
         node.on('click', navigate).on('keydown', (event, d) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); navigate(event, d); } });
 
+        const adjacency = new Map(nodes.map(nodeItem => [nodeItem.id, new Set()]));
+        links.forEach(linkItem => {
+            adjacency.get(linkItem.source)?.add(linkItem.target);
+            adjacency.get(linkItem.target)?.add(linkItem.source);
+        });
+        const connectedIds = startId => {
+            const visited = new Set([startId]);
+            const queue = [startId];
+            while (queue.length) {
+                const current = queue.shift();
+                adjacency.get(current)?.forEach(next => {
+                    if (!visited.has(next)) { visited.add(next); queue.push(next); }
+                });
+            }
+            return visited;
+        };
+        const emphasizeChunk = startId => {
+            const active = connectedIds(startId);
+            node.classed('is-dimmed', d => !active.has(d.id));
+            link.classed('is-dimmed', d => !active.has(typeof d.source === 'string' ? d.source : d.source.id) || !active.has(typeof d.target === 'string' ? d.target : d.target.id));
+        };
+        const clearEmphasis = () => { node.classed('is-dimmed', false); link.classed('is-dimmed', false); };
+
         const simulation = d3.forceSimulation(nodes)
             .force('link', d3.forceLink(links).id(d => d.id).distance(d => d.type === 'category' ? 105 : 72).strength(d => d.type === 'category' ? .75 : .58))
             .force('charge', d3.forceManyBody().strength(d => d.type === 'category' ? -520 : -230))
@@ -93,7 +116,7 @@
             .alphaDecay(.018)
             .velocityDecay(.48);
 
-        node.call(d3.drag().on('start', (event, d) => { if (!event.active) simulation.alphaTarget(.25).restart(); d.fx = d.x; d.fy = d.y; }).on('drag', (event, d) => { d.fx = event.x; d.fy = event.y; }).on('end', (event, d) => { if (!event.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }));
+        node.call(d3.drag().on('start', (event, d) => { emphasizeChunk(d.id); if (!event.active) simulation.alphaTarget(.25).restart(); d.fx = d.x; d.fy = d.y; }).on('drag', (event, d) => { d.fx = event.x; d.fy = event.y; }).on('end', (event, d) => { clearEmphasis(); if (!event.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }));
         simulation.on('tick', () => {
             link.attr('x1', d => d.source.x).attr('y1', d => d.source.y).attr('x2', d => d.target.x).attr('y2', d => d.target.y);
             node.attr('transform', d => `translate(${d.x},${d.y})`);
