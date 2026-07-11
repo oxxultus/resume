@@ -31,27 +31,33 @@
     document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMenu(); });
 
     const parts = category => String(category || 'Uncategorized').split('/').map(value => value.trim()).filter(Boolean);
-    const commonDepth = (left, right) => {
-        const a = parts(left.category);
-        const b = parts(right.category);
-        let depth = 0;
-        while (depth < Math.min(a.length, b.length) && a[depth].toLowerCase() === b[depth].toLowerCase()) depth += 1;
-        return depth;
-    };
     const clusterKey = post => parts(post.category)[0] || 'Uncategorized';
     const colorIndex = key => [...key].reduce((sum, char) => sum + char.charCodeAt(0), 0) % 8;
+    const categorySlug = category => category.normalize('NFKD').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '');
 
     const render = posts => {
         if (!window.d3) throw new Error('그래프 라이브러리를 불러오지 못했습니다.');
-        const nodes = posts.map((post, index) => ({ ...post, id: post.path, cluster: clusterKey(post), color: colorIndex(clusterKey(post)), index }));
+        const categoryMap = new Map();
         const links = [];
-        for (let i = 0; i < nodes.length; i += 1) {
-            for (let j = i + 1; j < nodes.length; j += 1) {
-                const depth = commonDepth(nodes[i], nodes[j]);
-                if (depth > 0) links.push({ source: nodes[i].id, target: nodes[j].id, depth, exact: nodes[i].category === nodes[j].category });
-            }
-        }
-        count.textContent = `${nodes.length} posts · ${links.length} connections`;
+        posts.forEach(post => {
+            const pathParts = parts(post.category);
+            pathParts.forEach((name, index) => {
+                const path = pathParts.slice(0, index + 1).join('/');
+                if (!categoryMap.has(path)) categoryMap.set(path, { id: `category:${path}`, title: name, category: path, cluster: pathParts[0], color: colorIndex(pathParts[0]), type: 'category', depth: index + 1 });
+                if (index > 0) links.push({ source: `category:${pathParts.slice(0, index).join('/')}`, target: `category:${path}`, type: 'category', depth: index + 1 });
+            });
+        });
+        const categoryLinks = new Map();
+        links.splice(0, links.length, ...links.filter(linkItem => {
+            const key = `${linkItem.source}|${linkItem.target}`;
+            if (categoryLinks.has(key)) return false;
+            categoryLinks.set(key, true);
+            return true;
+        }));
+        const postNodes = posts.map(post => ({ ...post, id: `post:${post.path}`, cluster: clusterKey(post), color: colorIndex(clusterKey(post)), type: 'post' }));
+        postNodes.forEach(post => links.push({ source: `category:${post.category || 'Uncategorized'}`, target: post.id, type: 'post', depth: parts(post.category).length + 1 }));
+        const nodes = [...categoryMap.values(), ...postNodes];
+        count.textContent = `${categoryMap.size} categories · ${posts.length} posts`;
         status.hidden = true;
 
         const width = canvas.clientWidth;
@@ -70,17 +76,17 @@
         });
         svg.call(zoom);
 
-        const link = stage.append('g').attr('class', 'neural-links').selectAll('line').data(links).join('line').attr('data-depth', d => Math.min(d.depth, 3));
-        const node = stage.append('g').selectAll('g').data(nodes).join('g').attr('class', d => `neural-node neural-color-${d.color}`).attr('tabindex', 0).attr('role', 'link').attr('aria-label', d => `${d.title}, ${d.category}`);
-        node.append('circle').attr('r', d => 8 + Math.min(links.filter(linkItem => linkItem.source === d.id || linkItem.target === d.id).length, 5));
-        node.append('text').attr('x', 14).attr('y', 4).text(d => d.title.length > 22 ? `${d.title.slice(0, 22)}…` : d.title);
+        const link = stage.append('g').attr('class', 'neural-links').selectAll('line').data(links).join('line').attr('data-link-type', d => d.type).attr('data-depth', d => Math.min(d.depth, 3));
+        const node = stage.append('g').selectAll('g').data(nodes).join('g').attr('class', d => `neural-node neural-${d.type} neural-color-${d.color}`).attr('tabindex', 0).attr('role', 'link').attr('aria-label', d => `${d.title}, ${d.category}`);
+        node.append('circle').attr('r', d => d.type === 'category' ? Math.max(9, 15 - d.depth * 1.5) : 6);
+        node.append('text').attr('x', d => d.type === 'category' ? 16 : 11).attr('y', 4).text(d => d.title.length > 22 ? `${d.title.slice(0, 22)}…` : d.title);
         node.append('title').text(d => `${d.title}\n${d.category}`);
-        const navigate = (_, d) => { window.location.href = d.path; };
+        const navigate = (_, d) => { window.location.href = d.type === 'category' ? `../?category=${categorySlug(d.category)}` : d.path; };
         node.on('click', navigate).on('keydown', (event, d) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); navigate(event, d); } });
 
         const simulation = d3.forceSimulation(nodes)
-            .force('link', d3.forceLink(links).id(d => d.id).distance(d => d.exact ? 78 : Math.max(105, 165 - d.depth * 22)).strength(d => Math.min(.92, .25 + d.depth * .2)))
-            .force('charge', d3.forceManyBody().strength(-330))
+            .force('link', d3.forceLink(links).id(d => d.id).distance(d => d.type === 'category' ? 105 : 72).strength(d => d.type === 'category' ? .75 : .58))
+            .force('charge', d3.forceManyBody().strength(d => d.type === 'category' ? -520 : -230))
             .force('center', d3.forceCenter(width / 2, height / 2))
             .force('radial', d3.forceRadial(ring, width / 2, height / 2).strength(.045))
             .force('collision', d3.forceCollide(38))
