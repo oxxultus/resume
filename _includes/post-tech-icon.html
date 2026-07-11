@@ -3,6 +3,9 @@
 {% if include.tags contains 'Memo' %}
   {% assign tech_icon = 'fa-note-sticky' %}
   {% assign tech_name = 'Memo' %}
+{% elsif include.tags contains 'Architecture' %}
+  {% assign tech_icon = 'fa-diagram-project' %}
+  {% assign tech_name = 'Architecture' %}
 {% elsif include.tags contains 'Redis' %}
   {% assign tech_icon = 'fa-layer-group' %}
   {% assign tech_name = 'Redis' %}
