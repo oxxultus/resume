@@ -5,6 +5,7 @@
     const sidebar = document.querySelector('.blog-sidebar');
     const closeButton = document.querySelector('.blog-sidebar-close');
     let mermaidApi = null;
+    let analyticsViewsByPath = new Map();
 
     const formatNumber = value => new Intl.NumberFormat('ko-KR').format(Number(value) || 0);
 
@@ -32,36 +33,12 @@
             document.querySelector('[data-today-visitors]').textContent = formatNumber(data.todayVisitors);
             document.querySelector('[data-total-views]').textContent = formatNumber(data.totalViews);
 
-            const viewsByPath = new Map(data.posts.map(post => [post.path, post.views]));
+            analyticsViewsByPath = new Map(data.posts.map(post => [post.path, post.views]));
             document.querySelectorAll('[data-post-path]').forEach(card => {
                 const view = card.querySelector('[data-card-views]');
-                if (view) view.textContent = `조회 ${formatNumber(viewsByPath.get(card.dataset.postPath) || 0)}`;
+                if (view) view.textContent = `조회 ${formatNumber(analyticsViewsByPath.get(card.dataset.postPath) || 0)}`;
             });
-
-            const currentPaths = new Set(Array.from(document.querySelectorAll('[data-post-path]'), card => card.dataset.postPath));
-            const popular = data.posts.filter(post => currentPaths.has(post.path)).slice(0, 5);
-            const section = document.querySelector('[data-popular-section]');
-            const list = document.querySelector('[data-popular-list]');
-            if (popular.length && section && list) {
-                list.replaceChildren(...popular.map((post, index) => {
-                    const item = document.createElement('li');
-                    const link = document.createElement('a');
-                    const rank = document.createElement('span');
-                    const title = document.createElement('span');
-                    const views = document.createElement('span');
-                    link.href = post.path;
-                    rank.className = 'popular-rank';
-                    title.className = 'popular-title';
-                    views.className = 'popular-views';
-                    rank.textContent = String(index + 1).padStart(2, '0');
-                    title.textContent = post.title;
-                    views.textContent = `조회 ${formatNumber(post.views)}`;
-                    link.append(rank, title, views);
-                    item.append(link);
-                    return item;
-                }));
-                section.hidden = false;
-            }
+            document.dispatchEvent(new CustomEvent('analytics:ready'));
         } catch (error) {
             console.warn('Analytics unavailable', error);
         }
@@ -252,8 +229,40 @@
     const categoryFilters = document.querySelectorAll('.category-filter');
     const postCards = document.querySelectorAll('.post-card[data-category]');
     const postCount = document.querySelector('.post-count');
+    const postList = document.querySelector('.post-list');
+    const postListTitle = document.querySelector('[data-post-list-title]');
+    const hotPostLink = document.querySelector('.hot-post-link');
+    const originalPostCards = Array.from(postCards);
     if (categoryFilters.length && postCards.length) {
+        const restorePostOrder = () => postList?.append(...originalPostCards);
+        const applyHotPosts = updateUrl => {
+            const ranked = originalPostCards
+                .filter(card => (analyticsViewsByPath.get(card.dataset.postPath) || 0) > 0)
+                .sort((cardA, cardB) => (analyticsViewsByPath.get(cardB.dataset.postPath) || 0) - (analyticsViewsByPath.get(cardA.dataset.postPath) || 0));
+            const rankedSet = new Set(ranked);
+            postList?.append(...ranked, ...originalPostCards.filter(card => !rankedSet.has(card)));
+            originalPostCards.forEach(card => { card.hidden = !rankedSet.has(card); });
+            categoryFilters.forEach(filter => {
+                filter.classList.remove('active');
+                filter.removeAttribute('aria-current');
+            });
+            hotPostLink?.classList.add('active');
+            hotPostLink?.setAttribute('aria-current', 'page');
+            if (postListTitle) postListTitle.textContent = '인기글';
+            if (postCount) postCount.textContent = `${ranked.length} hot post${ranked.length === 1 ? '' : 's'}`;
+            if (updateUrl) {
+                const url = new URL(window.location.href);
+                url.searchParams.delete('category');
+                url.searchParams.set('view', 'hot');
+                history.replaceState(null, '', `${url.pathname}${url.search}`);
+            }
+        };
+
         const applyCategory = (category, updateUrl) => {
+            restorePostOrder();
+            hotPostLink?.classList.remove('active');
+            hotPostLink?.removeAttribute('aria-current');
+            if (postListTitle) postListTitle.textContent = '최근 기록';
             const selectedFilter = Array.from(categoryFilters).find(filter => filter.dataset.category === category);
             const validCategory = selectedFilter ? category : 'all';
             const selectedPath = selectedFilter?.dataset.categoryPrefix || selectedFilter?.dataset.categoryPath || '';
@@ -279,6 +288,7 @@
 
             if (updateUrl) {
                 const url = new URL(window.location.href);
+                url.searchParams.delete('view');
                 if (validCategory === 'all') url.searchParams.delete('category');
                 else url.searchParams.set('category', validCategory);
                 history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
@@ -289,7 +299,17 @@
             event.preventDefault();
             applyCategory(filter.dataset.category, true);
         }));
-        applyCategory(new URLSearchParams(window.location.search).get('category') || 'all', false);
+        hotPostLink?.addEventListener('click', event => {
+            event.preventDefault();
+            applyHotPosts(true);
+            closeMobileMenu();
+        });
+        document.addEventListener('analytics:ready', () => {
+            if (new URLSearchParams(window.location.search).get('view') === 'hot') applyHotPosts(false);
+        });
+        const initialParams = new URLSearchParams(window.location.search);
+        if (initialParams.get('view') === 'hot') applyHotPosts(false);
+        else applyCategory(initialParams.get('category') || 'all', false);
     }
 
     const toc = document.querySelector('.post-toc');

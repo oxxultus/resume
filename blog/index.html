@@ -15,7 +15,7 @@ permalink: /blog/
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-3' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-4' | relative_url }}">
 </head>
 <body>
     <aside class="blog-sidebar">
@@ -26,7 +26,7 @@ permalink: /blog/
             <a href="{{ '/' | relative_url }}"><i class="fas fa-house"></i> Home</a>
             <span class="blog-nav-label">Writing</span>
             <a class="active category-filter" href="{{ '/blog/' | relative_url }}" data-category="all"><i class="fas fa-pen-nib"></i> All posts</a>
-            <a href="#hot-posts" class="hot-post-link"><i class="fas fa-fire"></i> Hot post</a>
+            <a href="?view=hot" class="hot-post-link"><i class="fas fa-fire"></i> Hot post</a>
             <span class="blog-nav-label">Categories</span>
             <div class="category-tree" data-category-tree>
                 {% assign categories = site.categories | sort %}
@@ -59,14 +59,9 @@ permalink: /blog/
                 </div>
             </section>
 
-            <section id="hot-posts" class="popular-section" data-popular-section hidden>
-                <div class="post-section-heading"><h2>인기글</h2><span>조회수 기준</span></div>
-                <ol class="popular-list" data-popular-list></ol>
-            </section>
-
             <section class="post-section">
                 <div class="post-section-heading">
-                    <h2>최근 기록</h2>
+                    <h2 data-post-list-title>최근 기록</h2>
                     <span class="post-count">{{ site.posts | size }} posts</span>
                 </div>
                 <div class="post-list">
@@ -93,6 +88,6 @@ permalink: /blog/
             </section>
         </div>
     </main>
-    <script src="{{ '/blog.js?v=20260711-3' | relative_url }}"></script>
+    <script src="{{ '/blog.js?v=20260711-4' | relative_url }}"></script>
 </body>
 </html>
