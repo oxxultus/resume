@@ -266,12 +266,15 @@
     const postListTitle = document.querySelector('[data-post-list-title]');
     const hotPostLink = document.querySelector('.hot-post-link');
     const sortSelect = document.querySelector('[data-sort-select]');
+    const searchInput = document.querySelector('[data-post-search]');
     const pagination = document.querySelector('[data-pagination]');
     const originalPostCards = Array.from(postCards);
     if (categoryFilters.length && postCards.length) {
         const PAGE_SIZE = 5;
         let currentCategory = 'all';
         let currentVisibleCards = originalPostCards;
+        let currentBaseCards = originalPostCards;
+        let currentMode = 'category';
         const metricFor = sortKey => sortKey === 'likes' ? analyticsLikesByPath : analyticsViewsByPath;
         const sortCards = (cards, sortKey) => {
             if (sortKey === 'latest') return [...cards];
@@ -293,12 +296,12 @@
             }));
             sortSelect.value = options.some(([value]) => value === sortKey) ? sortKey : options[0][0];
         };
-        const showPage = (cards, requestedPage, updateUrl) => {
+        const showPage = (cards, requestedPage, updateUrl, paginate = true) => {
             currentVisibleCards = cards;
-            const totalPages = Math.max(1, Math.ceil(cards.length / PAGE_SIZE));
+            const totalPages = paginate ? Math.max(1, Math.ceil(cards.length / PAGE_SIZE)) : 1;
             const page = Math.min(Math.max(Number(requestedPage) || 1, 1), totalPages);
             const start = (page - 1) * PAGE_SIZE;
-            const visibleOnPage = new Set(cards.slice(start, start + PAGE_SIZE));
+            const visibleOnPage = new Set(paginate ? cards.slice(start, start + PAGE_SIZE) : cards);
             originalPostCards.forEach(card => { card.hidden = !visibleOnPage.has(card); });
 
             if (pagination) {
@@ -311,7 +314,7 @@
                     button.setAttribute('aria-label', `${pageNumber}페이지`);
                     if (pageNumber === page) button.setAttribute('aria-current', 'page');
                     button.addEventListener('click', () => {
-                        showPage(currentVisibleCards, pageNumber, true);
+                        showPage(currentVisibleCards, pageNumber, true, true);
                         document.querySelector('.post-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     });
                     return button;
@@ -325,12 +328,36 @@
                 history.replaceState(null, '', `${url.pathname}${url.search}`);
             }
         };
+        const applySearch = (updateUrl, requestedPage = 1) => {
+            const query = searchInput?.value.trim().toLocaleLowerCase('ko') || '';
+            const matchedCards = query
+                ? currentBaseCards.filter(card => [
+                    card.querySelector('.post-title-row h2')?.textContent,
+                    card.querySelector(':scope > p')?.textContent,
+                    card.querySelector('.post-tags')?.textContent,
+                    card.dataset.categoryPath
+                ].filter(Boolean).join(' ').toLocaleLowerCase('ko').includes(query))
+                : currentBaseCards;
+            if (postCount) {
+                const label = currentMode === 'hot' ? 'hot post' : 'post';
+                postCount.textContent = `${matchedCards.length} ${label}${matchedCards.length === 1 ? '' : 's'}`;
+            }
+            if (updateUrl) {
+                const url = new URL(window.location.href);
+                if (query) url.searchParams.set('q', query);
+                else url.searchParams.delete('q');
+                history.replaceState(null, '', `${url.pathname}${url.search}`);
+            }
+            showPage(matchedCards, requestedPage, updateUrl, currentMode !== 'hot');
+        };
         const applyHotPosts = (updateUrl, sortKey = 'views') => {
             const metric = sortKey === 'likes' ? analyticsLikesByPath : analyticsViewsByPath;
             const ranked = sortCards(
                 originalPostCards.filter(card => (metric.get(card.dataset.postPath) || 0) > 0),
                 sortKey
             ).slice(0, 7);
+            currentMode = 'hot';
+            currentBaseCards = ranked;
             const rankedSet = new Set(ranked);
             postList?.append(...ranked, ...originalPostCards.filter(card => !rankedSet.has(card)));
             categoryFilters.forEach(filter => {
@@ -341,7 +368,6 @@
             hotPostLink?.setAttribute('aria-current', 'page');
             configureSortOptions('hot', sortKey);
             if (postListTitle) postListTitle.textContent = '인기글';
-            if (postCount) postCount.textContent = `${ranked.length} hot post${ranked.length === 1 ? '' : 's'}`;
             if (updateUrl) {
                 const url = new URL(window.location.href);
                 url.searchParams.delete('category');
@@ -349,8 +375,7 @@
                 url.searchParams.set('sort', sortKey);
                 history.replaceState(null, '', `${url.pathname}${url.search}`);
             }
-            const requestedPage = updateUrl ? 1 : new URLSearchParams(window.location.search).get('page');
-            showPage(ranked, requestedPage, updateUrl);
+            applySearch(updateUrl, 1);
         };
 
         const applyCategory = (category, updateUrl, sortKey = 'latest') => {
@@ -360,6 +385,7 @@
             const selectedFilter = Array.from(categoryFilters).find(filter => filter.dataset.category === category);
             const validCategory = selectedFilter ? category : 'all';
             currentCategory = validCategory;
+            currentMode = 'category';
             const selectedPath = selectedFilter?.dataset.categoryPrefix || selectedFilter?.dataset.categoryPath || '';
             const includeDescendants = Boolean(selectedFilter?.dataset.categoryPrefix);
             const visibleCards = originalPostCards.filter(card => {
@@ -371,6 +397,7 @@
             });
             const visibleSet = new Set(visibleCards);
             const sortedCards = sortCards(visibleCards, sortKey);
+            currentBaseCards = sortedCards;
             postList?.append(...sortedCards, ...originalPostCards.filter(card => !visibleSet.has(card)));
             categoryFilters.forEach(filter => {
                 const active = filter.dataset.category === validCategory;
@@ -379,7 +406,6 @@
                 else filter.removeAttribute('aria-current');
             });
             configureSortOptions('category', sortKey);
-            if (postCount) postCount.textContent = `${visibleCards.length} post${visibleCards.length === 1 ? '' : 's'}`;
 
             if (updateUrl) {
                 const url = new URL(window.location.href);
@@ -391,7 +417,7 @@
                 history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
             }
             const requestedPage = updateUrl ? 1 : new URLSearchParams(window.location.search).get('page');
-            showPage(sortedCards, requestedPage, updateUrl);
+            applySearch(updateUrl, requestedPage);
         };
 
         categoryFilters.forEach(filter => filter.addEventListener('click', event => {
@@ -409,12 +435,14 @@
             if (isHot) applyHotPosts(true, sortSelect.value);
             else applyCategory(currentCategory, true, sortSelect.value);
         });
+        searchInput?.addEventListener('input', () => applySearch(true, 1));
         document.addEventListener('analytics:ready', () => {
             const params = new URLSearchParams(window.location.search);
             if (params.get('view') === 'hot') applyHotPosts(false, params.get('sort') === 'likes' ? 'likes' : 'views');
             else applyCategory(params.get('category') || 'all', false, ['views', 'likes'].includes(params.get('sort')) ? params.get('sort') : 'latest');
         });
         const initialParams = new URLSearchParams(window.location.search);
+        if (searchInput) searchInput.value = initialParams.get('q') || '';
         if (initialParams.get('view') === 'hot') applyHotPosts(false, initialParams.get('sort') === 'likes' ? 'likes' : 'views');
         else applyCategory(initialParams.get('category') || 'all', false, ['views', 'likes'].includes(initialParams.get('sort')) ? initialParams.get('sort') : 'latest');
     }
