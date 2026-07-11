@@ -15,7 +15,7 @@ permalink: /blog/
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-7' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-8' | relative_url }}">
 </head>
 <body>
     <aside class="blog-sidebar">
@@ -63,10 +63,7 @@ permalink: /blog/
                 <div class="post-section-heading">
                     <h2 data-post-list-title>최근 기록</h2>
                     <div class="post-heading-tools">
-                        <div class="hot-sort" data-hot-sort hidden aria-label="인기글 정렬 기준">
-                            <button type="button" class="active" data-hot-sort-key="views">조회수순</button>
-                            <button type="button" data-hot-sort-key="likes">좋아요순</button>
-                        </div>
+                        <label class="sort-control"><span>정렬</span><select data-sort-select aria-label="게시글 정렬 기준"><option value="latest">업로드 최신순</option><option value="views">조회수순</option><option value="likes">좋아요순</option></select></label>
                         <span class="post-count">{{ site.posts | size }} posts</span>
                     </div>
                 </div>
@@ -95,6 +92,6 @@ permalink: /blog/
             </section>
         </div>
     </main>
-    <script src="{{ '/blog.js?v=20260711-6' | relative_url }}"></script>
+    <script src="{{ '/blog.js?v=20260711-7' | relative_url }}"></script>
 </body>
 </html>
