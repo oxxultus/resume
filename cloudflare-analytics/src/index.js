@@ -37,7 +37,11 @@ async function visitorIdentity(request, env) {
     const day = new Date().toISOString().slice(0, 10);
     const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
     const agent = request.headers.get('user-agent') || 'unknown';
-    return { day, visitorHash: await sha256(`${env.VISITOR_SALT}:${day}:${ip}:${agent}`) };
+    return {
+        day,
+        visitorHash: await sha256(`${env.VISITOR_SALT}:${day}:${ip}:${agent}`),
+        stableVisitorHash: await sha256(`${env.VISITOR_SALT}:like:${ip}:${agent}`)
+    };
 }
 
 async function recordVisit(request, env) {
@@ -59,7 +63,7 @@ async function recordView(request, env) {
     if (!path || !title) return json(request, env, { error: 'Invalid post data' }, 400);
 
     const now = new Date();
-    const { day, visitorHash } = await visitorIdentity(request, env);
+    const { day, visitorHash, stableVisitorHash } = await visitorIdentity(request, env);
 
     await env.DB.batch([
         env.DB.prepare(`
@@ -82,8 +86,44 @@ async function recordView(request, env) {
         `).bind(day)
     ]);
 
-    const post = await env.DB.prepare('SELECT views FROM posts WHERE path = ?1').bind(path).first();
-    return json(request, env, { path, views: post?.views || 1 });
+    const [post, liked] = await env.DB.batch([
+        env.DB.prepare('SELECT views, likes FROM posts WHERE path = ?1').bind(path),
+        env.DB.prepare('SELECT 1 AS liked FROM post_likes WHERE path = ?1 AND visitor_hash = ?2').bind(path, stableVisitorHash)
+    ]);
+    return json(request, env, {
+        path,
+        views: post.results[0]?.views || 1,
+        likes: post.results[0]?.likes || 0,
+        liked: Boolean(liked.results[0]?.liked)
+    });
+}
+
+async function toggleLike(request, env) {
+    const payload = await request.json().catch(() => null);
+    const path = normalizePath(payload?.path);
+    if (!path) return json(request, env, { error: 'Invalid post path' }, 400);
+
+    const post = await env.DB.prepare('SELECT likes FROM posts WHERE path = ?1').bind(path).first();
+    if (!post) return json(request, env, { error: 'Post not found' }, 404);
+    const { stableVisitorHash } = await visitorIdentity(request, env);
+    const existing = await env.DB.prepare('SELECT 1 AS liked FROM post_likes WHERE path = ?1 AND visitor_hash = ?2')
+        .bind(path, stableVisitorHash).first();
+
+    if (existing) {
+        await env.DB.batch([
+            env.DB.prepare('DELETE FROM post_likes WHERE path = ?1 AND visitor_hash = ?2').bind(path, stableVisitorHash),
+            env.DB.prepare('UPDATE posts SET likes = MAX(likes - 1, 0) WHERE path = ?1').bind(path)
+        ]);
+    } else {
+        await env.DB.batch([
+            env.DB.prepare('INSERT OR IGNORE INTO post_likes (path, visitor_hash, created_at) VALUES (?1, ?2, ?3)')
+                .bind(path, stableVisitorHash, new Date().toISOString()),
+            env.DB.prepare('UPDATE posts SET likes = likes + 1 WHERE path = ?1').bind(path)
+        ]);
+    }
+
+    const updated = await env.DB.prepare('SELECT likes FROM posts WHERE path = ?1').bind(path).first();
+    return json(request, env, { path, likes: updated?.likes || 0, liked: !existing });
 }
 
 async function getStats(request, env) {
@@ -96,7 +136,7 @@ async function getStats(request, env) {
                 COALESCE((SELECT SUM(visits) FROM daily_site_visits), 0) AS total_visits
         `),
         env.DB.prepare('SELECT COUNT(*) AS count FROM daily_visitors WHERE day = ?1').bind(today),
-        env.DB.prepare('SELECT path, title, views FROM posts ORDER BY views DESC, last_viewed_at DESC'),
+        env.DB.prepare('SELECT path, title, views, likes FROM posts ORDER BY views DESC, last_viewed_at DESC'),
         env.DB.prepare(`
             SELECT day, SUM(views) AS views,
                    (SELECT COUNT(*) FROM daily_visitors visitors WHERE visitors.day = daily_page_views.day) AS visitors
@@ -130,7 +170,8 @@ async function syncCurrentPosts(env) {
 
     const statements = stalePaths.flatMap(path => [
         env.DB.prepare('DELETE FROM posts WHERE path = ?1').bind(path),
-        env.DB.prepare('DELETE FROM daily_page_views WHERE path = ?1').bind(path)
+        env.DB.prepare('DELETE FROM daily_page_views WHERE path = ?1').bind(path),
+        env.DB.prepare('DELETE FROM post_likes WHERE path = ?1').bind(path)
     ]);
     await env.DB.batch(statements);
     return { deleted: stalePaths.length };
@@ -143,6 +184,7 @@ export default {
 
         try {
             if (url.pathname === '/api/view' && request.method === 'POST') return await recordView(request, env);
+            if (url.pathname === '/api/like' && request.method === 'POST') return await toggleLike(request, env);
             if (url.pathname === '/api/visit' && request.method === 'POST') return await recordVisit(request, env);
             if (url.pathname === '/api/stats' && request.method === 'GET') return await getStats(request, env);
             if (url.pathname === '/health') return json(request, env, { ok: true });
