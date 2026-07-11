@@ -97,6 +97,11 @@ button { font: inherit; }
 .post-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; color: var(--accent); font-size: 11px; }
 .post-read { display: inline-flex; align-items: center; gap: 7px; margin-top: 20px; font-size: 12px; font-weight: 650; }.post-read i { transition: transform .16s ease; }
 .post-card:hover .post-read i { transform: translateX(4px); }.post-card:hover h2 { color: var(--accent); }
+.pagination { display: flex; justify-content: center; gap: 6px; padding-top: 32px; }
+.pagination[hidden] { display: none; }
+.pagination button { display: grid; place-items: center; min-width: 38px; min-height: 38px; padding: 6px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--muted); font-size: 12px; cursor: pointer; }
+.pagination button:hover, .pagination button:focus-visible { border-color: var(--accent); color: var(--text); outline: none; }
+.pagination button[aria-current="page"] { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); background: var(--surface-soft); color: var(--accent); font-weight: 700; }
 .empty-posts { padding: 45px 0; color: var(--muted); text-align: center; }
 .article { width: min(800px, calc(100% - 64px)); margin: 0 auto; padding: 68px 0 96px; }
 .article-header { padding-bottom: 34px; border-bottom: 1px solid var(--line); }
