@@ -292,7 +292,10 @@
         };
         const applyHotPosts = (updateUrl, sortKey = 'views') => {
             const metric = sortKey === 'likes' ? analyticsLikesByPath : analyticsViewsByPath;
-            const ranked = sortCards(originalPostCards.filter(card => (metric.get(card.dataset.postPath) || 0) > 0), sortKey);
+            const ranked = sortCards(
+                originalPostCards.filter(card => (metric.get(card.dataset.postPath) || 0) > 0),
+                sortKey
+            ).slice(0, 7);
             const rankedSet = new Set(ranked);
             postList?.append(...ranked, ...originalPostCards.filter(card => !rankedSet.has(card)));
             originalPostCards.forEach(card => { card.hidden = !rankedSet.has(card); });
