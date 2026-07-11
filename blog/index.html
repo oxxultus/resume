@@ -15,7 +15,7 @@ permalink: /blog/
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-13' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-14' | relative_url }}">
 </head>
 <body>
     <aside class="blog-sidebar">
@@ -26,7 +26,7 @@ permalink: /blog/
             <a href="{{ '/' | relative_url }}"><i class="fas fa-house"></i> Home</a>
             <span class="blog-nav-label">Writing</span>
             <a class="active category-filter" href="{{ '/blog/' | relative_url }}" data-category="all"><i class="fas fa-pen-nib"></i> All posts</a>
-            <a href="?view=hot" class="hot-post-link"><i class="fas fa-fire"></i> Hot post</a>
+            <a href="?view=hot" class="hot-post-link"><i class="fas fa-fire"></i> Hot Posts</a>
             <span class="blog-nav-label">Categories</span>
             <div class="category-tree" data-category-tree>
                 {% assign categories = site.categories | sort %}
@@ -49,9 +49,11 @@ permalink: /blog/
         </header>
         <div class="blog-content">
             <section class="blog-hero">
-                <span class="blog-kicker">Study notes</span>
-                <h1>배우고, 적용하고, 기록합니다.</h1>
-                <p>백엔드 개발과 인프라를 공부하며 이해한 내용, 프로젝트에 적용한 과정, 문제를 해결하며 얻은 기준을 정리합니다.</p>
+                <div data-blog-intro>
+                    <span class="blog-kicker">Study notes</span>
+                    <h1>배우고, 적용하고, 기록합니다.</h1>
+                    <p>백엔드 개발과 인프라를 공부하며 이해한 내용, 프로젝트에 적용한 과정, 문제를 해결하며 얻은 기준을 정리합니다.</p>
+                </div>
                 <div class="blog-stats" aria-label="블로그 방문 통계">
                     <span><strong data-total-visits>—</strong> 누적 방문</span>
                     <span><strong data-today-visitors>—</strong> 오늘 방문자</span>
@@ -98,6 +100,6 @@ permalink: /blog/
             </section>
         </div>
     </main>
-    <script src="{{ '/blog.js?v=20260711-13' | relative_url }}"></script>
+    <script src="{{ '/blog.js?v=20260711-14' | relative_url }}"></script>
 </body>
 </html>
