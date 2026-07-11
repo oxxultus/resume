@@ -70,6 +70,7 @@ button { font: inherit; }
 .blog-menu { display: none; border: 0; background: transparent; color: var(--text); }
 .blog-content { width: min(880px, calc(100% - 64px)); margin: 0 auto; padding: 88px 0 110px; }
 .blog-hero { max-width: 820px; padding-bottom: 80px; }
+.blog-hero.is-filtered { padding-bottom: 40px; }.blog-hero.is-filtered .blog-stats { margin-top: 0; }
 .blog-kicker { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
 .blog-hero h1 { margin: 12px 0 20px; font-size: clamp(40px, 4.5vw, 56px); line-height: 1.14; letter-spacing: -.05em; text-wrap: balance; }
 .blog-hero p { max-width: 660px; margin: 0; color: var(--muted); font-size: 16px; line-height: 1.9; }
@@ -167,7 +168,7 @@ button { font: inherit; }
     .sidebar-close:hover, .sidebar-close:focus-visible { background: var(--surface-soft); outline: none; }
     .blog-main { margin-left: 0; }.blog-topbar { height: 62px; padding: 0 16px; }.blog-menu { display: block; }
     .blog-content, .article { width: min(100% - 32px, 800px); padding-top: 55px; }
-    .blog-hero { padding-bottom: 58px; }.blog-hero h1 { font-size: 40px; }
+    .blog-hero { padding-bottom: 58px; }.blog-hero.is-filtered { padding-bottom: 32px; }.blog-hero h1 { font-size: 40px; }
     .article-header h1 { font-size: 38px; }.article-body { font-size: 15px; }
     .post-title-row { align-items: flex-start; }.post-tech-icon { flex-basis: 34px; width: 34px; height: 34px; border-radius: 9px; font-size: 13px; }
     .article-title-row { gap: 12px; }.article-title-row .post-tech-icon { flex-basis: 38px; width: 38px; height: 38px; margin-top: 3px; font-size: 15px; }

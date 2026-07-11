@@ -297,6 +297,8 @@
     const sortMenu = document.querySelector('[data-sort-menu]');
     const searchInput = document.querySelector('[data-post-search]');
     const pagination = document.querySelector('[data-pagination]');
+    const blogHero = document.querySelector('.blog-hero');
+    const blogIntro = document.querySelector('[data-blog-intro]');
     const originalPostCards = Array.from(postCards);
     if (categoryFilters.length && postCards.length) {
         const PAGE_SIZE = 5;
@@ -398,6 +400,8 @@
             showPage(matchedCards, requestedPage, updateUrl, currentMode !== 'hot');
         };
         const applyHotPosts = (updateUrl, sortKey = 'views') => {
+            if (blogIntro) blogIntro.hidden = true;
+            blogHero?.classList.add('is-filtered');
             const metric = sortKey === 'likes' ? analyticsLikesByPath : analyticsViewsByPath;
             const candidates = sortKey === 'likes'
                 ? originalPostCards
@@ -434,6 +438,8 @@
             if (postListTitle) postListTitle.textContent = '최근 기록';
             const selectedFilter = Array.from(categoryFilters).find(filter => filter.dataset.category === category);
             const validCategory = selectedFilter ? category : 'all';
+            if (blogIntro) blogIntro.hidden = validCategory !== 'all';
+            blogHero?.classList.toggle('is-filtered', validCategory !== 'all');
             currentCategory = validCategory;
             currentMode = 'category';
             const selectedPath = selectedFilter?.dataset.categoryPrefix || selectedFilter?.dataset.categoryPath || '';
