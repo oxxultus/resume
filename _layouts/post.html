@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-12' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-13' | relative_url }}">
 </head>
 <body>
     <aside class="blog-sidebar">
@@ -48,7 +48,10 @@
                 </div>
                 {% if page.summary %}<p>{{ page.summary }}</p>{% endif %}
                 <div class="post-tags">{% for tag in page.tags %}<span>#{{ tag }}</span>{% endfor %}</div>
-                <div class="article-actions"><button class="post-like-button" type="button" data-like-button aria-label="이 글 좋아요" aria-pressed="false"><i class="far fa-heart"></i><span>좋아요</span><strong data-like-count>0</strong></button></div>
+                <div class="article-actions">
+                    <button class="post-like-button" type="button" data-like-button aria-label="이 글 좋아요" aria-pressed="false"><i class="far fa-heart"></i><span>좋아요</span><strong data-like-count>0</strong></button>
+                    <button class="article-share-button" type="button" data-share-button aria-label="이 글 공유"><i class="fas fa-share-nodes"></i><span data-share-label>공유</span></button>
+                </div>
             </header>
             <div class="article-body">{{ content }}</div>
             {% assign category_name = page.categories | first %}
@@ -69,6 +72,6 @@
             <footer class="article-footer"><a href="{{ '/blog/' | relative_url }}"><i class="fas fa-arrow-left"></i> 블로그 목록으로</a></footer>
         </article>
     </main>
-    <script src="{{ '/blog.js?v=20260711-12' | relative_url }}"></script>
+    <script src="{{ '/blog.js?v=20260711-13' | relative_url }}"></script>
 </body>
 </html>
