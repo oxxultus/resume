@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-11' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-12' | relative_url }}">
 </head>
 <body>
     <aside class="blog-sidebar">
@@ -51,9 +51,24 @@
                 <div class="article-actions"><button class="post-like-button" type="button" data-like-button aria-label="이 글 좋아요" aria-pressed="false"><i class="far fa-heart"></i><span>좋아요</span><strong data-like-count>0</strong></button></div>
             </header>
             <div class="article-body">{{ content }}</div>
+            {% assign category_name = page.categories | first %}
+            {% assign category_posts = site.categories[category_name] %}
+            {% assign older_post = nil %}
+            {% assign newer_post = nil %}
+            {% assign found_current = false %}
+            {% assign last_post = nil %}
+            {% for category_post in category_posts %}
+                {% if found_current and older_post == nil %}{% assign older_post = category_post %}{% endif %}
+                {% if category_post.url == page.url %}{% assign found_current = true %}{% assign newer_post = last_post %}{% endif %}
+                {% assign last_post = category_post %}
+            {% endfor %}
+            <nav class="article-navigation" aria-label="같은 카테고리의 이전 글과 다음 글">
+                {% if older_post %}<a href="{{ older_post.url | relative_url }}"><small>이전 글</small><strong>{{ older_post.title }}</strong></a>{% else %}<span class="article-nav-empty"><small>이전 글</small><strong>이전 글이 없습니다</strong></span>{% endif %}
+                {% if newer_post %}<a class="article-nav-next" href="{{ newer_post.url | relative_url }}"><small>다음 글</small><strong>{{ newer_post.title }}</strong></a>{% else %}<span class="article-nav-empty article-nav-next"><small>다음 글</small><strong>다음 글이 없습니다</strong></span>{% endif %}
+            </nav>
             <footer class="article-footer"><a href="{{ '/blog/' | relative_url }}"><i class="fas fa-arrow-left"></i> 블로그 목록으로</a></footer>
         </article>
     </main>
-    <script src="{{ '/blog.js?v=20260711-11' | relative_url }}"></script>
+    <script src="{{ '/blog.js?v=20260711-12' | relative_url }}"></script>
 </body>
 </html>
