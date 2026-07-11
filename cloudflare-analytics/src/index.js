@@ -1,4 +1,5 @@
 const JSON_HEADERS = { 'content-type': 'application/json; charset=utf-8' };
+const POST_MANIFEST_URL = 'https://oxxultus.github.io/resume/blog/posts.json';
 
 function corsHeaders(request, env) {
     const origin = request.headers.get('origin');
@@ -116,6 +117,25 @@ async function getStats(request, env) {
     });
 }
 
+async function syncCurrentPosts(env) {
+    const response = await fetch(POST_MANIFEST_URL, { headers: { accept: 'application/json' } });
+    if (!response.ok) throw new Error(`Post manifest returned ${response.status}`);
+    const manifest = await response.json();
+    if (!Array.isArray(manifest.posts)) throw new Error('Invalid post manifest');
+
+    const currentPaths = new Set(manifest.posts.map(post => normalizePath(post.path)).filter(Boolean));
+    const stored = await env.DB.prepare('SELECT path FROM posts').all();
+    const stalePaths = stored.results.map(post => post.path).filter(path => !currentPaths.has(path));
+    if (!stalePaths.length) return { deleted: 0 };
+
+    const statements = stalePaths.flatMap(path => [
+        env.DB.prepare('DELETE FROM posts WHERE path = ?1').bind(path),
+        env.DB.prepare('DELETE FROM daily_page_views WHERE path = ?1').bind(path)
+    ]);
+    await env.DB.batch(statements);
+    return { deleted: stalePaths.length };
+}
+
 export default {
     async fetch(request, env) {
         if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: corsHeaders(request, env) });
@@ -131,5 +151,8 @@ export default {
             console.error(error);
             return json(request, env, { error: 'Analytics unavailable' }, 500);
         }
+    },
+    async scheduled(controller, env, ctx) {
+        ctx.waitUntil(syncCurrentPosts(env));
     }
 };

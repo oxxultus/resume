@@ -13,5 +13,8 @@
   ],
   "vars": {
     "ALLOWED_ORIGIN": "https://oxxultus.github.io"
+  },
+  "triggers": {
+    "crons": ["17 */6 * * *"]
   }
 }
