@@ -15,7 +15,7 @@ permalink: /blog/neural/
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ '/blog.css?v=20260712-1' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/blog.css?v=20260712-2' | relative_url }}">
 </head>
 <body>
     <aside class="blog-sidebar">
@@ -23,7 +23,7 @@ permalink: /blog/neural/
         <a class="blog-brand" href="{{ '/' | relative_url }}"><span>&lt;</span>Oxxultus.Dev<span>/&gt;</span></a>
         <nav class="blog-nav" aria-label="블로그 탐색">
             <span class="blog-nav-label">Main</span>
-            <a href="{{ '/' | relative_url }}"><i class="fas fa-house"></i> Home</a>
+            <button class="neural-back" type="button" data-neural-back><i class="fas fa-arrow-left"></i> 뒤로가기</button>
             <span class="blog-nav-label">Writing</span>
             <a href="{{ '/blog/' | relative_url }}"><i class="fas fa-pen-nib"></i> All posts</a>
             <a href="{{ '/blog/' | relative_url }}?view=hot"><i class="fas fa-fire"></i> Hot Posts</a>
@@ -52,6 +52,6 @@ permalink: /blog/neural/
         </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
-    <script src="{{ '/neural.js?v=20260712-1' | relative_url }}"></script>
+    <script src="{{ '/neural.js?v=20260712-2' | relative_url }}"></script>
 </body>
 </html>

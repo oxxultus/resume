@@ -7,6 +7,7 @@
     const status = document.querySelector('[data-neural-status]');
     const count = document.querySelector('[data-neural-count]');
     const reset = document.querySelector('[data-neural-reset]');
+    const backButton = document.querySelector('[data-neural-back]');
 
     const setTheme = dark => {
         body.classList.toggle('dark-theme', dark);
@@ -23,6 +24,10 @@
         menuButton.setAttribute('aria-expanded', String(open));
     });
     closeButton.addEventListener('click', closeMenu);
+    backButton.addEventListener('click', () => {
+        if (document.referrer && new URL(document.referrer).origin === location.origin) history.back();
+        else location.href = '../';
+    });
     document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMenu(); });
 
     const parts = category => String(category || 'Uncategorized').split('/').map(value => value.trim()).filter(Boolean);
@@ -51,9 +56,18 @@
 
         const width = canvas.clientWidth;
         const height = canvas.clientHeight;
+        const ring = Math.min(width, height) * .3;
+        nodes.forEach((nodeItem, index) => {
+            const angle = (Math.PI * 2 * index) / Math.max(nodes.length, 1) - Math.PI / 2;
+            nodeItem.x = width / 2 + Math.cos(angle) * ring;
+            nodeItem.y = height / 2 + Math.sin(angle) * ring;
+        });
         const svg = d3.select(canvas).append('svg').attr('viewBox', [0, 0, width, height]).attr('role', 'img').attr('aria-label', '카테고리 기반 게시글 연결 그래프');
         const stage = svg.append('g');
-        const zoom = d3.zoom().scaleExtent([.45, 2.8]).on('zoom', event => stage.attr('transform', event.transform));
+        const zoom = d3.zoom().scaleExtent([.55, 4]).wheelDelta(event => -event.deltaY * (event.deltaMode ? .035 : .0015)).on('zoom', event => {
+            stage.attr('transform', event.transform);
+            svg.classed('show-labels', event.transform.k >= 1.45);
+        });
         svg.call(zoom);
 
         const link = stage.append('g').attr('class', 'neural-links').selectAll('line').data(links).join('line').attr('data-depth', d => Math.min(d.depth, 3));
@@ -68,7 +82,10 @@
             .force('link', d3.forceLink(links).id(d => d.id).distance(d => d.exact ? 78 : Math.max(105, 165 - d.depth * 22)).strength(d => Math.min(.92, .25 + d.depth * .2)))
             .force('charge', d3.forceManyBody().strength(-330))
             .force('center', d3.forceCenter(width / 2, height / 2))
-            .force('collision', d3.forceCollide(48));
+            .force('radial', d3.forceRadial(ring, width / 2, height / 2).strength(.045))
+            .force('collision', d3.forceCollide(38))
+            .alphaDecay(.018)
+            .velocityDecay(.48);
 
         node.call(d3.drag().on('start', (event, d) => { if (!event.active) simulation.alphaTarget(.25).restart(); d.fx = d.x; d.fy = d.y; }).on('drag', (event, d) => { d.fx = event.x; d.fy = event.y; }).on('end', (event, d) => { if (!event.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }));
         simulation.on('tick', () => {
@@ -79,7 +96,7 @@
         const resetView = () => {
             const transform = d3.zoomIdentity;
             if (matchMedia('(prefers-reduced-motion: reduce)').matches) svg.call(zoom.transform, transform);
-            else svg.transition().duration(280).call(zoom.transform, transform);
+            else svg.transition().duration(480).ease(d3.easeCubicOut).call(zoom.transform, transform);
             nodes.forEach(d => { d.fx = null; d.fy = null; });
             simulation.alpha(.55).restart();
         };
