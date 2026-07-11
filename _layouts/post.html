@@ -69,9 +69,9 @@
                 {% if older_post %}<a href="{{ older_post.url | relative_url }}"><small>이전 글</small><strong>{{ older_post.title }}</strong></a>{% else %}<span class="article-nav-empty"><small>이전 글</small><strong>이전 글이 없습니다</strong></span>{% endif %}
                 {% if newer_post %}<a class="article-nav-next" href="{{ newer_post.url | relative_url }}"><small>다음 글</small><strong>{{ newer_post.title }}</strong></a>{% else %}<span class="article-nav-empty article-nav-next"><small>다음 글</small><strong>다음 글이 없습니다</strong></span>{% endif %}
             </nav>
-            <footer class="article-footer"><a href="{{ '/blog/' | relative_url }}"><i class="fas fa-arrow-left"></i> 블로그 목록으로</a></footer>
+            <footer class="article-footer"><a href="{{ '/blog/' | relative_url }}?category={{ category_name | slugify }}"><i class="fas fa-folder"></i> {{ category_name }} 목록으로</a></footer>
         </article>
     </main>
-    <script src="{{ '/blog.js?v=20260711-14' | relative_url }}"></script>
+    <script src="{{ '/blog.js?v=20260711-15' | relative_url }}"></script>
 </body>
 </html>

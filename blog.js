@@ -478,6 +478,7 @@
 
         categoryFilters.forEach(filter => filter.addEventListener('click', event => {
             event.preventDefault();
+            if (searchInput) searchInput.value = '';
             applyCategory(filter.dataset.category, true, currentSortKey);
         }));
         hotPostLink?.addEventListener('click', event => {
