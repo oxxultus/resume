@@ -4,9 +4,15 @@
     const menuButton = document.querySelector('.blog-menu');
     const sidebar = document.querySelector('.blog-sidebar');
     const closeButton = document.querySelector('.blog-sidebar-close');
+    const historyBackButton = document.querySelector('.post-history-back');
     let mermaidApi = null;
     let analyticsViewsByPath = new Map();
     let analyticsLikesByPath = new Map();
+
+    historyBackButton?.addEventListener('click', () => {
+        if (history.length > 1) history.back();
+        else location.href = historyBackButton.nextElementSibling?.href || '/resume/blog/';
+    });
 
     const formatNumber = value => new Intl.NumberFormat('ko-KR').format(Number(value) || 0);
 
@@ -352,8 +358,11 @@
         };
         const applyHotPosts = (updateUrl, sortKey = 'views') => {
             const metric = sortKey === 'likes' ? analyticsLikesByPath : analyticsViewsByPath;
+            const candidates = sortKey === 'likes'
+                ? originalPostCards
+                : originalPostCards.filter(card => (metric.get(card.dataset.postPath) || 0) > 0);
             const ranked = sortCards(
-                originalPostCards.filter(card => (metric.get(card.dataset.postPath) || 0) > 0),
+                candidates,
                 sortKey
             ).slice(0, 7);
             currentMode = 'hot';
