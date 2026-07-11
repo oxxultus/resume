@@ -15,7 +15,7 @@ permalink: /blog/
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-11' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/blog.css?v=20260711-12' | relative_url }}">
 </head>
 <body>
     <aside class="blog-sidebar">
@@ -64,7 +64,11 @@ permalink: /blog/
                     <h2 data-post-list-title>최근 기록</h2>
                     <div class="post-heading-tools">
                         <label class="search-control"><i class="fas fa-magnifying-glass" aria-hidden="true"></i><input type="search" data-post-search placeholder="글 검색" aria-label="게시글 검색"></label>
-                        <label class="sort-control"><span>정렬</span><select data-sort-select aria-label="게시글 정렬 기준"><option value="latest">업로드 최신순</option><option value="views">조회수순</option><option value="likes">좋아요순</option></select></label>
+                        <div class="sort-control" data-sort-dropdown>
+                            <span>정렬</span>
+                            <button class="sort-trigger" type="button" data-sort-trigger aria-haspopup="listbox" aria-expanded="false"><span data-sort-label>업로드 최신순</span><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+                            <div class="sort-menu" data-sort-menu role="listbox" aria-label="게시글 정렬 기준" hidden></div>
+                        </div>
                         <span class="post-count">{{ site.posts | size }} posts</span>
                     </div>
                 </div>
@@ -94,6 +98,6 @@ permalink: /blog/
             </section>
         </div>
     </main>
-    <script src="{{ '/blog.js?v=20260711-11' | relative_url }}"></script>
+    <script src="{{ '/blog.js?v=20260711-12' | relative_url }}"></script>
 </body>
 </html>
