@@ -99,10 +99,10 @@ button { font: inherit; }
 .post-meta > span::before, .post-meta > button::before { content: '·'; margin-right: 10px; color: var(--faint); }
 .post-view-count { font-variant-numeric: tabular-nums; }
 .post-like-count { font-variant-numeric: tabular-nums; }
-.article-actions { display: flex; margin-top: 20px; }
-.post-like-button { display: inline-flex; align-items: center; gap: 7px; min-height: 40px; padding: 8px 13px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; }
+.article-actions { position: absolute; top: 0; right: 0; display: flex; gap: 8px; }.article-header > .post-meta { padding-right: 205px; }
+.post-like-button, .article-share-button { display: inline-flex; align-items: center; gap: 7px; min-height: 40px; padding: 8px 13px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; }
 .post-like-button i { font-size: 15px; }.post-like-button strong { min-width: 1ch; font-variant-numeric: tabular-nums; }
-.post-like-button:hover, .post-like-button:focus-visible, .post-like-button[aria-pressed="true"] { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); background: var(--surface-soft); color: var(--accent); outline: none; }
+.article-share-button i { font-size: 14px; }.post-like-button:hover, .post-like-button:focus-visible, .post-like-button[aria-pressed="true"], .article-share-button:hover, .article-share-button:focus-visible { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); background: var(--surface-soft); color: var(--accent); outline: none; }
 .post-like-button:disabled { cursor: wait; opacity: .65; }
 .post-title-row { display: flex; align-items: center; gap: 12px; margin: 9px 0 8px; }
 .post-card h2 { margin: 0; font-size: 25px; letter-spacing: -.035em; }.post-card p { max-width: 720px; margin: 0; color: var(--muted); font-size: 14px; }
@@ -117,7 +117,7 @@ button { font: inherit; }
 .pagination button[aria-current="page"] { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); background: var(--surface-soft); color: var(--accent); font-weight: 700; }
 .empty-posts { padding: 45px 0; color: var(--muted); text-align: center; }
 .article { width: min(800px, calc(100% - 64px)); margin: 0 auto; padding: 68px 0 96px; }
-.article-header { padding-bottom: 34px; border-bottom: 1px solid var(--line); }
+.article-header { position: relative; padding-bottom: 34px; border-bottom: 1px solid var(--line); }
 .article-title-row { display: flex; align-items: flex-start; gap: 16px; margin: 12px 0 16px; }
 .article-title-row .post-tech-icon { flex-basis: 44px; width: 44px; height: 44px; margin-top: 5px; font-size: 17px; }
 .article-header h1 { margin: 0; font-size: clamp(32px, 3.6vw, 46px); line-height: 1.2; letter-spacing: -.04em; text-wrap: balance; }
@@ -173,6 +173,7 @@ button { font: inherit; }
     .article-title-row { gap: 12px; }.article-title-row .post-tech-icon { flex-basis: 38px; width: 38px; height: 38px; margin-top: 3px; font-size: 15px; }
     .post-section-heading { align-items: flex-start; }.post-heading-tools { align-items: stretch; flex-direction: column-reverse; }.search-control input { width: 128px; }
     .sort-trigger { width: 100%; }.sort-menu { right: 0; left: 0; width: 100%; }.article-navigation { grid-template-columns: 1fr; }.article-nav-next { text-align: left; }
+    .article-header > .post-meta { padding-right: 0; }.article-actions { position: static; margin-top: 20px; }.post-like-button, .article-share-button { min-height: 44px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition-duration: .01ms !important; } }
 

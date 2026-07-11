@@ -5,6 +5,7 @@
     const sidebar = document.querySelector('.blog-sidebar');
     const closeButton = document.querySelector('.blog-sidebar-close');
     const historyBackButton = document.querySelector('.post-history-back');
+    const shareButton = document.querySelector('[data-share-button]');
     let mermaidApi = null;
     let analyticsViewsByPath = new Map();
     let analyticsLikesByPath = new Map();
@@ -12,6 +13,25 @@
     historyBackButton?.addEventListener('click', () => {
         if (history.length > 1) history.back();
         else location.href = historyBackButton.nextElementSibling?.href || '/resume/blog/';
+    });
+
+    shareButton?.addEventListener('click', async () => {
+        const label = shareButton.querySelector('[data-share-label]');
+        const shareData = {
+            title: document.querySelector('.article-header h1')?.textContent.trim() || document.title,
+            text: document.querySelector('.article-header > p')?.textContent.trim() || '',
+            url: location.href
+        };
+        try {
+            if (navigator.share) await navigator.share(shareData);
+            else {
+                await navigator.clipboard.writeText(location.href);
+                if (label) label.textContent = '링크 복사됨';
+                window.setTimeout(() => { if (label) label.textContent = '공유'; }, 1600);
+            }
+        } catch (error) {
+            if (error?.name !== 'AbortError') console.warn('Share unavailable', error);
+        }
     });
 
     const formatNumber = value => new Intl.NumberFormat('ko-KR').format(Number(value) || 0);
