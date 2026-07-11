@@ -265,16 +265,34 @@
     const postList = document.querySelector('.post-list');
     const postListTitle = document.querySelector('[data-post-list-title]');
     const hotPostLink = document.querySelector('.hot-post-link');
-    const hotSort = document.querySelector('[data-hot-sort]');
-    const hotSortButtons = document.querySelectorAll('[data-hot-sort-key]');
+    const sortSelect = document.querySelector('[data-sort-select]');
     const originalPostCards = Array.from(postCards);
     if (categoryFilters.length && postCards.length) {
-        const restorePostOrder = () => postList?.append(...originalPostCards);
+        let currentCategory = 'all';
+        const metricFor = sortKey => sortKey === 'likes' ? analyticsLikesByPath : analyticsViewsByPath;
+        const sortCards = (cards, sortKey) => {
+            if (sortKey === 'latest') return [...cards];
+            const metric = metricFor(sortKey);
+            return [...cards].sort((cardA, cardB) =>
+                (metric.get(cardB.dataset.postPath) || 0) - (metric.get(cardA.dataset.postPath) || 0)
+            );
+        };
+        const configureSortOptions = (mode, sortKey) => {
+            if (!sortSelect) return;
+            const options = mode === 'hot'
+                ? [['views', '조회수순'], ['likes', '좋아요순']]
+                : [['latest', '업로드 최신순'], ['views', '조회수순'], ['likes', '좋아요순']];
+            sortSelect.replaceChildren(...options.map(([value, label]) => {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = label;
+                return option;
+            }));
+            sortSelect.value = options.some(([value]) => value === sortKey) ? sortKey : options[0][0];
+        };
         const applyHotPosts = (updateUrl, sortKey = 'views') => {
             const metric = sortKey === 'likes' ? analyticsLikesByPath : analyticsViewsByPath;
-            const ranked = originalPostCards
-                .filter(card => (metric.get(card.dataset.postPath) || 0) > 0)
-                .sort((cardA, cardB) => (metric.get(cardB.dataset.postPath) || 0) - (metric.get(cardA.dataset.postPath) || 0));
+            const ranked = sortCards(originalPostCards.filter(card => (metric.get(card.dataset.postPath) || 0) > 0), sortKey);
             const rankedSet = new Set(ranked);
             postList?.append(...ranked, ...originalPostCards.filter(card => !rankedSet.has(card)));
             originalPostCards.forEach(card => { card.hidden = !rankedSet.has(card); });
@@ -284,8 +302,7 @@
             });
             hotPostLink?.classList.add('active');
             hotPostLink?.setAttribute('aria-current', 'page');
-            if (hotSort) hotSort.hidden = false;
-            hotSortButtons.forEach(button => button.classList.toggle('active', button.dataset.hotSortKey === sortKey));
+            configureSortOptions('hot', sortKey);
             if (postListTitle) postListTitle.textContent = '인기글';
             if (postCount) postCount.textContent = `${ranked.length} hot post${ranked.length === 1 ? '' : 's'}`;
             if (updateUrl) {
@@ -297,39 +314,40 @@
             }
         };
 
-        const applyCategory = (category, updateUrl) => {
-            restorePostOrder();
+        const applyCategory = (category, updateUrl, sortKey = 'latest') => {
             hotPostLink?.classList.remove('active');
             hotPostLink?.removeAttribute('aria-current');
-            if (hotSort) hotSort.hidden = true;
             if (postListTitle) postListTitle.textContent = '최근 기록';
             const selectedFilter = Array.from(categoryFilters).find(filter => filter.dataset.category === category);
             const validCategory = selectedFilter ? category : 'all';
+            currentCategory = validCategory;
             const selectedPath = selectedFilter?.dataset.categoryPrefix || selectedFilter?.dataset.categoryPath || '';
             const includeDescendants = Boolean(selectedFilter?.dataset.categoryPrefix);
-            let visibleCount = 0;
-
-            postCards.forEach(card => {
+            const visibleCards = originalPostCards.filter(card => {
                 const cardPath = card.dataset.categoryPath || '';
-                const visible = validCategory === 'all'
+                return validCategory === 'all'
                     || (includeDescendants
                         ? cardPath === selectedPath || cardPath.startsWith(`${selectedPath}/`)
                         : card.dataset.category === validCategory);
-                card.hidden = !visible;
-                if (visible) visibleCount += 1;
             });
+            const visibleSet = new Set(visibleCards);
+            const sortedCards = sortCards(visibleCards, sortKey);
+            postList?.append(...sortedCards, ...originalPostCards.filter(card => !visibleSet.has(card)));
+            originalPostCards.forEach(card => { card.hidden = !visibleSet.has(card); });
             categoryFilters.forEach(filter => {
                 const active = filter.dataset.category === validCategory;
                 filter.classList.toggle('active', active);
                 if (active) filter.setAttribute('aria-current', 'page');
                 else filter.removeAttribute('aria-current');
             });
-            if (postCount) postCount.textContent = `${visibleCount} post${visibleCount === 1 ? '' : 's'}`;
+            configureSortOptions('category', sortKey);
+            if (postCount) postCount.textContent = `${visibleCards.length} post${visibleCards.length === 1 ? '' : 's'}`;
 
             if (updateUrl) {
                 const url = new URL(window.location.href);
                 url.searchParams.delete('view');
-                url.searchParams.delete('sort');
+                if (sortKey === 'latest') url.searchParams.delete('sort');
+                else url.searchParams.set('sort', sortKey);
                 if (validCategory === 'all') url.searchParams.delete('category');
                 else url.searchParams.set('category', validCategory);
                 history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
@@ -338,21 +356,27 @@
 
         categoryFilters.forEach(filter => filter.addEventListener('click', event => {
             event.preventDefault();
-            applyCategory(filter.dataset.category, true);
+            const currentSort = sortSelect?.value || 'latest';
+            applyCategory(filter.dataset.category, true, currentSort === 'latest' ? 'latest' : currentSort);
         }));
         hotPostLink?.addEventListener('click', event => {
             event.preventDefault();
             applyHotPosts(true, 'views');
             closeMobileMenu();
         });
-        hotSortButtons.forEach(button => button.addEventListener('click', () => applyHotPosts(true, button.dataset.hotSortKey)));
+        sortSelect?.addEventListener('change', () => {
+            const isHot = new URLSearchParams(window.location.search).get('view') === 'hot';
+            if (isHot) applyHotPosts(true, sortSelect.value);
+            else applyCategory(currentCategory, true, sortSelect.value);
+        });
         document.addEventListener('analytics:ready', () => {
             const params = new URLSearchParams(window.location.search);
             if (params.get('view') === 'hot') applyHotPosts(false, params.get('sort') === 'likes' ? 'likes' : 'views');
+            else applyCategory(params.get('category') || 'all', false, ['views', 'likes'].includes(params.get('sort')) ? params.get('sort') : 'latest');
         });
         const initialParams = new URLSearchParams(window.location.search);
         if (initialParams.get('view') === 'hot') applyHotPosts(false, initialParams.get('sort') === 'likes' ? 'likes' : 'views');
-        else applyCategory(initialParams.get('category') || 'all', false);
+        else applyCategory(initialParams.get('category') || 'all', false, ['views', 'likes'].includes(initialParams.get('sort')) ? initialParams.get('sort') : 'latest');
     }
 
     const toc = document.querySelector('.post-toc');
