@@ -1,0 +1,14 @@
+---
+layout: null
+permalink: /blog/posts.json
+---
+{
+  "generatedAt": {{ site.time | date_to_xmlschema | jsonify }},
+  "posts": [
+    {% for post in site.posts %}{
+      "path": {{ post.url | relative_url | jsonify }},
+      "title": {{ post.title | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}

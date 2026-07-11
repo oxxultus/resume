@@ -38,7 +38,8 @@
                 if (view) view.textContent = `조회 ${formatNumber(viewsByPath.get(card.dataset.postPath) || 0)}`;
             });
 
-            const popular = data.posts.slice(0, 5);
+            const currentPaths = new Set(Array.from(document.querySelectorAll('[data-post-path]'), card => card.dataset.postPath));
+            const popular = data.posts.filter(post => currentPaths.has(post.path)).slice(0, 5);
             const section = document.querySelector('[data-popular-section]');
             const list = document.querySelector('[data-popular-list]');
             if (popular.length && section && list) {

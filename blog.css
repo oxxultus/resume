@@ -75,7 +75,7 @@ button { font: inherit; }
 .blog-stats { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 28px; color: var(--faint); font-size: 11px; }
 .blog-stats span { display: inline-flex; align-items: baseline; gap: 6px; }
 .blog-stats strong { color: var(--text); font-size: 16px; font-variant-numeric: tabular-nums; }
-.popular-section { margin-bottom: 68px; }
+.popular-section { margin-bottom: 68px; scroll-margin-top: 84px; }
 .popular-list { display: grid; margin: 0; padding: 0; list-style: none; }
 .popular-list li { border-bottom: 1px solid var(--line); }
 .popular-list a { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 15px 4px; }
