@@ -134,8 +134,9 @@ button { font: inherit; }
 .article-body th { background: var(--surface-soft); color: var(--text); font-weight: 650; white-space: nowrap; }
 .article-body td { background: var(--surface); color: var(--muted); }
 .code-block-shell { position: relative; min-width: 0; max-width: 100%; margin: 24px 0; overflow: hidden; }
-.article-body .code-block-shell pre { overflow-x: auto; width: 100%; max-width: 100%; margin: 0; padding: 18px 16px 14px; border: 1px solid #30323a; border-radius: 12px; background: #16181d; color: #eef0f4; font-size: 13px; line-height: 1.7; -webkit-text-size-adjust: none; text-size-adjust: none; }
+.article-body .code-block-shell pre { overflow-x: auto; width: 100%; max-width: 100%; margin: 0; padding: 48px 16px 14px; border: 1px solid #30323a; border-radius: 12px; background: #16181d; color: #eef0f4; font-size: 13px; line-height: 1.7; -webkit-text-size-adjust: none; text-size-adjust: none; }
 .article-body pre > code { display: block; width: max-content; min-width: 100%; padding-right: 72px; }
+.code-language-label { position: absolute; top: 15px; left: 16px; z-index: 1; color: #8f96a5; font-family: 'SFMono-Regular', Consolas, monospace; font-size: 10px; font-weight: 600; letter-spacing: .04em; }
 .code-copy-button { position: absolute; top: 10px; right: 10px; z-index: 1; display: inline-flex; align-items: center; gap: 6px; min-height: 30px; padding: 5px 9px; border: 1px solid #3d404a; border-radius: 7px; background: #22252c; color: #bfc4cf; font-size: 11px; cursor: pointer; }
 .code-copy-button:hover, .code-copy-button:focus-visible { border-color: #626875; color: #fff; outline: none; }
 .code-copy-button.copied { color: #c3e88d; }
