@@ -7,6 +7,8 @@ timezone: Asia/Seoul
 permalink: /blog/:year/:month/:day/:title/
 markdown: kramdown
 highlighter: rouge
+plugins:
+  - jekyll-sitemap
 
 defaults:
   - scope:
