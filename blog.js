@@ -109,12 +109,16 @@
             if (pre.parentElement?.classList.contains('code-block-shell')) return;
             const code = pre.querySelector('code');
             if (!code) return;
+            const languageHost = code.closest('[class*="language-"]');
+            const languageClass = [
+                ...code.classList,
+                ...(languageHost ? languageHost.classList : [])
+            ].find(className => className.startsWith('language-'));
+            const language = languageClass?.slice('language-'.length) || 'text';
             const shell = document.createElement('div');
             shell.className = 'code-block-shell';
             pre.before(shell);
             shell.appendChild(pre);
-            const languageClass = Array.from(code.classList).find(className => className.startsWith('language-'));
-            const language = languageClass?.slice('language-'.length) || 'text';
             const languageNames = { js: 'JavaScript', javascript: 'JavaScript', ts: 'TypeScript', typescript: 'TypeScript', java: 'Java', py: 'Python', python: 'Python', sh: 'Shell', bash: 'Bash', shell: 'Shell', yml: 'YAML', yaml: 'YAML', json: 'JSON', html: 'HTML', css: 'CSS', sql: 'SQL', text: 'Text', plaintext: 'Text' };
             const label = document.createElement('span');
             label.className = 'code-language-label';
