@@ -1313,9 +1313,6 @@ footer p {
    Certifications
    ========================================================================== */
 .certification-panel {
-    display: grid;
-    grid-template-columns: minmax(240px, .7fr) minmax(0, 1.3fr);
-    gap: 3rem;
     padding: 2.25rem;
 }
 
