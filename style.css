@@ -2257,6 +2257,24 @@ footer { border-top: 1px solid var(--border-color); }
 }
 
 /* Career */
+.section-draft {
+    padding: 2rem 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+.section-draft > span {
+    display: block;
+    margin-bottom: .65rem;
+    color: var(--accent-primary);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+.section-draft h3 { margin: 0 0 .45rem; font-size: 1.2rem; }
+.section-draft p { margin: 0; color: var(--text-secondary); font-size: .9rem; }
+.career-draft { margin-top: .5rem; }
+.portfolio-draft { margin-top: 2.5rem; }
 .career-layout {
     display: grid;
     grid-template-columns: minmax(260px, .8fr) minmax(0, 1.2fr);
