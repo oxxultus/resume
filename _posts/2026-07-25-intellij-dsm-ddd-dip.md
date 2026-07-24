@@ -305,4 +305,3 @@ DDD·DIP 구조에서는 `Presentation → Application → Domain`, `Infrastruct
 
 - [JetBrains: Dependency Structure Matrix](https://www.jetbrains.com/help/idea/dsm-analysis.html)
 - [JetBrains: Install plugins](https://www.jetbrains.com/help/idea/managing-plugins.html)
-- [DSM 사용 가이드 원문](https://app.notion.com/p/3a73bd326f6b80218cbdc76ea897aaf4)
