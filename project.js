@@ -49,7 +49,13 @@
 
     const thumbnail = String(data.thumbnail || "").trim();
     const cover = thumbnail.startsWith("<") ? thumbnail : `<img src="${thumbnail}" alt="${data.title} 프로젝트 화면">`;
-    const architecture = data.architecture ? `<div class="architecture-frame">${data.architecture}</div>` : `<div class="empty-state">아키텍처 자료를 준비하고 있습니다.</div>`;
+    const architectureSource = String(data.architecture || "").trim();
+    const architectureContent = architectureSource.startsWith("<svg")
+        ? architectureSource
+        : `<img src="${new URL(architectureSource, document.baseURI).href}" alt="${data.title} 시스템 아키텍처" loading="eager" decoding="sync">`;
+    const architecture = architectureSource
+        ? `<div class="architecture-frame">${architectureContent}</div>`
+        : `<div class="empty-state">아키텍처 자료를 준비하고 있습니다.</div>`;
 
     root.innerHTML = `
         <section id="overview" class="project-hero">
