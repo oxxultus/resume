@@ -29,6 +29,53 @@
  */
 
 const projectData = {
+    lastdish: {
+        title: "LastDish",
+        githubLink: "https://github.com/prgrms-be-adv-devcourse/beadv7_7_Congcongpodpod_BE",
+        tagline: "마감 할인 상품을 연결하는 지역 기반 커머스 플랫폼",
+        category: "team",
+        period: "2026.07 - 2026.09 (6인 프로젝트)",
+        role: "전체 인프라·배포 구조 설계, Kafka 기반 공통 이벤트 모듈 구현, 개발환경 표준화",
+        techStack: ["Java 21 & Spring Boot", "Kafka", "PostgreSQL 17", "Redis", "Kubernetes", "GitHub Actions", "Loki · Prometheus · Grafana"],
+        description: "판매자의 마감 재고를 할인 판매하고 소비자가 주변 상품을 주문·픽업하는 커머스 서비스입니다. 서비스 간 결합도를 낮추면서 주문·결제·정산 이벤트의 유실과 중복을 제어하도록 Outbox·Inbox 공통 모듈을 구현하고, Kubernetes 기반 배포와 독립 모니터링 환경을 구축했습니다.",
+        thumbnail: `<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LastDish 서비스와 이벤트 흐름"><rect width="900" height="520" rx="30" fill="#F7FAF8"/><rect x="45" y="42" width="810" height="436" rx="24" fill="#fff" stroke="#DDE8E1"/><text x="88" y="115" fill="#101713" font-size="48" font-weight="800" font-family="sans-serif">LastDish</text><text x="88" y="157" fill="#64726A" font-size="19" font-family="sans-serif">마감 재고를 가치 있는 한 끼로</text><rect x="88" y="214" width="186" height="106" rx="18" fill="#E8F6ED"/><rect x="357" y="214" width="186" height="106" rx="18" fill="#128A49"/><rect x="626" y="214" width="186" height="106" rx="18" fill="#E8F6ED"/><text x="181" y="262" text-anchor="middle" fill="#107A42" font-size="22" font-weight="700" font-family="sans-serif">주문 · 결제</text><text x="450" y="262" text-anchor="middle" fill="#fff" font-size="22" font-weight="700" font-family="sans-serif">Kafka</text><text x="719" y="262" text-anchor="middle" fill="#107A42" font-size="22" font-weight="700" font-family="sans-serif">정산 · 알림</text><path d="M274 267H342M543 267H611" stroke="#18A257" stroke-width="7" stroke-linecap="round"/><path d="M330 255L344 267L330 279M599 255L613 267L599 279" fill="none" stroke="#18A257" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><rect x="88" y="370" width="724" height="52" rx="12" fill="#F1F5F2"/><text x="450" y="403" text-anchor="middle" fill="#3C4A42" font-size="18" font-family="sans-serif">Outbox 발행 보장 · Inbox 멱등 처리 · 상태 기반 재시도</text></svg>`,
+        achievements: [
+            "Outbox·Inbox·EventMessage·Handler Registry를 공통 모듈로 구현해 서비스별 이벤트 처리 중복을 제거",
+            "이벤트 중요도와 처리 비용에 따라 Outbox/Direct 발행과 Inbox/Direct 소비를 조합하는 4가지 전달 경로 설계",
+            "Kubernetes 순차 배포로 단일 EC2의 CPU 급증을 완화하고, 독립 로그 서버에 Loki·Prometheus·Grafana 관측 환경 구축"
+        ],
+        troubleshooting: [
+            {
+                title: "1. [Event Reliability] DB 반영과 Kafka 발행 사이의 이벤트 유실 제거",
+                problem: "주문·결제 데이터는 저장됐지만 직후 Kafka 발행이 실패하면 정산·포인트 등 후속 서비스가 변경 사실을 알 수 없는 이중 쓰기 문제가 있었습니다.",
+                cause: "업무 DB 트랜잭션과 Kafka 발행은 서로 다른 시스템의 작업이므로 하나의 로컬 트랜잭션으로 원자성을 보장할 수 없었습니다.",
+                action: "업무 데이터 변경과 Outbox PENDING 이벤트를 같은 DB 트랜잭션에 기록했습니다. Scheduler가 FOR UPDATE SKIP LOCKED로 이벤트를 선점하고, 발행 성공 시 PUBLISHED로 전환하며 실패 상태와 재시도 횟수를 별도 트랜잭션으로 보존하도록 구현했습니다.",
+                result: "커밋된 이벤트가 발행 실패로 사라지는 구간을 제거하고, 장애 후 저장된 상태에서 안전하게 재발행할 수 있게 했습니다."
+            },
+            {
+                title: "2. [Idempotency] Kafka 재전달과 순서 역전으로 인한 중복 반영 방지",
+                problem: "최소 한 번 전달에서는 같은 이벤트가 다시 도착할 수 있고, 상태 변경 이벤트가 순서와 다르게 도착하면 최신 데이터가 과거 상태로 되돌아갈 수 있었습니다.",
+                cause: "브로커의 전달 성공과 Consumer의 비즈니스 처리 완료는 동일한 트랜잭션이 아니며, 재시도와 병렬 처리 과정에서 중복·순서 역전이 발생할 수 있습니다.",
+                action: "Inbox에 consumerId와 eventId 복합 Unique 제약을 두어 중복 저장을 차단했습니다. 누적 이벤트는 이벤트 ID 기반 멱등 처리하고, 상태 이벤트는 aggregate별 lastProcessedVersion을 잠근 뒤 오래된 버전을 SKIPPED 처리하는 최신 상태 우선 정책을 적용했습니다.",
+                result: "재전달은 허용하면서도 결제·포인트의 중복 반영과 오래된 상태의 덮어쓰기를 차단하고, 실패 이벤트의 처리 상태와 재시도 이력을 추적할 수 있게 했습니다."
+            },
+            {
+                title: "3. [Persistence] Outbox INSERT 전 불필요한 SELECT 제거",
+                problem: "Outbox 이벤트를 저장할 때 신규 데이터임에도 SELECT 후 INSERT가 실행되어 이벤트가 많아질수록 DB 왕복 비용이 증가했습니다.",
+                cause: "UUID eventId를 애플리케이션에서 미리 생성하므로 Spring Data JPA가 ID의 null 여부만 보고 기존 엔티티로 판단해 save() 내부에서 merge()를 호출했습니다.",
+                action: "OutboxEvent가 Persistable<UUID>를 구현하고 영속화 여부를 기준으로 isNew()를 제공하도록 변경했습니다. 신규 이벤트는 merge 대신 persist 경로로 저장되게 했습니다.",
+                result: "Outbox 저장마다 발생하던 선행 SELECT를 제거해 이벤트 기록 쿼리를 INSERT 한 번으로 단순화했습니다."
+            },
+            {
+                title: "4. [PostgreSQL MVCC] 이벤트 테이블의 dead tuple 누적 제어",
+                problem: "Outbox Claim 조회가 비어 있어도 인덱스와 테이블 가시성 확인 비용이 발생했고, 완료 이벤트를 주기적으로 삭제한 뒤에도 테이블 내부의 죽은 행 흔적이 누적됐습니다.",
+                cause: "PostgreSQL MVCC는 UPDATE·DELETE 시 기존 행을 즉시 제거하지 않고 dead tuple로 남깁니다. 상태가 PENDING에서 PROCESSING, PUBLISHED로 자주 바뀌는 Outbox는 기본 Autovacuum 기준인 테이블 변경 비율 20%를 기다리는 동안 죽은 튜플과 인덱스 엔트리가 빠르게 쌓일 수 있었습니다.",
+                action: "Claim 대상만 읽는 부분 인덱스와 완료 행 Cleanup을 적용하고, 테이블별 Autovacuum 기준을 조정했습니다. Outbox는 scale factor 0.02와 threshold 100, 변경 빈도가 낮은 Inbox는 0.05와 threshold 100으로 설정해 죽은 튜플을 더 일찍 회수하도록 했습니다.",
+                result: "운영 데이터 60,000건으로 조회·Cleanup·Vacuum 생명주기를 검증했습니다. 임계치 도달 후 Autovacuum이 실행되어 dead tuple이 0으로 정리되고, 벤치마크 데이터도 남지 않는 것을 확인했습니다."
+            }
+        ],
+        architecture: `<svg class="arch-svg" viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LastDish 이벤트 아키텍처"><rect width="900" height="300" rx="18" fill="#0B1510"/><g font-family="sans-serif"><rect x="38" y="72" width="182" height="156" rx="14" fill="#13251B" stroke="#27B86A"/><text x="129" y="109" text-anchor="middle" fill="#fff" font-size="18" font-weight="700">Producer Service</text><rect x="62" y="132" width="134" height="38" rx="7" fill="#E9F7EF"/><text x="129" y="157" text-anchor="middle" fill="#096E39" font-size="14" font-weight="700">Business + Outbox</text><text x="129" y="197" text-anchor="middle" fill="#93A79B" font-size="12">동일 트랜잭션</text><rect x="358" y="91" width="184" height="118" rx="14" fill="#128A49"/><text x="450" y="145" text-anchor="middle" fill="#fff" font-size="24" font-weight="800">Kafka</text><text x="450" y="174" text-anchor="middle" fill="#DDF5E8" font-size="12">이벤트 보관 · Consumer 분리</text><rect x="680" y="72" width="182" height="156" rx="14" fill="#13251B" stroke="#27B86A"/><text x="771" y="109" text-anchor="middle" fill="#fff" font-size="18" font-weight="700">Consumer Service</text><rect x="704" y="132" width="134" height="38" rx="7" fill="#E9F7EF"/><text x="771" y="157" text-anchor="middle" fill="#096E39" font-size="14" font-weight="700">Inbox + Handler</text><text x="771" y="197" text-anchor="middle" fill="#93A79B" font-size="12">중복 · 순서 · 재시도</text><path d="M220 150H342M542 150H664" stroke="#27B86A" stroke-width="4"/><path d="M330 141L344 150L330 159M652 141L666 150L652 159" fill="none" stroke="#27B86A" stroke-width="4" stroke-linejoin="round"/></g></svg>`
+    },
     velo: {
         title: "Velo",
         githubLink: "https://github.com/aeranghae/velo-main-api",

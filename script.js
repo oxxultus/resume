@@ -570,7 +570,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // Construct Projects content for Resume (EXCLUDING Troubleshooting)
                 let resumeProjectsContent = "";
-                const projectKeys = ['velo', 'liminal'];
+                const projectKeys = ['lastdish', 'velo', 'liminal'];
                 projectKeys.forEach(key => {
                     const data = projectData[key];
                     if (!data) return;
