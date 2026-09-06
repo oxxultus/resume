@@ -78,7 +78,7 @@ const projectData = {
                 title: "5. [Event Architecture] 신뢰성 비용을 선택하는 4가지 전달 경로 설계",
                 problem: "초기 구조처럼 모든 이벤트에 Outbox와 Inbox를 강제하면 유실 방지와 재시도는 보장되지만, 이벤트마다 INSERT·상태 UPDATE·선점·Cleanup이 발생합니다. 트래픽이 증가하면 중요도가 낮은 로그·통계까지 동일한 DB 쓰기 비용을 부담하는 구조가 됩니다.",
                 cause: "이벤트마다 요구하는 보장 수준이 달랐습니다. 주문·결제·정산은 발행 유실과 소비 실패를 모두 보호해야 하지만, SSE 알림은 발행만 보장하면 되고 로그·일부 통계는 낮은 지연과 처리량이 더 중요했습니다. 하나의 고정 경로로는 신뢰성과 성능의 균형을 맞출 수 없었습니다.",
-                action: "발행 단계의 Outbox/Direct와 소비 단계의 Inbox/Direct를 독립적으로 선택하도록 공통 모듈을 분리했습니다. ① Outbox+Inbox는 주문·결제·예치금·재고·정산처럼 양쪽 신뢰성이 필요한 이벤트, ② Outbox+Direct는 인앱 알림·SSE처럼 발행은 보장하되 즉시 처리할 이벤트, ③ Direct+Inbox는 다시 생성 가능한 보조 데이터 동기화·통계처럼 소비 중복·순서·재시도만 관리할 이벤트, ④ Direct+Direct는 로그·분석·일부 통계처럼 일부 유실을 허용하고 속도를 우선하는 이벤트에 사용하도록 설계했습니다.",
+                action: "발행 단계의 Outbox/Direct와 소비 단계의 Inbox/Direct를 독립적으로 선택하도록 공통 모듈을 분리했습니다.<br><br>① <strong>Outbox + Inbox</strong>: 주문·결제·예치금·재고·정산처럼 양쪽 신뢰성이 필요한 이벤트<br>② <strong>Outbox + Direct</strong>: 인앱 알림·SSE처럼 발행은 보장하되 즉시 처리할 이벤트<br>③ <strong>Direct + Inbox</strong>: 다시 생성 가능한 보조 데이터 동기화·통계처럼 소비 중복·순서·재시도만 관리할 이벤트<br>④ <strong>Direct + Direct</strong>: 로그·분석·일부 통계처럼 일부 유실을 허용하고 속도를 우선하는 이벤트",
                 result: "도메인 코드는 공통 EventMessage와 Handler 계약을 그대로 사용하면서 이벤트별로 필요한 신뢰성 단계만 선택할 수 있게 됐습니다. 중요한 흐름에는 유실·중복 보호를 유지하고, 나머지 흐름은 불필요한 DB 쓰기와 처리 지연을 줄일 수 있는 확장 구조를 확보했습니다."
             }
         ],
