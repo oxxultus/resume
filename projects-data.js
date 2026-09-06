@@ -41,8 +41,9 @@ const projectData = {
         thumbnail: `<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LastDish 서비스와 이벤트 흐름"><rect width="900" height="520" rx="30" fill="#F7FAF8"/><rect x="45" y="42" width="810" height="436" rx="24" fill="#fff" stroke="#DDE8E1"/><text x="88" y="115" fill="#101713" font-size="48" font-weight="800" font-family="sans-serif">LastDish</text><text x="88" y="157" fill="#64726A" font-size="19" font-family="sans-serif">마감 재고를 가치 있는 한 끼로</text><rect x="88" y="214" width="186" height="106" rx="18" fill="#E8F6ED"/><rect x="357" y="214" width="186" height="106" rx="18" fill="#128A49"/><rect x="626" y="214" width="186" height="106" rx="18" fill="#E8F6ED"/><text x="181" y="262" text-anchor="middle" fill="#107A42" font-size="22" font-weight="700" font-family="sans-serif">주문 · 결제</text><text x="450" y="262" text-anchor="middle" fill="#fff" font-size="22" font-weight="700" font-family="sans-serif">Kafka</text><text x="719" y="262" text-anchor="middle" fill="#107A42" font-size="22" font-weight="700" font-family="sans-serif">정산 · 알림</text><path d="M274 267H342M543 267H611" stroke="#18A257" stroke-width="7" stroke-linecap="round"/><path d="M330 255L344 267L330 279M599 255L613 267L599 279" fill="none" stroke="#18A257" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><rect x="88" y="370" width="724" height="52" rx="12" fill="#F1F5F2"/><text x="450" y="403" text-anchor="middle" fill="#3C4A42" font-size="18" font-family="sans-serif">Outbox 발행 보장 · Inbox 멱등 처리 · 상태 기반 재시도</text></svg>`,
         achievements: [
             "Outbox·Inbox·EventMessage·Handler Registry를 공통 모듈로 구현해 서비스별 이벤트 처리 중복을 제거",
+            "현재 응답 필요 여부와 후속 처리 분리 가능성에 따라 HTTP·Kafka·Event+HTTP 혼합 통신을 선택하고, 핵심 검색 데이터는 두 경로가 장애를 상호 보완하도록 설계",
             "이벤트 중요도와 처리 비용에 따라 Outbox/Direct 발행과 Inbox/Direct 소비를 조합하는 4가지 전달 경로 설계",
-            "Kubernetes 순차 배포로 단일 EC2의 CPU 급증을 완화하고, 독립 로그 서버에 Loki·Prometheus·Grafana 관측 환경 구축"
+            "Kubernetes 순차 배포로 단일 EC2의 CPU 급증을 완화하고, 서비스 장애 중에도 로그·지표를 조회하도록 독립 관측 서버에 Loki·Prometheus·Grafana 구성"
         ],
         troubleshooting: [
             {

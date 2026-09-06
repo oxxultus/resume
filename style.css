@@ -1309,6 +1309,15 @@ footer p {
     display: block;
 }
 
+.arch-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
 /* ==========================================================================
    Certifications
    ========================================================================== */

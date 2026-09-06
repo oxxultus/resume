@@ -36,7 +36,8 @@ function renderArchitecture(archData, isForPdf = false) {
     if (str.startsWith("<svg")) {
         contentHtml = str;
     } else {
-        contentHtml = `<img src="${str}" alt="System Architecture" class="arch-img" style="max-width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 4px;" />`;
+        const imageUrl = new URL(str, document.baseURI).href;
+        contentHtml = `<img src="${imageUrl}" alt="LastDish 시스템 아키텍처" class="arch-img" loading="eager" decoding="sync" />`;
     }
     
     if (isForPdf) {
