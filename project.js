@@ -58,10 +58,11 @@
         ? new URL(data.presentation.url, document.baseURI).href
         : "";
     const firstSlideUrl = data.presentation?.slidesBase
-        ? new URL(`${data.presentation.slidesBase}01.jpg`, document.baseURI).href
+        ? `${new URL(`${data.presentation.slidesBase}01.jpg`, document.baseURI).href}?v=${data.presentation.slidesVersion || "1"}`
         : "";
     const projectMedia = presentationUrl
         ? `<div class="presentation-viewer" data-slides-base="${new URL(data.presentation.slidesBase, document.baseURI).href}" data-total-pages="${data.presentation.pages || 1}">
+            <span class="presentation-badge"><i class="far fa-file-pdf"></i> 발표자료</span>
             <img src="${firstSlideUrl}" alt="${data.presentation.label} 1페이지">
             <div class="presentation-controls">
                 <button type="button" class="presentation-prev" aria-label="이전 슬라이드" disabled><i class="fas fa-chevron-left"></i></button>
@@ -128,14 +129,14 @@
 
         const showPage = (page) => {
             currentPage = Math.min(totalPages, Math.max(1, page));
-            slide.src = `${slidesBase}${String(currentPage).padStart(2, "0")}.jpg`;
+            slide.src = `${slidesBase}${String(currentPage).padStart(2, "0")}.jpg?v=${data.presentation.slidesVersion || "1"}`;
             slide.alt = `${data.presentation.label} ${currentPage}페이지`;
             currentLabel.textContent = currentPage;
             previousButton.disabled = currentPage === 1;
             nextButton.disabled = currentPage === totalPages;
             if (currentPage < totalPages) {
                 const preload = new Image();
-                preload.src = `${slidesBase}${String(currentPage + 1).padStart(2, "0")}.jpg`;
+                preload.src = `${slidesBase}${String(currentPage + 1).padStart(2, "0")}.jpg?v=${data.presentation.slidesVersion || "1"}`;
             }
         };
 
