@@ -365,9 +365,13 @@ function openProjectModal(projectId) {
     // Update the persistent header row (never wiped by innerHTML)
     document.getElementById("modal-header-title").textContent = data.title;
     const actionsEl = document.getElementById("modal-header-actions");
-    actionsEl.innerHTML = data.githubLink
-        ? `<a href="${data.githubLink}" target="_blank" class="modal-github-link"><i class="fab fa-github"></i> Repository</a>`
+    const presentationAction = data.presentation?.url
+        ? `<a href="${new URL(data.presentation.url, document.baseURI).href}" target="_blank" rel="noreferrer" class="modal-github-link"><i class="far fa-file-pdf"></i> 발표자료</a>`
         : "";
+    const repositoryAction = data.githubLink
+        ? `<a href="${data.githubLink}" target="_blank" rel="noreferrer" class="modal-github-link"><i class="fab fa-github"></i> Repository</a>`
+        : "";
+    actionsEl.innerHTML = `${presentationAction}${repositoryAction}`;
 
     // Inject only the body content (tagline + sections)
     modalBody.innerHTML = `

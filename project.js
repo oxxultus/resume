@@ -28,6 +28,11 @@
     const githubLink = document.getElementById("github-link");
     if (data.githubLink) githubLink.href = data.githubLink;
     else githubLink.hidden = true;
+    const presentationLink = document.getElementById("presentation-link");
+    if (data.presentation?.url) {
+        presentationLink.href = new URL(data.presentation.url, document.baseURI).href;
+        presentationLink.hidden = false;
+    }
 
     const tech = (data.techStack || []).map(item => `<span>${item}</span>`).join("");
     const achievements = (data.achievements || []).map(item => `<li><i class="fas fa-check"></i><span>${item}</span></li>`).join("");
@@ -49,6 +54,19 @@
 
     const thumbnail = String(data.thumbnail || "").trim();
     const cover = thumbnail.startsWith("<") ? thumbnail : `<img src="${thumbnail}" alt="${data.title} 프로젝트 화면">`;
+    const presentationUrl = data.presentation?.url
+        ? new URL(data.presentation.url, document.baseURI).href
+        : "";
+    const projectMedia = presentationUrl
+        ? `<div class="presentation-viewer" data-presentation-url="${presentationUrl}" data-total-pages="${data.presentation.pages || 1}">
+            <iframe src="${presentationUrl}#page=1&view=FitH&toolbar=0&navpanes=0" title="${data.presentation.label} 1페이지"></iframe>
+            <div class="presentation-controls">
+                <button type="button" class="presentation-prev" aria-label="이전 슬라이드" disabled><i class="fas fa-chevron-left"></i></button>
+                <span><strong class="presentation-current">1</strong> / ${data.presentation.pages || 1}</span>
+                <button type="button" class="presentation-next" aria-label="다음 슬라이드"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>`
+        : `<div class="project-cover">${cover}</div>`;
     const architectureSource = String(data.architecture || "").trim();
     const architectureContent = architectureSource.startsWith("<svg")
         ? architectureSource
@@ -63,7 +81,7 @@
             <h1>${data.title}</h1>
             <p class="project-tagline">${data.tagline}</p>
             <div class="project-meta"><span><i class="far fa-calendar"></i>${data.period}</span><span><i class="far fa-user"></i>${data.role}</span></div>
-            <div class="project-cover">${cover}</div>
+            ${projectMedia}
             <p class="project-summary">${data.description}</p>
             <div class="tech-list">${tech}</div>
         </section>
@@ -94,6 +112,29 @@
             body.hidden = expanded;
         });
     });
+
+    const presentationViewer = document.querySelector(".presentation-viewer");
+    if (presentationViewer) {
+        const frame = presentationViewer.querySelector("iframe");
+        const previousButton = presentationViewer.querySelector(".presentation-prev");
+        const nextButton = presentationViewer.querySelector(".presentation-next");
+        const currentLabel = presentationViewer.querySelector(".presentation-current");
+        const totalPages = Number(presentationViewer.dataset.totalPages);
+        const sourceUrl = presentationViewer.dataset.presentationUrl;
+        let currentPage = 1;
+
+        const showPage = (page) => {
+            currentPage = Math.min(totalPages, Math.max(1, page));
+            frame.src = `${sourceUrl}#page=${currentPage}&view=FitH&toolbar=0&navpanes=0`;
+            frame.title = `${data.presentation.label} ${currentPage}페이지`;
+            currentLabel.textContent = currentPage;
+            previousButton.disabled = currentPage === 1;
+            nextButton.disabled = currentPage === totalPages;
+        };
+
+        previousButton.addEventListener("click", () => showPage(currentPage - 1));
+        nextButton.addEventListener("click", () => showPage(currentPage + 1));
+    }
 
     const initialHashTarget = window.location.hash ? document.querySelector(window.location.hash) : null;
     if (initialHashTarget) {
