@@ -67,11 +67,11 @@ const projectData = {
                 result: "Outbox 저장마다 발생하던 선행 SELECT를 제거해 이벤트 기록 쿼리를 INSERT 한 번으로 단순화했습니다."
             },
             {
-                title: "4. [PostgreSQL MVCC] 이벤트 테이블의 dead tuple 누적 제어",
-                problem: "Outbox Claim 조회가 비어 있어도 인덱스와 테이블 가시성 확인 비용이 발생했고, 완료 이벤트를 주기적으로 삭제한 뒤에도 테이블 내부의 죽은 행 흔적이 누적됐습니다.",
-                cause: "PostgreSQL MVCC는 UPDATE·DELETE 시 기존 행을 즉시 제거하지 않고 dead tuple로 남깁니다. 상태가 PENDING에서 PROCESSING, PUBLISHED로 자주 바뀌는 Outbox는 기본 Autovacuum 기준인 테이블 변경 비율 20%를 기다리는 동안 죽은 튜플과 인덱스 엔트리가 빠르게 쌓일 수 있었습니다.",
-                action: "Claim 대상만 읽는 부분 인덱스와 완료 행 Cleanup을 적용하고, 테이블별 Autovacuum 기준을 조정했습니다. Outbox는 scale factor 0.02와 threshold 100, 변경 빈도가 낮은 Inbox는 0.05와 threshold 100으로 설정해 죽은 튜플을 더 일찍 회수하도록 했습니다.",
-                result: "운영 데이터 60,000건으로 조회·Cleanup·Vacuum 생명주기를 검증했습니다. 임계치 도달 후 Autovacuum이 실행되어 dead tuple이 0으로 정리되고, 벤치마크 데이터도 남지 않는 것을 확인했습니다."
+                title: "4. [PostgreSQL MVCC] Claim 0건인데 죽은 인덱스를 읽던 문제 해결",
+                problem: "처리할 이벤트가 0건인데도 Outbox Claim 조회가 820개 버퍼를 확인하며 2.688ms가 걸렸습니다. 상태 변경을 반복한 운영 데이터 60,000건에서 Claim 인덱스 크기도 3,312kB까지 증가했습니다.",
+                cause: "PostgreSQL MVCC는 UPDATE 시 이전 행을 즉시 덮어쓰지 않습니다. PENDING에서 PROCESSING, PUBLISHED로 상태가 바뀌는 동안 오래된 인덱스 주소가 남아, Claim 결과가 비어 있어도 테이블 가시성을 확인한 뒤 버리고 있었습니다.",
+                action: "PENDING·PROCESSING만 포함하는 부분 Claim 인덱스로 PUBLISHED 조회를 제외했습니다. Outbox Autovacuum 기준을 기본 20%에서 2%로 낮추고 threshold를 100으로 설정했으며, 완료 Outbox는 60초마다 1,000건씩 삭제하도록 Cleanup 책임을 분리했습니다.",
+                result: "같은 60,000건에서 Claim 인덱스는 3,312kB에서 8kB, 빈 조회 버퍼는 820개에서 4개, 조회 시간은 2.688ms에서 0.026ms로 감소했습니다. Cleanup 임계치 초과 후 Autovacuum이 자동 실행되는 전체 생명주기도 검증했습니다."
             }
         ],
         architecture: `<svg class="arch-svg" viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LastDish 이벤트 아키텍처"><rect width="900" height="300" rx="18" fill="#0B1510"/><g font-family="sans-serif"><rect x="38" y="72" width="182" height="156" rx="14" fill="#13251B" stroke="#27B86A"/><text x="129" y="109" text-anchor="middle" fill="#fff" font-size="18" font-weight="700">Producer Service</text><rect x="62" y="132" width="134" height="38" rx="7" fill="#E9F7EF"/><text x="129" y="157" text-anchor="middle" fill="#096E39" font-size="14" font-weight="700">Business + Outbox</text><text x="129" y="197" text-anchor="middle" fill="#93A79B" font-size="12">동일 트랜잭션</text><rect x="358" y="91" width="184" height="118" rx="14" fill="#128A49"/><text x="450" y="145" text-anchor="middle" fill="#fff" font-size="24" font-weight="800">Kafka</text><text x="450" y="174" text-anchor="middle" fill="#DDF5E8" font-size="12">이벤트 보관 · Consumer 분리</text><rect x="680" y="72" width="182" height="156" rx="14" fill="#13251B" stroke="#27B86A"/><text x="771" y="109" text-anchor="middle" fill="#fff" font-size="18" font-weight="700">Consumer Service</text><rect x="704" y="132" width="134" height="38" rx="7" fill="#E9F7EF"/><text x="771" y="157" text-anchor="middle" fill="#096E39" font-size="14" font-weight="700">Inbox + Handler</text><text x="771" y="197" text-anchor="middle" fill="#93A79B" font-size="12">중복 · 순서 · 재시도</text><path d="M220 150H342M542 150H664" stroke="#27B86A" stroke-width="4"/><path d="M330 141L344 150L330 159M652 141L666 150L652 159" fill="none" stroke="#27B86A" stroke-width="4" stroke-linejoin="round"/></g></svg>`
