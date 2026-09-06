@@ -42,7 +42,8 @@ const projectData = {
             url: "assets/lastdish-presentation.pdf",
             label: "LastDish 프로젝트 발표자료",
             meta: "PDF · 48 pages · 7.9MB",
-            pages: 48
+            pages: 48,
+            slidesBase: "assets/lastdish-slides/slide-"
         },
         thumbnail: `<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LastDish 서비스와 이벤트 흐름"><rect width="900" height="520" rx="30" fill="#F7FAF8"/><rect x="45" y="42" width="810" height="436" rx="24" fill="#fff" stroke="#DDE8E1"/><text x="88" y="115" fill="#101713" font-size="48" font-weight="800" font-family="sans-serif">LastDish</text><text x="88" y="157" fill="#64726A" font-size="19" font-family="sans-serif">마감 재고를 가치 있는 한 끼로</text><rect x="88" y="214" width="186" height="106" rx="18" fill="#E8F6ED"/><rect x="357" y="214" width="186" height="106" rx="18" fill="#128A49"/><rect x="626" y="214" width="186" height="106" rx="18" fill="#E8F6ED"/><text x="181" y="262" text-anchor="middle" fill="#107A42" font-size="22" font-weight="700" font-family="sans-serif">주문 · 결제</text><text x="450" y="262" text-anchor="middle" fill="#fff" font-size="22" font-weight="700" font-family="sans-serif">Kafka</text><text x="719" y="262" text-anchor="middle" fill="#107A42" font-size="22" font-weight="700" font-family="sans-serif">정산 · 알림</text><path d="M274 267H342M543 267H611" stroke="#18A257" stroke-width="7" stroke-linecap="round"/><path d="M330 255L344 267L330 279M599 255L613 267L599 279" fill="none" stroke="#18A257" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><rect x="88" y="370" width="724" height="52" rx="12" fill="#F1F5F2"/><text x="450" y="403" text-anchor="middle" fill="#3C4A42" font-size="18" font-family="sans-serif">Outbox 발행 보장 · Inbox 멱등 처리 · 상태 기반 재시도</text></svg>`,
         achievements: [
@@ -355,4 +356,4 @@ const projectData = {
 
 // LastDish 발표 원본 이미지를 카드·상세·PDF에서 동일하게 사용합니다.
 projectData.lastdish.thumbnail = "images/lastdish-cover.png";
-projectData.lastdish.architecture = "images/lastdish-architecture.png";
+projectData.lastdish.architecture = "images/lastdish-architecture.png?v=20260906-2";

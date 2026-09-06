@@ -57,9 +57,12 @@
     const presentationUrl = data.presentation?.url
         ? new URL(data.presentation.url, document.baseURI).href
         : "";
+    const firstSlideUrl = data.presentation?.slidesBase
+        ? new URL(`${data.presentation.slidesBase}01.jpg`, document.baseURI).href
+        : "";
     const projectMedia = presentationUrl
-        ? `<div class="presentation-viewer" data-presentation-url="${presentationUrl}" data-total-pages="${data.presentation.pages || 1}">
-            <iframe src="${presentationUrl}#page=1&view=FitH&toolbar=0&navpanes=0" title="${data.presentation.label} 1페이지"></iframe>
+        ? `<div class="presentation-viewer" data-slides-base="${new URL(data.presentation.slidesBase, document.baseURI).href}" data-total-pages="${data.presentation.pages || 1}">
+            <img src="${firstSlideUrl}" alt="${data.presentation.label} 1페이지">
             <div class="presentation-controls">
                 <button type="button" class="presentation-prev" aria-label="이전 슬라이드" disabled><i class="fas fa-chevron-left"></i></button>
                 <span><strong class="presentation-current">1</strong> / ${data.presentation.pages || 1}</span>
@@ -115,21 +118,25 @@
 
     const presentationViewer = document.querySelector(".presentation-viewer");
     if (presentationViewer) {
-        const frame = presentationViewer.querySelector("iframe");
+        const slide = presentationViewer.querySelector("img");
         const previousButton = presentationViewer.querySelector(".presentation-prev");
         const nextButton = presentationViewer.querySelector(".presentation-next");
         const currentLabel = presentationViewer.querySelector(".presentation-current");
         const totalPages = Number(presentationViewer.dataset.totalPages);
-        const sourceUrl = presentationViewer.dataset.presentationUrl;
+        const slidesBase = presentationViewer.dataset.slidesBase;
         let currentPage = 1;
 
         const showPage = (page) => {
             currentPage = Math.min(totalPages, Math.max(1, page));
-            frame.src = `${sourceUrl}#page=${currentPage}&view=FitH&toolbar=0&navpanes=0`;
-            frame.title = `${data.presentation.label} ${currentPage}페이지`;
+            slide.src = `${slidesBase}${String(currentPage).padStart(2, "0")}.jpg`;
+            slide.alt = `${data.presentation.label} ${currentPage}페이지`;
             currentLabel.textContent = currentPage;
             previousButton.disabled = currentPage === 1;
             nextButton.disabled = currentPage === totalPages;
+            if (currentPage < totalPages) {
+                const preload = new Image();
+                preload.src = `${slidesBase}${String(currentPage + 1).padStart(2, "0")}.jpg`;
+            }
         };
 
         previousButton.addEventListener("click", () => showPage(currentPage - 1));
