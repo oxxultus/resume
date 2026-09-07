@@ -591,9 +591,7 @@
             link.className = heading.tagName === 'H3' ? 'toc-h3' : 'toc-h2';
             link.dataset.parentSection = heading.tagName === 'H3' ? parentSectionId : heading.id;
             const hasChildren = heading.tagName === 'H2' && articleHeadings[index + 1]?.tagName === 'H3';
-            link.innerHTML = heading.tagName === 'H3'
-                ? `<span class="toc-child-marker" aria-hidden="true"></span><span>${heading.textContent.trim()}</span>`
-                : `<i class="fas fa-bookmark"></i><span>${heading.textContent.trim()}</span>${hasChildren ? '<i class="fas fa-chevron-right toc-toggle" aria-hidden="true"></i>' : ''}`;
+            link.innerHTML = `<span>${heading.textContent.trim()}</span>`;
             if (hasChildren) link.setAttribute('aria-expanded', 'false');
             toc.appendChild(link);
         });

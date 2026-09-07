@@ -84,3 +84,4 @@ html{scroll-padding-top:calc(var(--topbar-h) + 24px)}
 .sidebar-collapse-control[hidden],.sidebar-reopen-control[hidden]{display:none!important}
 @media(max-width:800px){.context-rail,.sidebar-collapse-control,.sidebar-reopen-control{display:none}}
 @media(prefers-reduced-motion:reduce){.context-rail-popover,.detail-sidebar,.detail-main{transition:none}}
+.context-rail-popover{right:18px;padding:11px;border-radius:12px;font-weight:400}.context-rail-popover>strong{font-weight:500}.project-context-nav a{gap:0;min-height:33px;padding:6px 9px;font-size:11px;font-weight:400}.project-context-nav a i{display:none}.project-context-nav a.active{font-weight:500}
