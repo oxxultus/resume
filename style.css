@@ -2114,6 +2114,24 @@ footer { border-top: 1px solid var(--border-color); }
     .skills-grid { grid-template-columns: 1fr; }
 }
 
+/* Certification list rhythm */
+.certification-panel .cert-item,
+.certification-panel .cert-item:first-child,
+.certification-panel .cert-item:last-child {
+    min-height: 0;
+    gap: 11px;
+    padding: 24px 8px;
+}
+.certification-panel .cert-item:last-child { border-bottom: 0; }
+.certification-panel .cert-title-group { gap: 12px; }
+.certification-panel .cert-meta { padding-left: 36px; line-height: 1.65; }
+
+@media (max-width: 560px) {
+    .certification-panel .cert-item,
+    .certification-panel .cert-item:first-child,
+    .certification-panel .cert-item:last-child { padding: 20px 4px; }
+}
+
 @media (max-width: 380px) {
     .logo { font-size: 14px; }
 }
@@ -2938,6 +2956,7 @@ header { background: var(--bg-header); }
 .logo i { font-size: 10px; color: var(--text-muted); }
 .nav-link i,
 .sidebar-project-item i { color: var(--text-secondary); font-weight: 400; }
+.nav-link i.fas { font-weight: 900; }
 .nav-link.active i { color: var(--text-primary); }
 .nav-link:hover,
 .sidebar-project-item:hover { background: color-mix(in srgb, var(--text-primary) 5%, transparent); }
