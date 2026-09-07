@@ -101,23 +101,14 @@ function initProjects() {
 
 function initProjectWorkspace() {
     const sidebar = document.getElementById("sidebar-project-nav");
-    const chat = document.getElementById("project-chat");
-    const thread = document.getElementById("project-chat-thread");
-    const title = document.getElementById("project-chat-title");
-    const meta = document.getElementById("project-chat-meta");
-    const detailLink = document.getElementById("project-chat-external");
-    const backButton = document.getElementById("project-chat-back");
     const portfolioToggle = document.querySelector(".portfolio-nav-toggle");
-    const workspaceLabel = document.querySelector(".workspace-topbar > span:first-child");
-    if (!sidebar || !chat || !thread || !title || !meta || !detailLink || !backButton) return;
-
-    const typeLabel = data => data.category === "personal" ? "Personal project" : "Team project";
+    if (!sidebar || !portfolioToggle) return;
 
     sidebar.innerHTML = Object.entries(projectData).map(([key, data]) => `
-        <button type="button" class="sidebar-project-item" data-project-key="${key}">
+        <a class="sidebar-project-item" href="project.html?id=${encodeURIComponent(key)}">
             <i class="far fa-message" aria-hidden="true"></i>
             <span>${data.title}</span>
-        </button>
+        </a>
     `).join("");
 
     const setPortfolioExpanded = expanded => {
@@ -130,107 +121,6 @@ function initProjectWorkspace() {
         setPortfolioExpanded(!expanded);
         if (expanded) event.preventDefault();
     });
-
-    function closeProjectWorkspace({ updateHash = true } = {}) {
-        document.body.classList.remove("project-chat-open");
-        chat.hidden = true;
-        sidebar.querySelectorAll(".sidebar-project-item").forEach(item => item.classList.remove("active"));
-        if (workspaceLabel) workspaceLabel.innerHTML = '<i class="far fa-folder" aria-hidden="true"></i> 이력서 사이트';
-        if (updateHash) history.pushState(null, "", "#projects");
-        document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
-    }
-
-    function openProjectWorkspace(key, { updateHash = true } = {}) {
-        const data = projectData[key];
-        if (!data) return;
-
-        const achievements = (data.achievements || []).map(item => `<li>${item}</li>`).join("");
-        const troubles = (data.troubleshooting || []).map((item, index) => `
-            <details class="chat-trouble" ${index === 0 ? "open" : ""}>
-                <summary>${item.title}</summary>
-                <dl>
-                    <div><dt>현상</dt><dd>${item.problem}</dd></div>
-                    <div><dt>원인</dt><dd>${item.cause}</dd></div>
-                    <div><dt>해결</dt><dd>${item.action}</dd></div>
-                    <div><dt>결과</dt><dd>${item.result}</dd></div>
-                </dl>
-            </details>
-        `).join("");
-        const tech = (data.techStack || []).map(item => `<span>${item}</span>`).join("");
-        const preview = renderThumbnail(data.thumbnail);
-
-        title.textContent = data.title;
-        meta.textContent = `${typeLabel(data)} · ${data.period}`;
-        detailLink.href = `project.html?id=${encodeURIComponent(key)}`;
-        thread.innerHTML = `
-            <article class="chat-turn chat-turn-user">
-                <div class="chat-avatar"><i class="fas fa-user" aria-hidden="true"></i></div>
-                <div><span class="chat-speaker">Visitor</span><p>${data.title} 프로젝트에서 어떤 문제를 해결했나요?</p></div>
-            </article>
-            <article class="chat-turn chat-turn-assistant" id="chat-summary">
-                <div class="chat-avatar chat-avatar-assistant"><i class="fas fa-code" aria-hidden="true"></i></div>
-                <div class="chat-answer">
-                    <span class="chat-speaker">Oxxultus.Dev</span>
-                    <h1>${data.title}</h1>
-                    <p class="chat-lead">${data.tagline}</p>
-                    <p>${data.description}</p>
-                    <div class="chat-project-preview">${preview}</div>
-                    <div class="chat-role"><span>담당 역할</span><strong>${data.role}</strong></div>
-                    <div class="chat-tech">${tech}</div>
-                </div>
-            </article>
-            <article class="chat-turn chat-turn-user chat-turn-compact">
-                <div class="chat-avatar"><i class="fas fa-user" aria-hidden="true"></i></div>
-                <div><span class="chat-speaker">Visitor</span><p>핵심 성과와 기술적 의사결정을 보여주세요.</p></div>
-            </article>
-            <article class="chat-turn chat-turn-assistant" id="chat-achievements">
-                <div class="chat-avatar chat-avatar-assistant"><i class="fas fa-code" aria-hidden="true"></i></div>
-                <div class="chat-answer">
-                    <span class="chat-speaker">Oxxultus.Dev</span>
-                    <h2>핵심 성과</h2>
-                    <ul class="chat-achievements">${achievements}</ul>
-                </div>
-            </article>
-            <article class="chat-turn chat-turn-assistant" id="chat-troubleshooting">
-                <div class="chat-avatar chat-avatar-assistant"><i class="fas fa-wrench" aria-hidden="true"></i></div>
-                <div class="chat-answer">
-                    <span class="chat-speaker">Technical notes</span>
-                    <h2>문제 해결 기록</h2>
-                    <div class="chat-troubles">${troubles || '<p>정리 중입니다.</p>'}</div>
-                </div>
-            </article>
-        `;
-
-        document.body.classList.add("project-chat-open");
-        setPortfolioExpanded(true);
-        chat.hidden = false;
-        sidebar.querySelectorAll(".sidebar-project-item").forEach(item => {
-            item.classList.toggle("active", item.dataset.projectKey === key);
-        });
-        if (workspaceLabel) workspaceLabel.innerHTML = `<i class="far fa-folder-open" aria-hidden="true"></i> ${data.title}`;
-        if (updateHash) history.pushState({ project: key }, "", `#project-${key}`);
-        window.scrollTo({ top: 0, behavior: "auto" });
-        document.body.classList.remove("menu-open");
-    }
-
-    sidebar.addEventListener("click", event => {
-        const button = event.target.closest("[data-project-key]");
-        if (button) openProjectWorkspace(button.dataset.projectKey);
-    });
-    backButton.addEventListener("click", () => closeProjectWorkspace());
-    document.querySelectorAll("[data-chat-jump]").forEach(button => {
-        button.addEventListener("click", () => {
-            document.getElementById(`chat-${button.dataset.chatJump}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-    });
-    window.addEventListener("popstate", () => {
-        const match = location.hash.match(/^#project-(.+)$/);
-        if (match && projectData[match[1]]) openProjectWorkspace(match[1], { updateHash: false });
-        else closeProjectWorkspace({ updateHash: false });
-    });
-
-    const initialProject = location.hash.match(/^#project-(.+)$/)?.[1];
-    if (initialProject && projectData[initialProject]) openProjectWorkspace(initialProject, { updateHash: false });
 }
 
 /* ==========================================================================
