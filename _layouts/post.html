@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ '/blog.css?v=20260907-4' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/blog.css?v=20260907-6' | relative_url }}">
 </head>
 <body>
     <aside class="blog-sidebar" data-resizable-sidebar>
@@ -21,6 +21,14 @@
             <span class="blog-nav-label">Workspace</span>
             <a href="{{ '/' | relative_url }}"><i class="fas fa-arrow-left"></i> 포트폴리오</a>
             <a href="{{ '/blog/' | relative_url }}"><i class="far fa-pen-to-square"></i> 새 탐색</a>
+            <span class="blog-nav-label">게시글</span>
+            <div class="blog-thread-list">
+                {% assign current_category = page.categories | first %}{% assign categories = site.categories | sort %}{% for category in categories %}
+                <details class="blog-category-group" data-category-path="{{ category[0] | escape }}"{% if category[0] == current_category %} open{% endif %}>
+                    <summary><i class="far fa-folder" aria-hidden="true"></i><span>{{ category[0] }}</span><small>{{ category[1] | size }}</small></summary>
+                    <div class="blog-category-posts">{% for post in category[1] %}<a class="blog-thread-item{% if post.url == page.url %} active{% endif %}" href="{{ post.url | relative_url }}" title="{{ post.title | escape }}"{% if post.url == page.url %} aria-current="page"{% endif %}><i class="far fa-message" aria-hidden="true"></i><span>{{ post.title }}</span></a>{% endfor %}</div>
+                </details>{% endfor %}
+            </div>
         </nav>
         <div class="blog-profile">
             <img src="{{ '/avatar.png?v=2' | relative_url }}" alt="김영진">
@@ -29,18 +37,11 @@
         <div class="sidebar-resizer" data-sidebar-resizer role="separator" tabindex="0" aria-label="사이드바 폭 조절" aria-orientation="vertical" aria-valuemin="220" aria-valuemax="380" aria-valuenow="244"></div>
     </aside>
 
-    <aside class="context-rail blog-context-rail" tabindex="0" aria-label="블로그 카테고리와 게시글">
-        <div class="context-rail-ticks" aria-hidden="true"><span></span><span></span><span></span></div>
-        <div class="context-rail-popover">
-            <strong>게시글</strong><p>카테고리 폴더에서 글을 선택하세요.</p>
-            <div class="blog-thread-list">
-                {% assign current_category = page.categories | first %}{% assign categories = site.categories | sort %}{% for category in categories %}
-                <details class="blog-category-group" data-category-path="{{ category[0] | escape }}"{% if category[0] == current_category %} open{% endif %}>
-                    <summary><i class="far fa-folder" aria-hidden="true"></i><span>{{ category[0] }}</span><small>{{ category[1] | size }}</small></summary>
-                    <div class="blog-category-posts">{% for post in category[1] %}<a class="blog-thread-item{% if post.url == page.url %} active{% endif %}" href="{{ post.url | relative_url }}" title="{{ post.title | escape }}"{% if post.url == page.url %} aria-current="page"{% endif %}><i class="far fa-message" aria-hidden="true"></i><span>{{ post.title }}</span></a>{% endfor %}</div>
-                </details>{% endfor %}
-            </div>
-        </div>
+    <aside class="context-rail blog-context-rail" tabindex="0" aria-label="현재 게시글 목차">
+        <div class="context-rail-ticks" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <nav class="context-rail-popover post-toc" aria-label="현재 글의 대주제">
+            <strong>현재 글 목차</strong>
+        </nav>
     </aside>
 
     <main class="blog-main">
@@ -98,6 +99,6 @@
         <div class="article-composer" aria-hidden="true"><i class="fas fa-plus"></i><span>이 글에서 무엇을 더 살펴볼까요?</span></div>
     </main>
     <script src="{{ '/sidebar-resize.js?v=20260907-3' | relative_url }}"></script>
-    <script src="{{ '/blog.js?v=20260907-3' | relative_url }}"></script>
+    <script src="{{ '/blog.js?v=20260907-4' | relative_url }}"></script>
 </body>
 </html>

@@ -601,6 +601,16 @@
         const tocLinks = toc.querySelectorAll('a[href^="#"]');
         const sectionLinks = toc.querySelectorAll('.toc-h2');
         const childLinks = toc.querySelectorAll('.toc-h3');
+        const railTicks = document.querySelector('.blog-context-rail .context-rail-ticks');
+        if (railTicks) railTicks.replaceChildren(...Array.from(sectionLinks, () => document.createElement('span')));
+        const syncRailMarker = activeLink => {
+            if (!railTicks) return;
+            const activeSection = activeLink?.classList.contains('toc-h2')
+                ? activeLink
+                : Array.from(sectionLinks).find(link => link.dataset.parentSection === activeLink?.dataset.parentSection);
+            const activeIndex = Array.from(sectionLinks).indexOf(activeSection);
+            railTicks.querySelectorAll('span').forEach((tick, index) => tick.classList.toggle('active', index === activeIndex));
+        };
         sectionLinks.forEach(link => {
             const hasChildren = Array.from(childLinks).some(child => child.dataset.parentSection === link.dataset.parentSection);
             link.classList.toggle('has-children', hasChildren);
@@ -642,6 +652,7 @@
             clearTimeout(scrollEndTimer);
             openSection(link.dataset.parentSection || null);
             tocLinks.forEach(item => item.classList.toggle('active', item === link));
+            syncRailMarker(link);
             target.scrollIntoView({ behavior, block: 'start' });
             if (updateHistory) history.pushState(null, '', `#${targetId}`);
             scrollEndTimer = setTimeout(releaseScrollLock, behavior === 'smooth' ? 700 : 80);
@@ -665,6 +676,7 @@
             }
             openSection(parentForHeading(activeHeading));
             tocLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${activeId}`));
+            syncRailMarker(Array.from(tocLinks).find(link => link.getAttribute('href') === `#${activeId}`));
         };
 
         let tocFrame = null;
