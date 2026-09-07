@@ -626,6 +626,14 @@
                 link.tabIndex = visible ? 0 : -1;
             });
         };
+        sectionLinks.forEach(link => {
+            link.addEventListener('mouseenter', () => openSection(link.dataset.parentSection));
+            link.addEventListener('focus', () => openSection(link.dataset.parentSection));
+        });
+        toc.addEventListener('mouseleave', () => syncToc());
+        toc.addEventListener('focusout', event => {
+            if (!toc.contains(event.relatedTarget)) syncToc();
+        });
 
         const parentForHeading = heading => {
             if (!heading || heading.tagName === 'H2') return heading?.id || null;
