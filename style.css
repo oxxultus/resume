@@ -2433,23 +2433,31 @@ footer { border-top: 1px solid var(--border-color); }
    GPT workspace layout — reversible rebuild on codex/gpt-layout-redesign
    ========================================================================== */
 :root {
-    --sidebar-width: 260px;
+    --sidebar-width: 244px;
     --workspace-bar-height: 58px;
     --reading-width: 900px;
 }
 
+html { scroll-padding-top: calc(var(--workspace-bar-height) + 24px); }
 body { padding-left: var(--sidebar-width); }
 header { width: var(--sidebar-width); }
-.header-container { padding: 22px 14px 18px; }
-.logo { padding: 6px 10px 24px; }
+.header-container { padding: 16px 12px 14px; }
+.logo { padding: 5px 8px 18px; font-size: 16px; }
 .nav-menu { flex: 1; min-height: 0; gap: 2px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--text-muted) 35%, transparent) transparent; }
 .nav-menu { scrollbar-width: none; }
 .nav-menu::-webkit-scrollbar { display: none; }
-.nav-group-label { padding: 18px 10px 5px; font-size: 11px; }
-.nav-link { min-height: 40px; padding: 8px 10px; border-radius: 8px; }
+.nav-group-label { padding: 14px 9px 4px; font-size: 11px; }
+.nav-group-label:first-child { padding: 0 9px 5px; }
+.nav-link { min-height: 35px; gap: 10px; padding: 6px 9px; border-radius: 8px; font-size: 13px; }
+.nav-link i { width: 15px; font-size: 12px; }
 .nav-link.active { background: color-mix(in srgb, var(--text-primary) 7%, transparent); color: var(--text-primary); }
-.header-actions { display: grid; grid-template-columns: 40px 1fr; }
+.header-actions { display: grid; grid-template-columns: 36px 1fr; margin-top: 10px; }
 #theme-toggle { grid-column: 1; }
+#theme-toggle { width: 36px; height: 36px; border-radius: 8px; }
+.sidebar-profile { min-height: 46px; margin-top: 10px; padding: 13px 8px 0; }
+.sidebar-profile img { flex-basis: 30px; width: 30px; height: 30px; }
+.sidebar-profile strong { font-size: 12px; }
+.sidebar-profile span { font-size: 10px; }
 
 .workspace-topbar {
     position: fixed;
@@ -2471,7 +2479,7 @@ header { width: var(--sidebar-width); }
 .workspace-context { color: var(--text-muted); font-size: 12px; }
 
 .container { width: min(100%, var(--reading-width)); max-width: var(--reading-width); padding-inline: 40px; }
-section { padding: 88px 0; }
+section { padding: 88px 0; scroll-margin-top: calc(var(--workspace-bar-height) + 24px); }
 section + section { border-top: 1px solid var(--border-color); }
 
 .hero-section {
@@ -2572,8 +2580,11 @@ section + section { border-top: 1px solid var(--border-color); }
 .stat-number { font-size: 26px; }
 .stat-label { margin-top: 4px; font-size: 11px; }
 
-.skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; }
+.skills-grid { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: auto; align-items: start; gap: 0 32px; }
 .skills-category {
+    min-height: 0;
+    height: auto;
+    align-self: start;
     padding: 24px 0;
     border: 0;
     border-top: 1px solid var(--border-color);
@@ -2582,7 +2593,7 @@ section + section { border-top: 1px solid var(--border-color); }
     box-shadow: none;
 }
 .skills-category h3 { margin-bottom: 16px; font-size: 14px; }
-.skill-badges-container { gap: 7px; }
+.skill-badges-container { align-content: start; gap: 7px; }
 .badge-item {
     min-height: 38px;
     padding: 7px 10px;
@@ -2640,7 +2651,7 @@ section + section { border-top: 1px solid var(--border-color); }
 footer { padding: 28px 0 38px; border-top: 1px solid var(--border-color); }
 
 @media (max-width: 980px) {
-    :root { --sidebar-width: 232px; }
+    :root { --sidebar-width: 224px; }
     .container { padding-inline: 32px; }
     .project-card { grid-template-columns: 230px minmax(0, 1fr); }
     .contact-grid { gap: 34px; }
@@ -2651,6 +2662,8 @@ footer { padding: 28px 0 38px; border-top: 1px solid var(--border-color); }
     body { padding-left: 0; padding-top: 68px; }
     header { width: 100%; height: 68px; }
     .workspace-topbar { top: 68px; left: 0; padding-inline: 18px; }
+    html { scroll-padding-top: calc(68px + var(--workspace-bar-height) + 18px); }
+    section { scroll-margin-top: calc(68px + var(--workspace-bar-height) + 18px); }
     .workspace-context { display: none !important; }
     .hero-section { min-height: auto; padding-top: calc(var(--workspace-bar-height) + 72px); }
     .skills-grid { grid-template-columns: 1fr; }
@@ -2675,20 +2688,20 @@ footer { padding: 28px 0 38px; border-top: 1px solid var(--border-color); }
 @media print { .workspace-topbar { display: none !important; } }
 
 /* Project conversations */
-.sidebar-project-nav { display: grid; gap: 2px; margin: 3px 0 5px 20px; padding-left: 10px; border-left: 1px solid var(--border-color); }
+.sidebar-project-nav { display: grid; gap: 1px; margin: 2px 0 3px 17px; padding-left: 8px; border-left: 1px solid var(--border-color); }
 .sidebar-project-item {
     width: 100%;
-    min-height: 35px;
+    min-height: 31px;
     display: flex;
     align-items: center;
-    gap: 9px;
-    padding: 7px 9px;
+    gap: 8px;
+    padding: 5px 8px;
     border: 0;
     border-radius: 7px;
     background: transparent;
     color: var(--text-secondary);
     font: inherit;
-    font-size: 12px;
+    font-size: 11px;
     text-align: left;
     cursor: pointer;
 }
@@ -2853,3 +2866,44 @@ body.project-chat-open > #back-to-top { display: none !important; }
 }
 
 @media print { #project-chat, .sidebar-project-nav { display: none !important; } }
+
+/* Quiet hover language: no jumping, glowing, or structural-card recoloring. */
+.btn:hover,
+.btn-primary:hover,
+.btn-secondary:hover,
+.badge-item:hover,
+#back-to-top:hover,
+.close-modal:hover,
+.modal-github-link:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.about-card:hover,
+.skills-category:hover,
+.certification-panel:hover,
+.contact-info:hover,
+.contact-form-container:hover {
+    border-color: var(--border-color);
+    background: transparent;
+    box-shadow: none;
+}
+
+.light-theme :is(.about-card, .skills-category, .certification-panel, .contact-info, .contact-form-container),
+.dark-theme :is(.about-card, .skills-category, .certification-panel, .contact-info, .contact-form-container),
+.light-theme :is(.about-card, .skills-category, .certification-panel, .contact-info, .contact-form-container):hover,
+.dark-theme :is(.about-card, .skills-category, .certification-panel, .contact-info, .contact-form-container):hover {
+    background: transparent;
+    box-shadow: none;
+}
+
+.badge-item:hover {
+    border-color: var(--border-hover);
+    background: color-mix(in srgb, var(--text-primary) 4%, var(--bg-card));
+}
+
+.project-card:hover { transform: none; }
+.project-card:hover .project-tech-stack span {
+    background: var(--bg-badge);
+    color: var(--text-secondary);
+}
