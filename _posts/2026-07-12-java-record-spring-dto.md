@@ -1,7 +1,7 @@
 ---
 title: "Java 16+ record와 Spring DTO 활용법"
 date: 2026-07-12 13:45:00 +0900
-categories: ["Language/Java/16"]
+categories: ["Language/Java"]
 tags: [Java, Java 16, record, Spring, DTO]
 summary: "Java record의 불변성, compact constructor와 Spring Request·Response DTO, Command, Value Object 활용법을 정리했습니다."
 excerpt: "일반 클래스와 record의 차이부터 Validation, 방어적 복사, JPA Entity 사용 시 주의점까지 예제로 살펴봅니다."

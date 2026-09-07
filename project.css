@@ -14,7 +14,8 @@
 @media(max-width:800px){.presentation-viewer{height:300px}.architecture-frame{height:auto}.presentation-controls{bottom:10px}}
 
 /* Unified Codex workspace */
-:root{--rail-w:244px;--topbar-h:50px;--bg:#fff;--rail:#f7f7f8;--surface:#f7f7f8;--line:#e5e5e7;--text:#202123;--muted:#5f6273;--soft:#ececee}
+:root{--rail-w:var(--app-sidebar-width,244px);--topbar-h:50px;--bg:#fff;--rail:#f7f7f8;--surface:#f7f7f8;--line:#e5e5e7;--text:#202123;--muted:#5f6273;--soft:#ececee}
+.sidebar-resizer{position:absolute;inset:0 0 0 auto;z-index:40;width:7px;cursor:col-resize;touch-action:none;outline:none}.sidebar-resizer::after{content:'';position:absolute;inset:0 auto 0 3px;width:1px;background:transparent;transition:background-color .15s ease}.sidebar-resizer:hover::after,.sidebar-resizer:focus-visible::after,.sidebar-resizing .sidebar-resizer::after{background:var(--muted)}.sidebar-resizing{cursor:col-resize;user-select:none}
 html{scroll-padding-top:calc(var(--topbar-h) + 24px)}
 .detail-sidebar{padding:16px 12px 14px;background:var(--rail);overflow:hidden}
 .detail-brand{display:flex;align-items:center;gap:7px;padding:5px 8px 18px;font:650 15px var(--font-primary,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif);color:var(--muted)}
@@ -66,7 +67,7 @@ html{scroll-padding-top:calc(var(--topbar-h) + 24px)}
 .dark-theme .detail-avatar.assistant{background:#f2f2f2;color:#171717}
 
 @media(max-width:800px){
-    :root{--rail-w:0px;--topbar-h:56px}
+    :root{--rail-w:0px;--topbar-h:56px}.sidebar-resizer{display:none}
     .detail-sidebar{width:268px;overflow-y:auto}.detail-nav{overflow:visible}
     .detail-content{width:min(100% - 32px,880px);padding-top:30px}
     .detail-topbar{height:var(--topbar-h);padding:0 14px}

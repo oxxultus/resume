@@ -1,7 +1,7 @@
 ---
 title: "Java Optional 핵심 정리: null 처리부터 실무 패턴까지"
 date: 2026-07-12 14:50:00 +0900
-categories: ["Language/Java/8"]
+categories: ["Language/Java"]
 tags: [Java, Java 8, Optional, null, Spring Data JPA]
 summary: "Optional의 생성, 값 추출, map·flatMap과 Spring Data JPA에서의 실무 사용 패턴을 정리했습니다."
 excerpt: "orElse와 orElseGet의 차이, orElseThrow, Stream 연계와 Optional을 필드·DTO에 사용하지 않는 이유를 살펴봅니다."

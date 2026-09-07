@@ -10,6 +10,58 @@
     let analyticsViewsByPath = new Map();
     let analyticsLikesByPath = new Map();
 
+    function buildCategoryTree() {
+        const list = document.querySelector('.blog-thread-list');
+        const groups = [...document.querySelectorAll('.blog-category-group[data-category-path]')];
+        if (!list || !groups.length) return;
+
+        const root = { children: new Map(), posts: [] };
+        groups.forEach(group => {
+            const rawParts = group.dataset.categoryPath.split('/').filter(Boolean);
+            const parts = rawParts[0] === 'Language' && rawParts[1] === 'Java' ? ['Language', 'Java'] : rawParts;
+            let node = root;
+            parts.forEach(name => {
+                if (!node.children.has(name)) node.children.set(name, { name, children: new Map(), posts: [] });
+                node = node.children.get(name);
+            });
+            group.querySelectorAll('.blog-thread-item').forEach(post => {
+                if (!node.posts.some(item => item.href === post.href)) node.posts.push(post.cloneNode(true));
+            });
+        });
+
+        const countPosts = node => node.posts.length + [...node.children.values()].reduce((sum, child) => sum + countPosts(child), 0);
+        const renderNode = (node, depth = 0) => {
+            const details = document.createElement('details');
+            details.className = 'blog-category-node';
+            const summary = document.createElement('summary');
+            summary.innerHTML = `<i class="far fa-folder" aria-hidden="true"></i><span></span><small>${countPosts(node)}</small>`;
+            summary.querySelector('span').textContent = node.name;
+            details.append(summary);
+            const children = document.createElement('div');
+            children.className = 'blog-category-children';
+            node.children.forEach(child => children.append(renderNode(child, depth + 1)));
+            if (node.posts.length) {
+                const posts = document.createElement('div');
+                posts.className = 'blog-category-posts';
+                node.posts.forEach(post => posts.append(post));
+                children.append(posts);
+            }
+            details.append(children);
+            if (depth === 0 && node.name === 'Backend' && !document.querySelector('.blog-thread-item.active')) details.open = true;
+            return details;
+        };
+
+        list.replaceChildren(...[...root.children.values()].map(node => renderNode(node)));
+        const active = list.querySelector('.blog-thread-item.active');
+        let parent = active?.parentElement;
+        while (parent && parent !== list) {
+            if (parent.matches('details.blog-category-node')) parent.open = true;
+            parent = parent.parentElement;
+        }
+    }
+
+    buildCategoryTree();
+
     historyBackButton?.addEventListener('click', () => {
         if (history.length > 1) history.back();
         else location.href = historyBackButton.nextElementSibling?.href || '/resume/blog/';

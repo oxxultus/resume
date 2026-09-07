@@ -1,7 +1,7 @@
 ---
 title: "Java Stream API 핵심 정리: 생성부터 Collectors까지"
 date: 2026-07-12 14:35:00 +0900
-categories: ["Language/Java/8"]
+categories: ["Language/Java"]
 tags: [Java, Java 8, Stream, Collectors, Lambda]
 summary: "Java Stream의 생성, 중간·최종 연산, Collectors와 reduce를 실무 패턴 중심으로 정리했습니다."
 excerpt: "filter, map, sorted, groupingBy와 Entity-to-DTO 변환까지 Stream의 타입 흐름과 주의점을 예제로 살펴봅니다."

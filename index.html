@@ -13,14 +13,14 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Main Style Sheet -->
-    <link rel="stylesheet" href="style.css?v=20260907-5">
+    <link rel="stylesheet" href="style.css?v=20260907-6">
 </head>
 <body class="light-theme">
     <!-- Scroll Progress Indicator -->
     <div id="scroll-indicator"></div>
 
     <!-- Left Sidebar / Navigation -->
-    <header>
+    <header data-resizable-sidebar>
         <div class="header-container">
             <a href="#" class="logo">Oxxultus <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
             <nav class="nav-menu">
@@ -54,6 +54,7 @@
                 </div>
             </div>
         </div>
+        <div class="sidebar-resizer" data-sidebar-resizer role="separator" tabindex="0" aria-label="사이드바 폭 조절" aria-orientation="vertical" aria-valuemin="220" aria-valuemax="380" aria-valuenow="244"></div>
     </header>
 
     <div class="workspace-topbar" aria-label="현재 페이지">
@@ -530,6 +531,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <!-- Script File -->
     <script src="projects-data.js?v=20260906-6"></script>
+    <script src="sidebar-resize.js?v=20260907-1"></script>
     <script src="script.js?v=20260907-1"></script>
 </body>
 </html>

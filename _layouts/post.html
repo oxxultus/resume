@@ -11,10 +11,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ '/blog.css?v=20260907-2' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/blog.css?v=20260907-3' | relative_url }}">
 </head>
 <body>
-    <aside class="blog-sidebar">
+    <aside class="blog-sidebar" data-resizable-sidebar>
         <button class="sidebar-close blog-sidebar-close" type="button" aria-label="메뉴 닫기"><i class="fas fa-xmark"></i></button>
         <a class="blog-brand" href="{{ '/blog/' | relative_url }}">Oxxultus Blog <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
         <nav class="blog-nav" aria-label="블로그 게시글">
@@ -26,7 +26,7 @@
                 {% assign current_category = page.categories | first %}
                 {% assign categories = site.categories | sort %}
                 {% for category in categories %}
-                <details class="blog-category-group"{% if category[0] == current_category %} open{% endif %}>
+                <details class="blog-category-group" data-category-path="{{ category[0] | escape }}"{% if category[0] == current_category %} open{% endif %}>
                     <summary><i class="far fa-folder" aria-hidden="true"></i><span>{{ category[0] }}</span><small>{{ category[1] | size }}</small></summary>
                     <div class="blog-category-posts">
                         {% for post in category[1] %}
@@ -43,6 +43,7 @@
             <img src="{{ '/avatar.png?v=2' | relative_url }}" alt="김영진">
             <div><strong>김영진</strong><span>Backend developer</span></div>
         </div>
+        <div class="sidebar-resizer" data-sidebar-resizer role="separator" tabindex="0" aria-label="사이드바 폭 조절" aria-orientation="vertical" aria-valuemin="220" aria-valuemax="380" aria-valuenow="244"></div>
     </aside>
 
     <main class="blog-main">
@@ -99,6 +100,7 @@
         </div>
         <div class="article-composer" aria-hidden="true"><i class="fas fa-plus"></i><span>이 글에서 무엇을 더 살펴볼까요?</span></div>
     </main>
-    <script src="{{ '/blog.js?v=20260907-1' | relative_url }}"></script>
+    <script src="{{ '/sidebar-resize.js?v=20260907-1' | relative_url }}"></script>
+    <script src="{{ '/blog.js?v=20260907-2' | relative_url }}"></script>
 </body>
 </html>

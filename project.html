@@ -10,10 +10,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="project.css?v=20260907-1">
+    <link rel="stylesheet" href="project.css?v=20260907-2">
 </head>
 <body>
-    <aside class="detail-sidebar">
+    <aside class="detail-sidebar" data-resizable-sidebar>
         <button class="sidebar-close detail-sidebar-close" type="button" aria-label="목차 닫기"><i class="fas fa-xmark"></i></button>
         <a class="detail-brand" href="index.html">Oxxultus <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
         <nav class="detail-nav" aria-label="프로젝트 상세 목차">
@@ -41,6 +41,7 @@
         </nav>
         <button id="detail-theme-toggle" class="detail-theme-toggle" aria-label="다크 모드로 전환"><i class="fas fa-moon"></i></button>
         <div class="detail-profile"><img src="avatar.png?v=2" alt="김영진"><div><strong>김영진</strong><span>Backend developer</span></div></div>
+        <div class="sidebar-resizer" data-sidebar-resizer role="separator" tabindex="0" aria-label="사이드바 폭 조절" aria-orientation="vertical" aria-valuemin="220" aria-valuemax="380" aria-valuenow="244"></div>
     </aside>
 
     <main class="detail-main">
@@ -54,6 +55,7 @@
     </main>
 
     <script src="projects-data.js?v=20260906-6"></script>
+    <script src="sidebar-resize.js?v=20260907-1"></script>
     <script src="project.js?v=20260907-1"></script>
 </body>
 </html>
