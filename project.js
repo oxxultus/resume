@@ -198,7 +198,7 @@
         if (event.key === "Escape") closeDetailMenu();
     });
 
-    const detailNavLinks = document.querySelectorAll(".detail-nav a[href^='#']");
+    const detailNavLinks = document.querySelectorAll(".project-context-nav a[href^='#']");
     const detailSections = document.querySelectorAll("#project-detail section[id]");
     let scrollFrame = null;
 

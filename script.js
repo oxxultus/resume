@@ -415,6 +415,7 @@ const pageSections = document.querySelectorAll("section[id]");
 const navObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
+        document.body.classList.toggle("portfolio-section-active", entry.target.id === "projects");
         navLinks.forEach((link) => {
             link.classList.toggle("active", link.getAttribute("href") === `#${entry.target.id}`);
         });

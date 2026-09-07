@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="project.css?v=20260907-2">
+    <link rel="stylesheet" href="project.css?v=20260907-3">
 </head>
 <body>
     <aside class="detail-sidebar" data-resizable-sidebar>
@@ -30,18 +30,24 @@
                 <a href="project.html?id=velo" data-project-id="velo"><i class="far fa-message"></i> Velo</a>
                 <a href="project.html?id=liminal" data-project-id="liminal"><i class="far fa-message"></i> Liminal Desktop</a>
             </div>
-            <span>Current project</span>
-            <a href="#overview" class="active"><i class="far fa-file-lines"></i> 개요</a>
-            <a href="#contribution"><i class="fas fa-code-branch"></i> 기여와 성과</a>
-            <a href="#architecture"><i class="far fa-object-group"></i> 아키텍처</a>
-            <a href="#troubleshooting"><i class="fas fa-wrench"></i> 트러블슈팅</a>
-            <a href="#retrospective"><i class="far fa-lightbulb"></i> 회고</a>
             <span>Writing</span>
             <a href="blog/"><i class="far fa-file-lines"></i> Blog</a>
         </nav>
         <button id="detail-theme-toggle" class="detail-theme-toggle" aria-label="다크 모드로 전환"><i class="fas fa-moon"></i></button>
         <div class="detail-profile"><img src="avatar.png?v=2" alt="김영진"><div><strong>김영진</strong><span>Backend developer</span></div></div>
         <div class="sidebar-resizer" data-sidebar-resizer role="separator" tabindex="0" aria-label="사이드바 폭 조절" aria-orientation="vertical" aria-valuemin="220" aria-valuemax="380" aria-valuenow="244"></div>
+    </aside>
+
+    <aside class="context-rail project-context-rail" tabindex="0" aria-label="현재 프로젝트 목차">
+        <div class="context-rail-ticks" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        <nav class="context-rail-popover project-context-nav">
+            <strong>Current project</strong>
+            <a href="#overview" class="active"><i class="far fa-file-lines"></i><span>개요</span></a>
+            <a href="#contribution"><i class="fas fa-code-branch"></i><span>기여와 성과</span></a>
+            <a href="#architecture"><i class="far fa-object-group"></i><span>아키텍처</span></a>
+            <a href="#troubleshooting"><i class="fas fa-wrench"></i><span>트러블슈팅</span></a>
+            <a href="#retrospective"><i class="far fa-lightbulb"></i><span>회고</span></a>
+        </nav>
     </aside>
 
     <main class="detail-main">
@@ -55,7 +61,7 @@
     </main>
 
     <script src="projects-data.js?v=20260906-6"></script>
-    <script src="sidebar-resize.js?v=20260907-1"></script>
-    <script src="project.js?v=20260907-1"></script>
+    <script src="sidebar-resize.js?v=20260907-3"></script>
+    <script src="project.js?v=20260907-2"></script>
 </body>
 </html>

@@ -13,7 +13,7 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Main Style Sheet -->
-    <link rel="stylesheet" href="style.css?v=20260907-6">
+    <link rel="stylesheet" href="style.css?v=20260907-7">
 </head>
 <body class="light-theme">
     <!-- Scroll Progress Indicator -->
@@ -32,7 +32,6 @@
                 <a href="#career" class="nav-link"><i class="far fa-clock"></i><span>Career</span></a>
                 <span class="nav-group-label">Work</span>
                 <a href="#projects" class="nav-link"><i class="far fa-folder"></i><span>Portfolio</span></a>
-                <div class="sidebar-project-nav" id="sidebar-project-nav" aria-label="포트폴리오 프로젝트"></div>
                 <a href="#contact" class="nav-link"><i class="far fa-paper-plane"></i><span>Contact</span></a>
                 <span class="nav-group-label">Writing</span>
                 <a href="blog/" class="nav-link"><i class="far fa-file-lines"></i><span>Blog</span></a>
@@ -56,6 +55,15 @@
         </div>
         <div class="sidebar-resizer" data-sidebar-resizer role="separator" tabindex="0" aria-label="사이드바 폭 조절" aria-orientation="vertical" aria-valuemin="220" aria-valuemax="380" aria-valuenow="244"></div>
     </header>
+
+    <aside class="context-rail portfolio-context-rail" tabindex="0" aria-label="포트폴리오 프로젝트 바로가기">
+        <div class="context-rail-ticks" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="context-rail-popover">
+            <strong>Portfolio</strong>
+            <p>프로젝트를 선택해 대화형 상세 내용을 확인하세요.</p>
+            <div class="sidebar-project-nav" id="sidebar-project-nav"></div>
+        </div>
+    </aside>
 
     <div class="workspace-topbar" aria-label="현재 페이지">
         <span><i class="far fa-folder" aria-hidden="true"></i> 이력서 사이트</span>
@@ -531,7 +539,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <!-- Script File -->
     <script src="projects-data.js?v=20260906-6"></script>
-    <script src="sidebar-resize.js?v=20260907-1"></script>
-    <script src="script.js?v=20260907-1"></script>
+    <script src="sidebar-resize.js?v=20260907-3"></script>
+    <script src="script.js?v=20260907-2"></script>
 </body>
 </html>
