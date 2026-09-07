@@ -13,7 +13,7 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Main Style Sheet -->
-    <link rel="stylesheet" href="style.css?v=20260907-2">
+    <link rel="stylesheet" href="style.css?v=20260907-3">
 </head>
 <body class="light-theme">
     <!-- Scroll Progress Indicator -->
@@ -22,22 +22,20 @@
     <!-- Left Sidebar / Navigation -->
     <header>
         <div class="header-container">
-            <a href="#" class="logo">
-                <span class="tech-accent">&lt;</span>Oxxultus.Dev<span class="tech-accent">/&gt;</span>
-            </a>
+            <a href="#" class="logo">Oxxultus <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
             <nav class="nav-menu">
                 <span class="nav-group-label">Profile</span>
-                <a href="#hero" class="nav-link active"><i class="fas fa-house"></i><span>Home</span></a>
-                <a href="#about" class="nav-link"><i class="fas fa-user"></i><span>About</span></a>
-                <a href="#skills" class="nav-link"><i class="fas fa-layer-group"></i><span>Skills</span></a>
-                <a href="#certifications" class="nav-link"><i class="fas fa-award"></i><span>Certifications</span></a>
-                <a href="#career" class="nav-link"><i class="fas fa-briefcase"></i><span>Career</span></a>
+                <a href="#hero" class="nav-link active"><i class="far fa-pen-to-square"></i><span>Home</span></a>
+                <a href="#about" class="nav-link"><i class="far fa-user"></i><span>About</span></a>
+                <a href="#skills" class="nav-link"><i class="fas fa-code"></i><span>Skills</span></a>
+                <a href="#certifications" class="nav-link"><i class="far fa-circle-check"></i><span>Certifications</span></a>
+                <a href="#career" class="nav-link"><i class="far fa-clock"></i><span>Career</span></a>
                 <span class="nav-group-label">Work</span>
-                <a href="#projects" class="nav-link"><i class="fas fa-code-branch"></i><span>Portfolio</span></a>
+                <a href="#projects" class="nav-link"><i class="far fa-folder"></i><span>Portfolio</span></a>
                 <div class="sidebar-project-nav" id="sidebar-project-nav" aria-label="포트폴리오 프로젝트"></div>
-                <a href="#contact" class="nav-link"><i class="fas fa-paper-plane"></i><span>Contact</span></a>
+                <a href="#contact" class="nav-link"><i class="far fa-paper-plane"></i><span>Contact</span></a>
                 <span class="nav-group-label">Writing</span>
-                <a href="blog/" class="nav-link"><i class="fas fa-pen-nib"></i><span>Blog</span></a>
+                <a href="blog/" class="nav-link"><i class="far fa-file-lines"></i><span>Blog</span></a>
             </nav>
             <div class="header-actions">
                 <button id="theme-toggle" aria-label="Toggle theme">
@@ -97,12 +95,9 @@
         </div>
         <div class="container hero-container">
             <div class="hero-content">
-                <div class="badge">Backend Developer</div>
-                <h1>
-                    팀이 기능 개발에 집중할 수 있는
-                    <span class="text-gradient">기반을 만드는 백엔드 개발자 김영진</span>입니다.
-                </h1>
-                <p class="hero-subtitle">아키텍처부터 인프라·개발환경까지 함께 고민합니다.</p>
+                <div class="hero-mark" aria-hidden="true"><i class="far fa-message"></i></div>
+                <h1>김영진의 포트폴리오에서<br>무엇을 살펴볼까요?</h1>
+                <p class="hero-subtitle">팀이 기능 개발에 집중할 수 있는 기반을 만드는 백엔드 개발자입니다.</p>
                 <p class="hero-description">
                     Java와 Spring을 기반으로 서비스 구조와 공통 기능을 설계합니다. 반복 작업은 자동화하고, 구현한 기능은 코드와 테스트로 검증하며, 팀원이 빠르게 활용할 수 있도록 문서로 남깁니다.
                 </p>
@@ -133,12 +128,12 @@
             <h2 class="section-title">About Me</h2>
             <div class="about-grid">
                 <div class="about-card glass">
-                    <div class="card-icon"><i class="fas fa-screwdriver-wrench"></i></div>
+                    <div class="card-icon"><i class="far fa-window-restore"></i></div>
                     <h3>개발 기반과 자동화</h3>
                     <p>6명이 함께한 라스트디시 프로젝트에서 전체 아키텍처와 인프라·개발환경을 관리했습니다. 전체 서비스 실행, 특정 서비스 재빌드, 데이터 저장소 초기화, 인증 키 생성 등 반복 작업을 5개의 쉘 스크립트로 자동화하고 실행 방법을 문서화해, 팀원이 환경 문제보다 기능 개발에 집중할 수 있는 기반을 만들었습니다.</p>
                 </div>
                 <div class="about-card glass">
-                    <div class="card-icon"><i class="fas fa-diagram-project"></i></div>
+                    <div class="card-icon"><i class="far fa-object-group"></i></div>
                     <h3>공통 구조와 검증</h3>
                     <p>이벤트 처리와 Outbox 기반 구조 등 여러 팀원이 함께 사용하는 공통모듈을 구현했습니다. 사용 방법, 처리 흐름, 적용 예시를 함께 문서화해 팀원이 빠르게 이해하고 적용할 수 있도록 했습니다. 설계 검토와 테스트 보완에는 AI를 활용하되 결과를 그대로 수용하지 않고, 실제 코드와 테스트를 기준으로 검증합니다.</p>
                 </div>
@@ -169,7 +164,7 @@
             <div class="skills-grid">
                 <!-- Skill Category: Backend -->
                 <div class="skills-category glass">
-                    <h3><i class="fas fa-code"></i> Backend (Core)</h3>
+                    <h3><i class="far fa-window-maximize"></i> Backend (Core)</h3>
                     <div class="skill-badges-container">
                         <div class="badge-item">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
@@ -200,7 +195,7 @@
 
                 <!-- Skill Category: Database & Cache -->
                 <div class="skills-category glass">
-                    <h3><i class="fas fa-database"></i> Database & Cache</h3>
+                    <h3><i class="far fa-hard-drive"></i> Database & Cache</h3>
                     <div class="skill-badges-container">
                         <div class="badge-item">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" alt="Oracle">
@@ -219,7 +214,7 @@
 
                 <!-- Skill Category: Infrastructure -->
                 <div class="skills-category glass">
-                    <h3><i class="fas fa-network-wired"></i> Infrastructure</h3>
+                    <h3><i class="far fa-folder-open"></i> Infrastructure</h3>
                     <div class="skill-badges-container">
                         <div class="badge-item">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" alt="Nginx">
@@ -242,7 +237,7 @@
 
                 <!-- Skill Category: Monitoring & Observability -->
                 <div class="skills-category glass">
-                    <h3><i class="fas fa-chart-line"></i> Monitoring & Observability</h3>
+                    <h3><i class="far fa-chart-bar"></i> Monitoring & Observability</h3>
                     <div class="skill-badges-container">
                         <div class="badge-item"><img src="images/skills/prometheus.svg" alt="Prometheus"><span class="badge-title">Prometheus</span></div>
                         <div class="badge-item"><img src="images/skills/loki.svg" alt="Loki"><span class="badge-title">Loki</span></div>
@@ -262,7 +257,7 @@
                 <div class="certifications-list">
                         <div class="cert-item">
                             <div class="cert-title-group">
-                                <i class="fas fa-certificate cert-icon-small"></i>
+                                <i class="far fa-circle-check cert-icon-small"></i>
                                 <span class="cert-name">정보처리기사</span>
                             </div>
                             <span class="cert-meta">한국산업인력공단 | 2026.06.12 (취득)</span>
@@ -329,7 +324,7 @@
                     <p>반복적인 비효율을 없애고, 확장 가능한 안정된 인프라를 지향하는 김영진입니다. 함께 문제를 해결하고 성장할 팀을 기다리고 있습니다.</p>
                     <div class="contact-details">
                         <div class="contact-detail-item">
-                            <i class="fas fa-envelope"></i>
+                            <i class="far fa-envelope"></i>
                             <div>
                                 <span>이메일</span>
                                 <strong>oxxultus@gmail.com</strong>
@@ -343,7 +338,7 @@
                             </div>
                         </div>
                         <div class="contact-detail-item">
-                            <i class="fas fa-map-marker-alt"></i>
+                            <i class="far fa-compass"></i>
                             <div>
                                 <span>위치</span>
                                 <strong>대한민국</strong>
