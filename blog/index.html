@@ -15,7 +15,7 @@ permalink: /blog/
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ '/blog.css?v=20260907-1' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/blog.css?v=20260907-2' | relative_url }}">
 </head>
 <body>
     <aside class="blog-sidebar">
@@ -27,10 +27,18 @@ permalink: /blog/
             <a class="active" href="{{ '/blog/' | relative_url }}"><i class="far fa-pen-to-square"></i> 새 탐색</a>
             <span class="blog-nav-label">게시글</span>
             <div class="blog-thread-list">
-                {% for post in site.posts %}
-                <a class="blog-thread-item" href="{{ post.url | relative_url }}" title="{{ post.title | escape }}">
-                    <i class="far fa-message" aria-hidden="true"></i><span>{{ post.title }}</span>
-                </a>
+                {% assign categories = site.categories | sort %}
+                {% for category in categories %}
+                <details class="blog-category-group"{% if forloop.first %} open{% endif %}>
+                    <summary><i class="far fa-folder" aria-hidden="true"></i><span>{{ category[0] }}</span><small>{{ category[1] | size }}</small></summary>
+                    <div class="blog-category-posts">
+                        {% for post in category[1] %}
+                        <a class="blog-thread-item" href="{{ post.url | relative_url }}" title="{{ post.title | escape }}">
+                            <i class="far fa-message" aria-hidden="true"></i><span>{{ post.title }}</span>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </details>
                 {% endfor %}
             </div>
         </nav>

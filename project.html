@@ -10,21 +10,36 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="project.css?v=20260906-2">
+    <link rel="stylesheet" href="project.css?v=20260907-1">
 </head>
 <body>
     <aside class="detail-sidebar">
         <button class="sidebar-close detail-sidebar-close" type="button" aria-label="목차 닫기"><i class="fas fa-xmark"></i></button>
-        <a class="detail-brand" href="index.html"><span>&lt;</span>Oxxultus.Dev<span>/&gt;</span></a>
-        <a class="back-link" href="index.html#projects"><i class="fas fa-arrow-left"></i> 포트폴리오 목록</a>
+        <a class="detail-brand" href="index.html">Oxxultus <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
         <nav class="detail-nav" aria-label="프로젝트 상세 목차">
-            <span>Portfolio</span>
-            <a href="#overview" class="active"><i class="fas fa-file-lines"></i> 개요</a>
+            <span>Profile</span>
+            <a href="index.html#hero"><i class="far fa-pen-to-square"></i> Home</a>
+            <a href="index.html#about"><i class="far fa-user"></i> About</a>
+            <a href="index.html#skills"><i class="fas fa-sliders"></i> Skills</a>
+            <a href="index.html#certifications"><i class="far fa-circle-check"></i> Certifications</a>
+            <a href="index.html#career"><i class="far fa-clock"></i> Career</a>
+            <span>Work</span>
+            <a href="index.html#projects"><i class="far fa-folder"></i> Portfolio</a>
+            <div class="detail-project-list" aria-label="포트폴리오 프로젝트">
+                <a href="project.html?id=lastdish" data-project-id="lastdish"><i class="far fa-message"></i> LastDish</a>
+                <a href="project.html?id=velo" data-project-id="velo"><i class="far fa-message"></i> Velo</a>
+                <a href="project.html?id=liminal" data-project-id="liminal"><i class="far fa-message"></i> Liminal Desktop</a>
+            </div>
+            <span>Current project</span>
+            <a href="#overview" class="active"><i class="far fa-file-lines"></i> 개요</a>
             <a href="#contribution"><i class="fas fa-code-branch"></i> 기여와 성과</a>
-            <a href="#architecture"><i class="fas fa-diagram-project"></i> 아키텍처</a>
-            <a href="#troubleshooting"><i class="fas fa-screwdriver-wrench"></i> 트러블슈팅</a>
-            <a href="#retrospective"><i class="fas fa-lightbulb"></i> 회고</a>
+            <a href="#architecture"><i class="far fa-object-group"></i> 아키텍처</a>
+            <a href="#troubleshooting"><i class="fas fa-wrench"></i> 트러블슈팅</a>
+            <a href="#retrospective"><i class="far fa-lightbulb"></i> 회고</a>
+            <span>Writing</span>
+            <a href="blog/"><i class="far fa-file-lines"></i> Blog</a>
         </nav>
+        <button id="detail-theme-toggle" class="detail-theme-toggle" aria-label="다크 모드로 전환"><i class="fas fa-moon"></i></button>
         <div class="detail-profile"><img src="avatar.png?v=2" alt="김영진"><div><strong>김영진</strong><span>Backend developer</span></div></div>
     </aside>
 
@@ -32,7 +47,6 @@
         <header class="detail-topbar">
             <button class="detail-menu" aria-label="목차 열기" aria-expanded="false"><i class="fas fa-bars"></i></button>
             <span id="topbar-title">Portfolio detail</span>
-            <button id="detail-theme-toggle" class="detail-theme-toggle" aria-label="다크 모드로 전환"><i class="fas fa-moon"></i></button>
             <a id="presentation-link" class="github-link presentation-link" target="_blank" rel="noreferrer" hidden><i class="far fa-file-pdf"></i> 발표자료</a>
             <a id="github-link" class="github-link" target="_blank" rel="noreferrer"><i class="fab fa-github"></i> Repository</a>
         </header>
@@ -40,6 +54,6 @@
     </main>
 
     <script src="projects-data.js?v=20260906-6"></script>
-    <script src="project.js?v=20260906-6"></script>
+    <script src="project.js?v=20260907-1"></script>
 </body>
 </html>
