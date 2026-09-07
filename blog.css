@@ -271,6 +271,7 @@ button { font: inherit; }
 .blog-prompt-box { width: min(680px, 100%); min-height: 96px; margin-top: 38px; padding: 16px 18px 12px; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; border: 1px solid var(--line); border-radius: 17px; background: var(--surface); text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04); }
 .blog-prompt-box > span { color: var(--muted); font-size: 13px; }
 .blog-prompt-box .blog-stats { margin: 10px 0 0; }
+.blog-recent-posts{width:100%;display:grid;gap:2px;margin-top:9px}.blog-recent-posts a{display:grid;grid-template-columns:16px minmax(0,1fr) auto;align-items:center;gap:9px;min-height:37px;padding:7px 8px;border-radius:8px;color:var(--muted);font-size:12px}.blog-recent-posts a:hover,.blog-recent-posts a:focus-visible{background:color-mix(in srgb,var(--text) 6%,transparent);color:var(--text);outline:none}.blog-recent-posts i{font-size:10px;text-align:center}.blog-recent-posts a span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.blog-recent-posts time{color:var(--faint);font-size:10px;font-variant-numeric:tabular-nums}
 .article-thread { width: min(880px, calc(100% - 56px)); margin: 0 auto; padding: 42px 0 150px; }
 .blog-user-turn, .blog-assistant-turn { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 14px; }
 .blog-user-turn { max-width: 760px; margin: 0 auto 34px; }
@@ -305,3 +306,4 @@ body.dark-theme .blog-turn-avatar.assistant { background: #f2f2f2; color: #17171
     .blog-empty-state { width: calc(100% - 32px); }
     .article-header h1 { font-size: 29px; }
 }
+@media(max-width:800px){.context-rail.blog-context-rail{display:block;top:auto;right:14px;bottom:16px;width:42px;height:42px;border:1px solid var(--line);border-radius:11px;background:var(--surface);box-shadow:0 8px 24px rgba(0,0,0,.12);transform:none}.blog-context-rail .context-rail-ticks{height:100%;align-content:center;gap:5px;padding:9px}.blog-context-rail .context-rail-ticks span{width:17px;height:2px}.blog-context-rail .context-rail-popover{position:fixed;inset:auto 12px 66px 12px;width:auto;max-height:68vh;transform:translateY(8px)}.blog-context-rail:hover .context-rail-popover,.blog-context-rail:focus-within .context-rail-popover{transform:translateY(0)}.blog-empty-state{justify-content:flex-start;padding-top:54px}.blog-prompt-box{margin-top:28px}}
