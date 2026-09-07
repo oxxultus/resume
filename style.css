@@ -2727,6 +2727,14 @@ footer { padding: 28px 0 38px; border-top: 1px solid var(--border-color); }
 
 /* Project conversations */
 .sidebar-project-nav { display: grid; gap: 1px; margin: 2px 0 3px 17px; padding-left: 8px; border-left: 1px solid var(--border-color); }
+.sidebar-project-nav[hidden] { display: none; }
+.portfolio-nav-toggle .portfolio-toggle-icon {
+    width: auto;
+    margin-left: auto;
+    font-size: 9px;
+    transition: transform .16s ease;
+}
+.portfolio-nav-toggle[aria-expanded="true"] .portfolio-toggle-icon { transform: rotate(90deg); }
 .sidebar-project-item {
     width: 100%;
     min-height: 31px;

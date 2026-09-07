@@ -573,9 +573,8 @@
     }
 
     const toc = document.querySelector('.post-toc');
-    const articleHeadings = document.querySelectorAll('.article-body h2, .article-body h3');
+    const articleHeadings = document.querySelectorAll('.article-body h2');
     if (toc && articleHeadings.length) {
-        let parentSectionId = null;
         articleHeadings.forEach((heading, index) => {
             const generatedId = heading.textContent.trim()
                 .toLowerCase()
@@ -584,21 +583,16 @@
                 .replace(/-+/g, '-');
             heading.id = heading.id || generatedId || `section-${index + 1}`;
 
-            if (heading.tagName === 'H2') parentSectionId = heading.id;
-
             const link = document.createElement('a');
             link.href = `#${heading.id}`;
-            link.className = heading.tagName === 'H3' ? 'toc-h3' : 'toc-h2';
-            link.dataset.parentSection = heading.tagName === 'H3' ? parentSectionId : heading.id;
-            const hasChildren = heading.tagName === 'H2' && articleHeadings[index + 1]?.tagName === 'H3';
+            link.className = 'toc-h2';
+            link.dataset.parentSection = heading.id;
             link.innerHTML = `<span>${heading.textContent.trim()}</span>`;
-            if (hasChildren) link.setAttribute('aria-expanded', 'false');
             toc.appendChild(link);
         });
 
         const tocLinks = toc.querySelectorAll('a[href^="#"]');
         const sectionLinks = toc.querySelectorAll('.toc-h2');
-        const childLinks = toc.querySelectorAll('.toc-h3');
         const railTicks = document.querySelector('.blog-context-rail .context-rail-ticks');
         if (railTicks) railTicks.replaceChildren(...Array.from(sectionLinks, () => document.createElement('span')));
         const syncRailMarker = activeLink => {
@@ -609,37 +603,15 @@
             const activeIndex = Array.from(sectionLinks).indexOf(activeSection);
             railTicks.querySelectorAll('span').forEach((tick, index) => tick.classList.toggle('active', index === activeIndex));
         };
-        sectionLinks.forEach(link => {
-            const hasChildren = Array.from(childLinks).some(child => child.dataset.parentSection === link.dataset.parentSection);
-            link.classList.toggle('has-children', hasChildren);
-        });
         const openSection = sectionId => {
             sectionLinks.forEach(link => {
                 const expanded = link.dataset.parentSection === sectionId;
                 link.classList.toggle('expanded', expanded);
-                if (link.classList.contains('has-children')) link.setAttribute('aria-expanded', String(expanded));
-            });
-            childLinks.forEach(link => {
-                const visible = link.dataset.parentSection === sectionId;
-                link.classList.toggle('is-visible', visible);
-                link.setAttribute('aria-hidden', String(!visible));
-                link.tabIndex = visible ? 0 : -1;
             });
         };
-        sectionLinks.forEach(link => {
-            link.addEventListener('mouseenter', () => openSection(link.dataset.parentSection));
-            link.addEventListener('focus', () => openSection(link.dataset.parentSection));
-        });
-        toc.addEventListener('mouseleave', () => syncToc());
-        toc.addEventListener('focusout', event => {
-            if (!toc.contains(event.relatedTarget)) syncToc();
-        });
 
         const parentForHeading = heading => {
-            if (!heading || heading.tagName === 'H2') return heading?.id || null;
-            let previous = heading.previousElementSibling;
-            while (previous && previous.tagName !== 'H2') previous = previous.previousElementSibling;
-            return previous?.id || null;
+            return heading?.id || null;
         };
 
         let lockedLink = null;

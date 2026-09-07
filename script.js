@@ -107,6 +107,7 @@ function initProjectWorkspace() {
     const meta = document.getElementById("project-chat-meta");
     const detailLink = document.getElementById("project-chat-external");
     const backButton = document.getElementById("project-chat-back");
+    const portfolioToggle = document.querySelector(".portfolio-nav-toggle");
     const workspaceLabel = document.querySelector(".workspace-topbar > span:first-child");
     if (!sidebar || !chat || !thread || !title || !meta || !detailLink || !backButton) return;
 
@@ -118,6 +119,17 @@ function initProjectWorkspace() {
             <span>${data.title}</span>
         </button>
     `).join("");
+
+    const setPortfolioExpanded = expanded => {
+        portfolioToggle?.setAttribute("aria-expanded", String(expanded));
+        sidebar.hidden = !expanded;
+    };
+
+    portfolioToggle?.addEventListener("click", event => {
+        const expanded = portfolioToggle.getAttribute("aria-expanded") === "true";
+        setPortfolioExpanded(!expanded);
+        if (expanded) event.preventDefault();
+    });
 
     function closeProjectWorkspace({ updateHash = true } = {}) {
         document.body.classList.remove("project-chat-open");
@@ -190,6 +202,7 @@ function initProjectWorkspace() {
         `;
 
         document.body.classList.add("project-chat-open");
+        setPortfolioExpanded(true);
         chat.hidden = false;
         sidebar.querySelectorAll(".sidebar-project-item").forEach(item => {
             item.classList.toggle("active", item.dataset.projectKey === key);
