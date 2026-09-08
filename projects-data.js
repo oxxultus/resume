@@ -355,6 +355,9 @@ const projectData = {
     }
 };
 
+// 공개 포트폴리오에서는 현재 운영 중인 프로젝트만 노출합니다.
+delete projectData.liminal;
+
 // LastDish 발표 원본 이미지를 카드·상세·PDF에서 동일하게 사용합니다.
 projectData.lastdish.thumbnail = "images/lastdish-cover.png";
 projectData.lastdish.architecture = "images/lastdish-architecture.png?v=20260906-2";

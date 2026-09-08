@@ -601,7 +601,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // Construct Projects content for Resume (EXCLUDING Troubleshooting)
                 let resumeProjectsContent = "";
-                const projectKeys = ['lastdish', 'velo', 'liminal'];
+                const projectKeys = ['lastdish', 'velo'];
                 projectKeys.forEach(key => {
                     const data = projectData[key];
                     if (!data) return;
@@ -611,7 +611,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         achievementsHtml += `<li style="margin-bottom: 3px;">${ach}</li>`;
                     });
 
-                    const typeLabel = key === 'liminal' ? '개인 프로젝트' : '팀 프로젝트';
+                    const typeLabel = data.category === 'personal' ? '개인 프로젝트' : '팀 프로젝트';
                     
                     resumeProjectsContent += `
                         <div class="resume-project-item">
