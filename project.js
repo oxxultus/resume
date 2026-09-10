@@ -1,4 +1,6 @@
 (function () {
+    const params = new URLSearchParams(window.location.search);
+    document.body.classList.toggle("embed-mode", params.get("embed") === "1");
     const themeToggle = document.getElementById("detail-theme-toggle");
     const savedTheme = localStorage.getItem("theme");
     const initialTheme = savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
@@ -13,7 +15,6 @@
     applyTheme(initialTheme);
     themeToggle.addEventListener("click", () => applyTheme(document.body.classList.contains("dark-theme") ? "light" : "dark"));
 
-    const params = new URLSearchParams(window.location.search);
     const projectId = params.get("id") || Object.keys(projectData)[0];
     const data = projectData[projectId];
     const root = document.getElementById("project-detail");

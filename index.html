@@ -13,7 +13,7 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Main Style Sheet -->
-    <link rel="stylesheet" href="style.css?v=20260910-3">
+    <link rel="stylesheet" href="style.css?v=20260910-4">
 </head>
 <body class="light-theme">
     <!-- Scroll Progress Indicator -->
@@ -508,11 +508,22 @@
         <div class="evidence-dialog-body"><img id="evidence-dialog-image" alt=""></div>
     </dialog>
 
+    <dialog class="project-dialog" id="project-dialog" aria-labelledby="project-dialog-title">
+        <div class="project-dialog-header">
+            <strong id="project-dialog-title">프로젝트 상세</strong>
+            <div class="project-dialog-actions">
+                <a id="project-dialog-external" href="project.html" target="_blank" rel="noopener" aria-label="새 탭에서 프로젝트 상세 열기"><i class="fas fa-arrow-up-right-from-square"></i></a>
+                <button type="button" class="project-dialog-close" aria-label="프로젝트 상세 닫기"><i class="fas fa-xmark"></i></button>
+            </div>
+        </div>
+        <iframe id="project-dialog-frame" title="프로젝트 상세"></iframe>
+    </dialog>
+
     <!-- html2pdf Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <!-- Script File -->
     <script src="projects-data.js?v=20260910-2"></script>
     <script src="sidebar-resize.js?v=20260907-3"></script>
-    <script src="script.js?v=20260910-2"></script>
+    <script src="script.js?v=20260910-4"></script>
 </body>
 </html>
