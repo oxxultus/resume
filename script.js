@@ -91,7 +91,7 @@ function initProjects() {
                     <div class="project-tech-stack">
                         ${techStackHtml}
                     </div>
-                    <a class="btn-detail project-detail-trigger" href="project.html?id=${encodeURIComponent(key)}" data-project-id="${key}" data-project-title="${data.title}" target="_blank" rel="noopener">${buttonText} <i class="fas fa-arrow-right"></i></a>
+                    <a class="btn-detail project-detail-trigger" href="project.html?id=${encodeURIComponent(key)}" data-project-id="${key}" data-project-title="${data.title}">${buttonText} <i class="fas fa-arrow-right"></i></a>
                 </div>
             </article>
         `;
@@ -106,7 +106,7 @@ function initProjectWorkspace() {
     if (!sidebar || !portfolioToggle) return;
 
     sidebar.innerHTML = Object.entries(projectData).map(([key, data]) => `
-        <a class="sidebar-project-item project-detail-trigger" href="project.html?id=${encodeURIComponent(key)}" data-project-id="${key}" data-project-title="${data.title}" target="_blank" rel="noopener">
+        <a class="sidebar-project-item project-detail-trigger" href="project.html?id=${encodeURIComponent(key)}" data-project-id="${key}" data-project-title="${data.title}">
             <i class="far fa-message" aria-hidden="true"></i>
             <span>${data.title}</span>
         </a>
@@ -133,7 +133,7 @@ function initProjectDialog() {
 
     document.addEventListener("click", event => {
         const trigger = event.target.closest(".project-detail-trigger");
-        if (!trigger || window.matchMedia("(max-width: 820px)").matches) return;
+        if (!trigger) return;
         event.preventDefault();
         const projectId = trigger.dataset.projectId;
         const detailUrl = `project.html?id=${encodeURIComponent(projectId)}`;

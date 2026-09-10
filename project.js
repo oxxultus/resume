@@ -81,20 +81,10 @@
         ? `<div class="architecture-frame">${architectureContent}</div>`
         : `<div class="empty-state">아키텍처 자료를 준비하고 있습니다.</div>`;
 
-    const chatTurn = (prompt, content) => `
-        <div class="detail-chat-turn">
-            <div class="detail-user-turn">
-                <div class="detail-avatar"><i class="far fa-user" aria-hidden="true"></i></div>
-                <div><small>Visitor</small><p>${prompt}</p></div>
-            </div>
-            <div class="detail-assistant-turn">
-                <div class="detail-avatar assistant"><i class="fas fa-code" aria-hidden="true"></i></div>
-                <div class="detail-answer">${content}</div>
-            </div>
-        </div>`;
+    const detailBlock = content => `<div class="detail-section-block">${content}</div>`;
 
     root.innerHTML = `
-        ${chatTurn(`${data.title} 프로젝트를 소개해 주세요.`, `
+        ${detailBlock(`
             <section id="overview" class="project-hero">
                 <div class="project-label">${data.category === "personal" ? "Personal project" : "Team project"}</div>
                 <h1>${data.title}</h1>
@@ -105,29 +95,28 @@
                 <p class="project-summary">${data.description}</p>
                 <div class="tech-list">${tech}</div>
             </section>`)}
-        ${chatTurn("이 프로젝트에서 맡은 역할과 성과는 무엇인가요?", `
+        ${detailBlock(`
             <section id="contribution" class="detail-section">
                 <div class="section-heading"><span>Contribution</span><h2>기여와 성과</h2></div>
                 <ul class="achievement-list">${achievements}</ul>
             </section>`)}
-        ${chatTurn("시스템 구조와 데이터 흐름을 보여주세요.", `
+        ${detailBlock(`
             <section id="architecture" class="detail-section">
                 <div class="section-heading"><span>System design</span><h2>아키텍처</h2></div>
                 <p class="section-lead">구성 요소의 책임과 데이터 흐름을 한눈에 볼 수 있도록 정리했습니다.</p>
                 ${architecture}
             </section>`)}
-        ${chatTurn("어떤 문제를 발견했고 어떻게 해결했나요?", `
+        ${detailBlock(`
             <section id="troubleshooting" class="detail-section">
                 <div class="section-heading"><span>Problem solving</span><h2>트러블슈팅</h2></div>
                 <p class="section-lead">문제의 증상보다 원인을 추적하고, 선택한 해결책이 만든 결과까지 기록했습니다.</p>
                 <div class="trouble-list">${troubleshooting}</div>
             </section>`)}
-        ${chatTurn("프로젝트를 통해 무엇을 배웠나요?", `
+        ${detailBlock(`
             <section id="retrospective" class="detail-section retrospective">
                 <div class="section-heading"><span>Retrospective</span><h2>배운 점과 다음 개선</h2></div>
                 <div class="retrospective-grid"><div><strong>이번 프로젝트에서 배운 점</strong><p>기능 구현뿐 아니라 운영 환경의 병목과 실패 조건을 먼저 관찰하는 습관을 얻었습니다.</p></div><div><strong>다음에 더 개선할 점</strong><p>관측 가능성과 자동화된 성능 검증을 초기 설계 단계부터 포함해 문제를 더 일찍 발견하겠습니다.</p></div></div>
-            </section>`)}
-        <div class="detail-composer" aria-hidden="true"><i class="fas fa-plus"></i><span>이 프로젝트에서 무엇을 더 살펴볼까요?</span></div>`;
+            </section>`)}`;
 
     const evidenceDialog = document.getElementById("evidence-dialog");
     const evidenceImage = document.getElementById("evidence-dialog-image");
