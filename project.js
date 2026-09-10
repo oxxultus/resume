@@ -35,6 +35,7 @@
     }
 
     const tech = (data.techStack || []).map(item => `<span>${item}</span>`).join("");
+    const award = data.award ? `<a class="detail-award" href="${data.award.url}" target="_blank" rel="noopener"><i class="far fa-star" aria-hidden="true"></i><span>${data.award.title}</span><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>` : "";
     const achievements = (data.achievements || []).map(item => `<li><i class="fas fa-check"></i><span>${item}</span></li>`).join("");
     const troubleshooting = (data.troubleshooting || []).length
         ? data.troubleshooting.map((item, index) => `
@@ -96,6 +97,7 @@
             <section id="overview" class="project-hero">
                 <div class="project-label">${data.category === "personal" ? "Personal project" : "Team project"}</div>
                 <h1>${data.title}</h1>
+                ${award}
                 <p class="project-tagline">${data.tagline}</p>
                 <div class="project-meta"><span><i class="far fa-calendar"></i>${data.period}</span><span><i class="far fa-user"></i>${data.role}</span></div>
                 ${projectMedia}

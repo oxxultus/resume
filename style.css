@@ -2643,6 +2643,28 @@ section + section { border-top: 1px solid var(--border-color); }
 
 .certification-panel { padding: 0; border: 0; border-top: 1px solid var(--border-color); border-radius: 0; background: transparent; box-shadow: none; }
 .cert-item { min-height: 62px; padding: 18px 4px; border-bottom: 1px solid var(--border-color); }
+.cert-kind { margin-left: auto; color: var(--text-muted); font-size: 10px; font-weight: 500; }
+.cert-meta-with-action { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: 10px 18px; }
+.document-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    width: fit-content;
+    min-height: 34px;
+    padding: 6px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 11px;
+    font-weight: 500;
+}
+.document-link:hover,.document-link:focus-visible { background: color-mix(in srgb,var(--text-primary) 6%,transparent); outline: none; }
+.document-link i { font-size: 9px; }
+.document-actions { display: inline-flex; align-items: center; gap: 8px; }
+.document-download { color: var(--text-muted); font-size: 10px; text-decoration: underline; text-underline-offset: 3px; }
+.document-download:hover,.document-download:focus-visible { color: var(--text-primary); outline: none; }
+.career-document-link { margin-top: 14px; }
 .career-layout { grid-template-columns: minmax(240px, .85fr) minmax(0, 1.15fr); gap: 56px; }
 .career-intro { top: calc(var(--workspace-bar-height) + 28px); }
 .career-status { color: var(--text-secondary); }
@@ -2667,6 +2689,10 @@ section + section { border-top: 1px solid var(--border-color); }
 .project-thumbnail, .light-theme .project-thumbnail { width: 100%; min-width: 0; height: 100%; }
 .project-info, .light-theme .project-info { padding: 28px 30px; }
 .project-info h3, .light-theme .project-info h3 { font-size: 22px; }
+.project-title-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.project-title-row h3 { margin: 0; }
+.project-award { display: inline-flex; align-items: center; gap: 6px; color: var(--text-secondary); font-size: 11px; font-weight: 500; }
+.project-award:hover,.project-award:focus-visible { color: var(--text-primary); outline: none; }
 .project-description { display: -webkit-box; overflow: hidden; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
 .project-tech-stack { gap: 5px; }
 .project-tech-stack span { padding: 4px 7px; font-size: 10px; }

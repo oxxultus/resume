@@ -54,6 +54,7 @@ html{scroll-padding-top:calc(var(--topbar-h) + 24px)}
 .project-hero,.detail-section{padding:0;scroll-margin-top:calc(var(--topbar-h) + 24px)}
 .project-hero h1{margin:4px 0 5px;font-size:clamp(38px,5vw,54px)}
 .project-label,.section-heading span{color:#9296a3;font-size:11px;letter-spacing:0;text-transform:none}
+.detail-award{display:inline-flex;align-items:center;gap:7px;margin:5px 0 14px;padding:6px 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--text);font-size:11px;font-weight:500}.detail-award i:last-child{margin-left:2px;font-size:9px}.detail-award:hover,.detail-award:focus-visible{background:var(--soft);outline:none}
 .project-tagline{margin-bottom:20px;font-size:17px}
 .project-cover,.presentation-viewer{border-radius:12px;box-shadow:none}
 .project-summary{font-size:15px;line-height:1.85}

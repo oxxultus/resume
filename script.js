@@ -76,6 +76,7 @@ function initProjects() {
         
         const thumbnailHtml = renderThumbnail(data.thumbnail);
         const buttonText = '상세 보기';
+        const awardHtml = data.award ? `<a class="project-award" href="${data.award.url}" target="_blank" rel="noopener" aria-label="${data.award.title} 상장 보기"><i class="far fa-star" aria-hidden="true"></i>${data.award.shortTitle}</a>` : '';
         
         gridHtml += `
             <article class="project-card glass" data-category="${data.category || 'team'}">
@@ -84,7 +85,7 @@ function initProjects() {
                     <span class="project-tag ${tagClass}">${typeLabel}</span>
                 </div>
                 <div class="project-info">
-                    <h3>${data.title}</h3>
+                    <div class="project-title-row"><h3>${data.title}</h3>${awardHtml}</div>
                     <p class="project-tagline">${data.tagline}</p>
                     <p class="project-desc">${data.description}</p>
                     <div class="project-tech-stack">

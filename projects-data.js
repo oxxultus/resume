@@ -38,6 +38,12 @@ const projectData = {
         role: "전체 인프라·배포 구조 설계, Kafka 기반 공통 이벤트 모듈 구현, 개발환경 표준화",
         techStack: ["Java 21 & Spring Boot", "Kafka", "PostgreSQL 17", "Redis", "Kubernetes", "GitHub Actions", "Loki · Prometheus · Grafana"],
         description: "판매자의 마감 재고를 할인 판매하고 소비자가 주변 상품을 주문·픽업하는 커머스 서비스입니다. 서비스 간 결합도를 낮추면서 주문·결제·정산 이벤트의 유실과 중복을 제어하도록 Outbox·Inbox 공통 모듈을 구현하고, Kubernetes 기반 배포와 독립 모니터링 환경을 구축했습니다.",
+        award: {
+            title: "프로그래머스 백엔드 단기심화 7기 최우수 프로젝트",
+            shortTitle: "7기 최우수 프로젝트",
+            url: "assets/lastdish-best-project-award.png",
+            pdf: "assets/lastdish-best-project-award.pdf"
+        },
         presentation: {
             url: "assets/lastdish-presentation.pdf?v=20260906-2",
             label: "LastDish 프로젝트 발표자료",
