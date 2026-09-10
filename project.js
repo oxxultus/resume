@@ -35,7 +35,7 @@
     }
 
     const tech = (data.techStack || []).map(item => `<span>${item}</span>`).join("");
-    const award = data.award ? `<a class="detail-award" href="${data.award.url}" target="_blank" rel="noopener"><i class="far fa-star" aria-hidden="true"></i><span>${data.award.title}</span><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>` : "";
+    const award = data.award ? `<button class="detail-award evidence-trigger" type="button" data-evidence-src="${data.award.url}" data-evidence-title="${data.award.title}"><i class="far fa-star" aria-hidden="true"></i><span>${data.award.title}</span><i class="fas fa-expand" aria-hidden="true"></i></button>` : "";
     const achievements = (data.achievements || []).map(item => `<li><i class="fas fa-check"></i><span>${item}</span></li>`).join("");
     const troubleshooting = (data.troubleshooting || []).length
         ? data.troubleshooting.map((item, index) => `
@@ -127,6 +127,20 @@
                 <div class="retrospective-grid"><div><strong>이번 프로젝트에서 배운 점</strong><p>기능 구현뿐 아니라 운영 환경의 병목과 실패 조건을 먼저 관찰하는 습관을 얻었습니다.</p></div><div><strong>다음에 더 개선할 점</strong><p>관측 가능성과 자동화된 성능 검증을 초기 설계 단계부터 포함해 문제를 더 일찍 발견하겠습니다.</p></div></div>
             </section>`)}
         <div class="detail-composer" aria-hidden="true"><i class="fas fa-plus"></i><span>이 프로젝트에서 무엇을 더 살펴볼까요?</span></div>`;
+
+    const evidenceDialog = document.getElementById("evidence-dialog");
+    const evidenceImage = document.getElementById("evidence-dialog-image");
+    const evidenceTitle = document.getElementById("evidence-dialog-title");
+    root.addEventListener("click", event => {
+        const trigger = event.target.closest(".evidence-trigger");
+        if (!trigger || !evidenceDialog || !evidenceImage || !evidenceTitle) return;
+        evidenceTitle.textContent = trigger.dataset.evidenceTitle || "증빙자료";
+        evidenceImage.src = trigger.dataset.evidenceSrc;
+        evidenceImage.alt = `${evidenceTitle.textContent} 증빙 이미지`;
+        evidenceDialog.showModal();
+    });
+    evidenceDialog?.querySelector(".evidence-dialog-close")?.addEventListener("click", () => evidenceDialog.close());
+    evidenceDialog?.addEventListener("click", event => { if (event.target === evidenceDialog) evidenceDialog.close(); });
 
     document.querySelectorAll("[data-project-id]").forEach(link => {
         link.classList.toggle("active", link.dataset.projectId === projectId);

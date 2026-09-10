@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="project.css?v=20260910-1">
+    <link rel="stylesheet" href="project.css?v=20260910-2">
 </head>
 <body>
     <aside class="detail-sidebar" data-resizable-sidebar>
@@ -59,8 +59,13 @@
         <div id="project-detail" class="detail-content" aria-live="polite"></div>
     </main>
 
-    <script src="projects-data.js?v=20260910-1"></script>
+    <dialog class="evidence-dialog" id="evidence-dialog" aria-labelledby="evidence-dialog-title">
+        <div class="evidence-dialog-header"><strong id="evidence-dialog-title">증빙자료</strong><button type="button" class="evidence-dialog-close" aria-label="증빙자료 닫기"><i class="fas fa-xmark"></i></button></div>
+        <div class="evidence-dialog-body"><img id="evidence-dialog-image" alt=""></div>
+    </dialog>
+
+    <script src="projects-data.js?v=20260910-2"></script>
     <script src="sidebar-resize.js?v=20260907-3"></script>
-    <script src="project.js?v=20260910-1"></script>
+    <script src="project.js?v=20260910-2"></script>
 </body>
 </html>

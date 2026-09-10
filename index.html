@@ -13,7 +13,7 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Main Style Sheet -->
-    <link rel="stylesheet" href="style.css?v=20260910-1">
+    <link rel="stylesheet" href="style.css?v=20260910-2">
 </head>
 <body class="light-theme">
     <!-- Scroll Progress Indicator -->
@@ -237,14 +237,14 @@
                                 <i class="far fa-circle-check cert-icon-small"></i>
                                 <span class="cert-name">정보처리기사</span>
                             </div>
-                            <span class="cert-meta">한국산업인력공단 | 2026.06.12 (취득)</span>
+                            <div class="cert-meta cert-meta-with-action"><span>한국산업인력공단 | 2026.06.12 (취득)</span><button class="document-link evidence-trigger" type="button" data-evidence-src="assets/information-processing-engineer-evidence.png" data-evidence-title="정보처리기사 자격증">증빙 보기 <i class="fas fa-expand" aria-hidden="true"></i></button></div>
                         </div>
                         <div class="cert-item">
                             <div class="cert-title-group">
                                 <i class="fab fa-linux cert-icon-small"></i>
                                 <span class="cert-name">리눅스마스터 1급</span>
                             </div>
-                            <span class="cert-meta">한국정보통신진흥협회 (KAIT) | 2026.05.29 (취득)</span>
+                            <div class="cert-meta cert-meta-with-action"><span>한국정보통신진흥협회 (KAIT) | 2026.05.29 (취득)</span><button class="document-link evidence-trigger" type="button" data-evidence-src="assets/linux-master-level-1-evidence.png" data-evidence-title="리눅스마스터 1급 자격확인서">증빙 보기 <i class="fas fa-expand" aria-hidden="true"></i></button></div>
                         </div>
                         <div class="cert-item cert-award-item">
                             <div class="cert-title-group">
@@ -254,10 +254,7 @@
                             </div>
                             <div class="cert-meta cert-meta-with-action">
                                 <span>LastDish · Team03 콩콩podpod | 2026.09.01</span>
-                                <span class="document-actions">
-                                    <a class="document-link" href="assets/lastdish-best-project-award.png" target="_blank" rel="noopener">증빙 보기 <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
-                                    <a class="document-download" href="assets/lastdish-best-project-award.pdf" download>PDF</a>
-                                </span>
+                                <button class="document-link evidence-trigger" type="button" data-evidence-src="assets/lastdish-best-project-award.png" data-evidence-title="LastDish 최우수 프로젝트 상장">증빙 보기 <i class="fas fa-expand" aria-hidden="true"></i></button>
                             </div>
                         </div>
                 </div>
@@ -281,10 +278,7 @@
                         <div>
                             <h3>프로그래머스 백엔드 단기심화 7기</h3>
                             <p>Spring AI와 MSA 기반 팀 프로젝트를 수행하며 이벤트 통신, 배포 자동화와 관측 환경을 구축했습니다.</p>
-                            <span class="document-actions career-document-link">
-                                <a class="document-link" href="assets/programmers-backend-advanced-7-completion.png" target="_blank" rel="noopener">수료증 보기 <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
-                                <a class="document-download" href="assets/programmers-backend-advanced-7-completion.pdf" download>PDF</a>
-                            </span>
+                            <button class="document-link evidence-trigger career-document-link" type="button" data-evidence-src="assets/programmers-backend-advanced-7-completion.png" data-evidence-title="프로그래머스 백엔드 단기심화 7기 수료증">수료증 보기 <i class="fas fa-expand" aria-hidden="true"></i></button>
                         </div>
                     </article>
                 </div>
@@ -509,11 +503,16 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
+    <dialog class="evidence-dialog" id="evidence-dialog" aria-labelledby="evidence-dialog-title">
+        <div class="evidence-dialog-header"><strong id="evidence-dialog-title">증빙자료</strong><button type="button" class="evidence-dialog-close" aria-label="증빙자료 닫기"><i class="fas fa-xmark"></i></button></div>
+        <div class="evidence-dialog-body"><img id="evidence-dialog-image" alt=""></div>
+    </dialog>
+
     <!-- html2pdf Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <!-- Script File -->
-    <script src="projects-data.js?v=20260910-1"></script>
+    <script src="projects-data.js?v=20260910-2"></script>
     <script src="sidebar-resize.js?v=20260907-3"></script>
-    <script src="script.js?v=20260910-1"></script>
+    <script src="script.js?v=20260910-2"></script>
 </body>
 </html>

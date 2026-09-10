@@ -76,7 +76,7 @@ function initProjects() {
         
         const thumbnailHtml = renderThumbnail(data.thumbnail);
         const buttonText = '상세 보기';
-        const awardHtml = data.award ? `<a class="project-award" href="${data.award.url}" target="_blank" rel="noopener" aria-label="${data.award.title} 상장 보기"><i class="far fa-star" aria-hidden="true"></i>${data.award.shortTitle}</a>` : '';
+        const awardHtml = data.award ? `<button class="project-award evidence-trigger" type="button" data-evidence-src="${data.award.url}" data-evidence-title="${data.award.title}"><i class="far fa-star" aria-hidden="true"></i>${data.award.shortTitle}</button>` : '';
         
         gridHtml += `
             <article class="project-card glass" data-category="${data.category || 'team'}">
@@ -122,6 +122,24 @@ function initProjectWorkspace() {
         setPortfolioExpanded(!expanded);
         if (expanded) event.preventDefault();
     });
+}
+
+function initEvidenceDialog() {
+    const dialog = document.getElementById("evidence-dialog");
+    const image = document.getElementById("evidence-dialog-image");
+    const title = document.getElementById("evidence-dialog-title");
+    if (!dialog || !image || !title) return;
+    document.addEventListener("click", event => {
+        const trigger = event.target.closest(".evidence-trigger");
+        if (!trigger) return;
+        title.textContent = trigger.dataset.evidenceTitle || "증빙자료";
+        image.src = trigger.dataset.evidenceSrc;
+        image.alt = `${title.textContent} 증빙 이미지`;
+        dialog.showModal();
+    });
+    dialog.querySelector(".evidence-dialog-close")?.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener("close", () => { image.removeAttribute("src"); });
 }
 
 /* ==========================================================================
@@ -508,6 +526,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initProjects();
     initProjectFilters();
     initProjectWorkspace();
+    initEvidenceDialog();
 
     // Start Typing Animation only when the animated element exists.
     if (typingTextElement) setTimeout(typeAnimation, 1000);

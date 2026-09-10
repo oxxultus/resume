@@ -41,8 +41,7 @@ const projectData = {
         award: {
             title: "프로그래머스 백엔드 단기심화 7기 최우수 프로젝트",
             shortTitle: "7기 최우수 프로젝트",
-            url: "assets/lastdish-best-project-award.png",
-            pdf: "assets/lastdish-best-project-award.pdf"
+            url: "assets/lastdish-best-project-award.png"
         },
         presentation: {
             url: "assets/lastdish-presentation.pdf?v=20260906-2",
